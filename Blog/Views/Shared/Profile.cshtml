@@ -1,0 +1,18 @@
+﻿@model Object
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<div id="profile_info_left">
+    <h1>@ViewBag.User.Name @ViewBag.User.Surname</h1>
+    <h6>Дата рождения: @ViewBag.User.BornDate.ToShortDateString()</h6>
+</div>
+<div id="profile_info_right">
+    <h4>Логин: @ViewBag.User.Login</h4>
+    <h6>Емейл: @ViewBag.User.Email</h6>
+    <h6>Дата регистрации: @ViewBag.User.RegisterDate</h6>
+</div>
+<div style="float:none"></div><br><br><br><br><br><br><br><br><br><br>
+
+@Html.Raw(Model)

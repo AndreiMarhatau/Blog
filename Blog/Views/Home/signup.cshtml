@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-sign up">
+    <h2>Регистрация</h2>
+    <form>
+        <p class="alert">@ViewBag.Alert</p>
+        <br><br>
+        Придумайте логин*: <input name="Login" /><br><br>
+        Имя*: <input name="Name" /><br><br>
+        Фамилия*: <input name="Surname" /><br><br>
+        Дата рождения*: <input type="date" name="BornDate" /><br><br>
+        Email*: <input type="email" name="Email" /><br><br>
+        Пароль*: <input name="Password" type="password" /><br><br>
+        <input type="submit" formmethod="post" name="Submit" value="Войти" asp-action="SignUp" />
+    </form>
+</div>

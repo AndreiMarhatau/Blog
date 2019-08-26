@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+<div class="form-sign in">
+    <h2>Вход</h2>
+    <form>
+        <div class="alert">@ViewBag.Alert</div>
+        <br><br>
+        Логин: <input name="Login" /><br><br>
+        Пароль: <input name="Password" type="password" /><br><br>
+        <input type="submit" formmethod="post" name="Submit" value="Войти" asp-action="SignIn" />
+    </form>
+</div>

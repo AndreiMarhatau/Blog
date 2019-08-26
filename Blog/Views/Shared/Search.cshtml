@@ -1,0 +1,18 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>Поиск</h2>
+
+Введите в одно или несколько полей фильтры для поиска<br><br>
+
+                                                         <form>
+                                                             Имя: <input name="Name" /><br><br>
+                                                             Фамилия: <input name="Surname" /><br><br>
+                                                             Логин:<input name="Login" /><br><br>
+                                                             <input type="submit" value="Найти" asp-action="SearchUsers" formmethod="post" />
+                                                         </form>
+
+@Html.Raw(Model)

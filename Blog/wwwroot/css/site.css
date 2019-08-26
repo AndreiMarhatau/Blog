@@ -1,0 +1,83 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 150px;
+    position: relative;
+}
+
+.form-sign {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* ширина и высота 2 блока */
+    width: 500px;
+    height: 250px;
+    /* Значения определяются в зависимости от его размера */
+    /* margin-left = - width / 2 */
+    margin-left: -250px;
+    /* margin-top = - height / 2 */
+    margin-top: -400px;
+
+    text-align: center;
+}
+footer{
+    margin-top: 500px;
+}
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+#profile_info_left{
+    float: left;
+}
+#profile_info_right{
+    margin-left: 150px;
+    float: left;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    color: #3c763d;
+    color: red;
+}
+
+
+.comment_nesting_1{
+    margin-left: 30px;
+}
+.comment_nesting_2 {
+    margin-left: 60px;
+}
+.comment_nesting_3 {
+    margin-left: 90px;
+}
+.comment_nesting_4 {
+    margin-left: 120px;
+}
+.comment_nesting_5 {
+    margin-left: 150px;
+}
+.comment_nesting_6 {
+    margin-left: 180px;
+}
+
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

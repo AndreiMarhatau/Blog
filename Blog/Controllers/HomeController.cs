@@ -19,15 +19,33 @@ namespace Blog.Controllers
             this.db = db;
         }
 
-        public IActionResult Index(Boolean isSignIn = true)
+        public IActionResult Index()
         {
-            var defaultViewToReturn = isSignIn ? "signin" : "signup";
+            return Sign(SignMethod.SignIn);
+        }
+        public IActionResult SignIn()
+        {
+            return Sign(SignMethod.SignIn);
+        }
+        public IActionResult SignUp()
+        {
+            return Sign(SignMethod.SignUp);
+        }
 
-            //If token in cookies is not exists add them and return
+        public enum SignMethod
+        {
+            SignIn,
+            SignUp
+        }
+        [NonAction]
+        public IActionResult Sign(SignMethod sign)
+        {
+            string defaultView = sign == SignMethod.SignIn ? "signin" : "signup";
+
             if (!HttpContext.Request.Cookies.ContainsKey("Token"))
             {
                 ViewBag.Token = GenerateToken(HttpContext);
-                return View(defaultViewToReturn);
+                return View(defaultView);
             }
             //Check token in the cookie
             var token = GenerateToken(HttpContext);
@@ -38,21 +56,10 @@ namespace Blog.Controllers
                 return RedirectToAction("Index", "Profile");
             }
             //Catching all exceptions for returning to user a view (DataBase is in safety)
-            catch(Exception)
+            catch (Exception)
             {
-
-                return View(defaultViewToReturn);
+                return View(defaultView);
             }
-        }
-
-
-        public IActionResult SignIn()
-        {
-            return Index(true);
-        }
-        public IActionResult SignUp()
-        {
-            return Index(false);
         }
 
         [HttpPost]
@@ -85,23 +92,18 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
+        public async Task<IActionResult> SignUp(User userFromForm)
         {
             //Chech all parameters
-            if (Login == null ||
-                Name == null ||
-                Surname == null ||
-                BornDate == null ||
-                !Email.Replace(" ", "").Contains("@") ||
-                Password == null)
+            if (!userFromForm.IsValidData())
             {
                 ViewBag.Alert = "Остались пустые или неверно введены поля";
                 return SignUp();
             }
 
             //Check to busy login or email
-            var user = db.Users.Where(i => i.Login.Equals(Login) ||
-                                           i.Email.Equals(Email));
+            var user = db.Users.Where(i => i.Login.Equals(userFromForm.Login) ||
+                                           i.Email.Equals(userFromForm.Email));
             if (user.Count() > 0)
             {
                 ViewBag.Alert = "Логин или емейл уже заняты.";
@@ -110,26 +112,20 @@ namespace Blog.Controllers
 
             else
             {
+                userFromForm.Password = Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(userFromForm.Password)));
+
                 //Add new user to db
-                db.Users.Add(new Models.User()
-                {
-                    Login = Login,
-                    Name = Name,
-                    Surname = Surname,
-                    BornDate = BornDate,
-                    Email = Email,
-                    Password = Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password)))
-                });
+                db.Users.Add(userFromForm);
                 await db.SaveChangesAsync();
 
                 //Add new token to db
-                user = db.Users.Where(i => i.Login == Login);
+                user = db.Users.Where(i => i.Login == userFromForm.Login);
                 
                 var new_token = GenerateToken(HttpContext);
                 db.Tokens.Add(new Token() { UserId = user.Single().Id, StrToken = new_token });
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Profile");
             }
         }
 

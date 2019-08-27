@@ -15,5 +15,19 @@ namespace Blog.Models
         public DateTime RegisterDate { get; set; } = DateTime.Now;
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public bool IsValidData()
+        {
+            if (Login == null ||
+                Name == null ||
+                Surname == null ||
+                BornDate == null ||
+                !Email.Replace(" ", "").Contains("@") ||
+                Password == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

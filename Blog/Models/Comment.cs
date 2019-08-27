@@ -18,7 +18,7 @@ namespace Blog.Models
         public int AuthorId { get; set; }
         public int CommentId { get; set; }
         public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public string GetHtml(int userId)
         {

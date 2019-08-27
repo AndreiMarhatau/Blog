@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blog.Models;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace Blog.Controllers
 {
@@ -25,36 +23,27 @@ namespace Blog.Controllers
 
             string model = "";
             bool isOwner = false;
-            
+
             //Check get data
-            if(id == null)
+            try
             {
-                try
+                var userId = db.Tokens.Where(i => i.StrToken == token).Single().UserId;
+
+                if (id == null)
                 {
-                    id = db.Tokens.Where(i => i.StrToken == token).Single().UserId;
+                    id = userId;
                     isOwner = true;
                 }
-                catch (Exception e)
-                {
-                    if (e is ArgumentNullException || e is InvalidOperationException)
-                        return RedirectToAction("SignIn", "Home");
-                    throw;
-                }
+                else if (id == userId)
+                    isOwner = true;
             }
-            else
+            catch (Exception e)
             {
-                try
-                {
-                    if(id == db.Tokens.Where(i => i.StrToken == token).Single().UserId)
-                        isOwner = true;
-                }
-                catch (Exception e)
-                {
-                    if (e is ArgumentNullException || e is InvalidOperationException)
-                        return RedirectToAction("SignIn", "Home");
-                    throw;
-                }
+                if (e is ArgumentNullException || e is InvalidOperationException)
+                    return RedirectToAction("SignIn", "Home");
+                throw;
             }
+
             //Check owner of profile and show/not show button to add post
             if(isOwner || db.Tokens.Where(i => i.StrToken == token).Single().UserId == id)
                 model +=
@@ -78,23 +67,23 @@ namespace Blog.Controllers
 
             //Add strings of comments and posts for view
             model += GetAllPostsAndComments(
-            db
-                .Posts
-                .Where(i => i.UserId == id)
-                .ToList(),
-            db
-                .Comments
-                .Where(i => i.UserId == id)
-                .ToList()
-            , id.Value);
+                db
+                    .Posts
+                    .Where(i => i.UserId == id)
+                    .ToList(),
+                db
+                    .Comments
+                    .Where(i => i.UserId == id)
+                    .ToList(),
+                id.Value);
 
             return View("Profile", model);
         }
 
-        public IActionResult CheckAuth(HttpContext httpContext)
+        [NonAction]
+        public IActionResult CheckAuth()
         {
-            var token = GenerateToken(HttpContext);
-            if (db.Tokens.Where(i => i.StrToken == token).Count() <= 0)
+            if (db.Tokens.Where(i => i.StrToken == GenerateToken(HttpContext)).Count() <= 0)
                 return RedirectToAction("SignIn", "Home");
             else
                 return null;
@@ -126,24 +115,46 @@ namespace Blog.Controllers
         {
             if (Text.Replace(" ", "") == "")
                 RedirectToAction("Index");
+            int userId;
 
-            int userId = db.Tokens.Where(i => i.StrToken == GenerateToken(HttpContext)).Single().UserId;
+            try
+            {
+                userId = db.Tokens.Where(i => i.StrToken == GenerateToken(HttpContext)).Single().UserId;
+            }
+            catch (Exception e)
+            {
+                if (!(e is ArgumentNullException || e is InvalidOperationException))
+                    throw;
+                return RedirectToAction("SignIn", "Home");
+            }
+
             db.Posts.Add(new Post()
             {
                 Text = Text,
-                Date = DateTime.Now,
                 UserId = userId
             });
             await db.SaveChangesAsync();
 
             return RedirectToAction("Index");
-            //ToDo работа над ошибками
         }
+
         [HttpPost]
         public async Task<IActionResult> AddComment(int PostId, int UserId, string Text, int CommentId)
         {
             if (Text.Replace(" ", "") == "")
                 RedirectToAction("Index");
+            int userId;
+
+            try
+            {
+                userId = db.Tokens.Where(i => i.StrToken == GenerateToken(HttpContext)).Single().UserId;
+            }
+            catch (Exception e)
+            {
+                if (!(e is ArgumentNullException || e is InvalidOperationException))
+                    throw;
+                return RedirectToAction("SignIn", "Home");
+            }
 
             db.Comments.Add(new Comment()
             {
@@ -151,13 +162,11 @@ namespace Blog.Controllers
                 UserId = UserId,
                 Text = Text,
                 CommentId = CommentId,
-                Date = DateTime.Now,
-                AuthorId = db.Tokens.Where(i => i.StrToken == GenerateToken(HttpContext)).Single().UserId
+                AuthorId = userId
             });
             await db.SaveChangesAsync();
 
-            return Redirect(HttpContext.Request.PathBase + "Index?id=" + UserId);
-            //ToDo работа над ошибками
+            return RedirectToAction("Index", new { id=UserId });
         }
         
 

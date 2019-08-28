@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using IServices;
+using BL;
+using Interfaces;
+using Data;
 
 namespace Blog
 {
@@ -26,10 +30,6 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст MobileContext в качестве сервиса в приложение
-            services.AddDbContext<Db>(options =>
-                options.UseSqlServer(connection));
             services.AddMvc();
             services.AddRouting();
 
@@ -40,6 +40,21 @@ namespace Blog
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+                ServiceLifetime.Singleton);
+
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ITokenService, TokenService>();
+            services.AddSingleton<IPostsService, PostsService>();
+            services.AddSingleton<ICommentsService, CommentsService>();
+            services.AddSingleton<ICommentsAndPostsService, CommentsAndPostsService>();
+
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ITokenRepository, TokenRepository>();
+            services.AddSingleton<IPostsRepository, PostsRepository>();
+            services.AddSingleton<ICommentsRepository, CommentsRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

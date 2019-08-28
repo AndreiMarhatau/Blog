@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blog.Models;
+using IServices;
+using BL;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,56 +15,48 @@ namespace Blog.Controllers
 {
     public class SearchController : Controller
     {
-        Db db;
-
-        public SearchController(Db db)
+        IUserService userService;
+        ITokenService tokenService;
+        public SearchController(IUserService userService, ITokenService tokenService)
         {
-            this.db = db;
+            this.userService = userService;
+            this.tokenService = tokenService;
         }
-        
+
         [HttpPost]
-        public IActionResult SearchUsers(string Name, string Surname, string Login)
+        public async Task<IActionResult> SearchUsers(string Name, string Surname, string Login)
         {
             //Check authenticate before give access
             var token = GenerateToken(HttpContext);
             try
             {
-                db.Tokens.Where(i => i.StrToken == token).Single();
+                await tokenService.GetUserIdByToken(token);
             }
             catch (Exception e)
             {
                 if (e is ArgumentNullException || e is InvalidOperationException)
-                    return RedirectToActionPermanent("SignIn", "Home");
+                    return RedirectToAction("SignIn", "Home");
                 throw;
             }
-
-            //Check params
-            if (Name == null) Name = "";
-            if (Surname == null) Surname = "";
-            if (Login == null) Login = "";
-
+            
             //Create result list of search
-            var resultList = db.Users
-                .Where(
-                i => i.Name.ToLower().Contains(Name.ToLower()) &&
-                i.Surname.ToLower().Contains(Surname.ToLower()) &&
-                i.Login.ToLower().Contains(Login.ToLower())).ToList();
+            var resultList = await userService.SearchUsers(Login, Name, Surname);
 
-            //Create string result from result list
             string result = "";
+            //Create string result from result list
             foreach (var i in resultList)
             {
                 result +=
-                    $"<a href=\"{HttpContext.Request.PathBase}/Profile/Index?id={i.Id}\"><br>" +
-                    i.Login + ": " + i.Name + " " + i.Surname +
-                    i.BornDate + "</a><br><br>";
+                    $"<a href=\"{HttpContext.Request.PathBase}/Profile/Index?id={i["Id"]}\"><br>" +
+                    i["Login"] + ": " + i["Name"] + " " + i["Surname"] +
+                    i["BornDate"] + "</a><br><br>";
             }
 
             return View("Search", result);
         }
-        public IActionResult SearchUsers()
+        public async Task<IActionResult> SearchUsers()
         {
-            return SearchUsers("", "", "");
+            return await SearchUsers("", "", "");
         }
         
         private string GenerateToken(HttpContext httpContext)

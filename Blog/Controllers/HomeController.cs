@@ -7,29 +7,32 @@ using Blog.Models;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions;
+using IServices;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        public Db db;
-
-        public HomeController(Db db)
+        IUserService userService;
+        ITokenService tokenService;
+        public HomeController(IUserService userService, ITokenService tokenService)
         {
-            this.db = db;
+            this.userService = userService;
+            this.tokenService = tokenService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return Sign(SignMethod.SignIn);
+            return await Sign(SignMethod.SignIn);
         }
-        public IActionResult SignIn()
+        public async Task<IActionResult> SignIn()
         {
-            return Sign(SignMethod.SignIn);
+            return await Sign(SignMethod.SignIn);
         }
-        public IActionResult SignUp()
+        public async Task<IActionResult> SignUp()
         {
-            return Sign(SignMethod.SignUp);
+            return await Sign(SignMethod.SignUp);
         }
 
         public enum SignMethod
@@ -38,21 +41,21 @@ namespace Blog.Controllers
             SignUp
         }
         [NonAction]
-        public IActionResult Sign(SignMethod sign)
+        public async Task<IActionResult> Sign(SignMethod sign)
         {
             string defaultView = sign == SignMethod.SignIn ? "signin" : "signup";
 
             if (!HttpContext.Request.Cookies.ContainsKey("Token"))
             {
-                ViewBag.Token = GenerateToken(HttpContext);
+                ViewBag.Token = GenerateToken();
                 return View(defaultView);
             }
             //Check token in the cookie
-            var token = GenerateToken(HttpContext);
+            var token = GenerateToken();
             try
             {
                 //Check token and user in DB
-                db.Users.Where(i => i.Id == db.Tokens.Where(j => j.StrToken == token).Single().UserId).Single();
+                await userService.GetUserById(await tokenService.GetUserIdByToken(token));
                 return RedirectToAction("Index", "Profile");
             }
             //Catching all exceptions for returning to user a view (DataBase is in safety)
@@ -65,82 +68,68 @@ namespace Blog.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(string Login, string Password)
         {
-            //Check login and hash of password
-            if (Login == null || Password == null)
+            try
             {
-                ViewBag.Alert = "Остались пустые поля";
-                return SignIn();
+                int id = await userService.CheckUser(Login, Password);
+                await tokenService.AddToken(GenerateToken(), id);
+                return RedirectToAction("Index", "Profile");
             }
-
-            var hashPass = Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password)));
-            var user = db.Users.Where(i => i.Login.Equals(Login) && i.Password.Equals(hashPass));
-
-            if (user.Count() > 0)
+            catch(Exception e)
             {
-                //If authenticate is successfully add token to db
-                var new_token = GenerateToken(HttpContext);
-                db.Tokens.Add(new Token() { UserId = user.Single().Id, StrToken = new_token });
-                await db.SaveChangesAsync();
-
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ViewBag.Alert = "Неверный логин и(или) пароль";
-                return SignIn();
+                if(e is InvalidOperationException)
+                {
+                    ViewBag.Alert = "Неверный логин или пароль";
+                    return View();
+                }
+                else if(e is ArgumentNullException)
+                {
+                    ViewBag.Alert = "Одно или несколько полей пустые";
+                    return View();
+                }
+                else
+                    throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(User userFromForm)
+        public async Task<IActionResult> SignUp(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
         {
-            //Chech all parameters
-            if (!userFromForm.IsValidData())
+            try
             {
-                ViewBag.Alert = "Остались пустые или неверно введены поля";
-                return SignUp();
-            }
-
-            //Check to busy login or email
-            var user = db.Users.Where(i => i.Login.Equals(userFromForm.Login) ||
-                                           i.Email.Equals(userFromForm.Email));
-            if (user.Count() > 0)
-            {
-                ViewBag.Alert = "Логин или емейл уже заняты.";
-                return SignUp();
-            }
-
-            else
-            {
-                userFromForm.Password = Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(userFromForm.Password)));
-
-                //Add new user to db
-                db.Users.Add(userFromForm);
-                await db.SaveChangesAsync();
-
-                //Add new token to db
-                user = db.Users.Where(i => i.Login == userFromForm.Login);
-                
-                var new_token = GenerateToken(HttpContext);
-                db.Tokens.Add(new Token() { UserId = user.Single().Id, StrToken = new_token });
-                await db.SaveChangesAsync();
-
+                int id = await userService.AddUser(Login, Name, Surname, BornDate, Email, Password);
+                await tokenService.AddToken(GenerateToken(), id);
                 return RedirectToAction("Index", "Profile");
+            }
+            catch(Exception e)
+            {
+                if (e is ArgumentNullException)
+                {
+                    ViewBag.Alert = "Одно или несколько полей пустые";
+                    return View();
+                }
+                else if(e is ArgumentException)
+                {
+                    ViewBag.Alert = "Логин и(или) Email заняты";
+                    return View();
+                }
+
+                else
+                    throw;
             }
         }
 
-        private string GenerateToken(HttpContext httpContext)
+        private string GenerateToken()
         {
-            if (httpContext.Request.Cookies.ContainsKey("Token"))
+            if (HttpContext.Request.Cookies.ContainsKey("Token"))
             {
-                return httpContext.Request.Cookies["Token"];
+                return HttpContext.Request.Cookies["Token"];
             }
 
             //Generate new token and add to cookie
             byte[] bytes = new byte[512];
             new Random().NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
-            httpContext.Response.Cookies.Append("Token", token);
+            HttpContext.Response.Cookies.Append("Token", token);
             
             return token;
         }

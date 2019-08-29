@@ -25,7 +25,7 @@ namespace Data
 
         public async Task<List<Comment>> GetCommentsByUserId(int id)
         {
-            return (await db.Comments.ToArrayAsync()).Where(i => i.UserId == id).ToList();
+            return await db.Comments.Where(i => i.UserId == id).ToListAsync();
         }
     }
 }

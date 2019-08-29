@@ -3,6 +3,7 @@ using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Data
 
         public async Task<int> GetUserIdByToken(string token)
         {
-            return (await db.Tokens.SingleAsync(j => j.StrToken == token)).UserId;
+            return (await db.Tokens.Where(j => j.StrToken == token).SingleAsync()).UserId;
         }
 
         public async Task RmToken(Token token)

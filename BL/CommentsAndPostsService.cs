@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class CommentsAndPostsService: ICommentsAndPostsService
+    public class CommentsAndPostsService : ICommentsAndPostsService
     {
         ICommentsRepository _commentsRepository;
         IPostsRepository _postsRepository;
@@ -22,58 +22,80 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<string> GetCommentsAndPostsByUserId(int id)
+        public async Task<List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>
+            GetCommentsAndPostsByUserId(int id)
         {
-            List<Comment> comments = await _commentsRepository.GetCommentsByUserId(id);
             List<Post> posts = await _postsRepository.GetPostsByUserId(id);
 
-            return await GetAllPostsAndComments(posts, comments, id);
+            return await GetAllPostsAndCommentsByUserId(posts, id);
         }
 
 
         #region PrivateMethods
-        private async Task<string> GetAllPostsAndComments(List<Post> posts, List<Comment> comments, int userId)
+
+        private async Task<List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>
+            GetAllPostsAndCommentsByUserId(List<Post> posts, int userId)
         {
-            string result = "";
-            //Сортируем посты в нисходящем порядке (для отображения от новых к старым)
+            List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>> result =
+                new List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>();
+
             posts = posts.OrderByDescending(i => i.Id).ToList();
+            User user = await _userRepository.GetUserById(userId);
 
             foreach (var post in posts)
             {
-                //Вычисляем автора поста и добавляем его имя к посту
-                var post_author = (await _userRepository.GetUserList()).Single(i => i.Id == post.UserId);
-                result +=
-                    $"{post_author.Name} {post_author.Surname} пишет: " +
-                    post.GetHtml(userId);
+                List<Dictionary<string, string>> resultComments = new List<Dictionary<string, string>>();
 
-                //Формируем комменты к постам, сортируем
-                List<Comment> tempComments = comments.Where(i => i.PostId == post.Id).OrderBy(i => i.Id).ToList();
-                foreach (var i in tempComments.Where(j => j.CommentId == -1))
+                var tempComments = post.Comments.Where(i => i.CommentId == -1).ToList();
+                foreach (var tempComment in tempComments)
                 {
-                    //И отправляем в рекурсионный поиск
-                    result += await RecursionBuildCommentsHtmlString(userId, i, tempComments);
+                    resultComments = await GetCommentsRecursive(tempComment, tempComments);
                 }
+
+                result.Add(new Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>()
+                {
+                    {
+                        new Dictionary<string, string>()
+                        {
+                            { "UserName", user.Name },
+                            { "UserSurname", user.Surname },
+                            { "UserId",post.UserId.ToString() },
+                            { "Text", post.Text },
+                            { "Date", post.Date.ToString() }
+                            //Add other information if needed
+                        },
+                        resultComments
+                    }
+                });
             }
             return result;
         }
-        private async Task<string> RecursionBuildCommentsHtmlString(int userId, Comment comment, List<Comment> comments, int nestingLevel = 1)
-        {
-            //Вычисляем автора коммента и добавляем его имя к нему
-            var author = (await _userRepository.GetUserList()).Single(i => i.Id == comment.AuthorId);
-            string result =
-                $" <div class=\"comment_nesting_{nestingLevel}\">" +
-                $"{author.Name} {author.Surname} отвечает: " +
-                comment.GetHtml(userId) +
-                "</div>";
 
-            //Ищем детей-комментариев с учетом уровня вложенности (ограничиваем его числом 6)
-            foreach (var i in comments)
-            {
-                if (comment.Id == i.CommentId)
+        private async Task<List<Dictionary<string, string>>> GetCommentsRecursive(Comment comment, List<Comment> comments, int nestingLevel = 0)
+        {
+            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            User user = await _userRepository.GetUserById(comment.AuthorId);
+
+            result.Add(
+                new Dictionary<string, string>()
                 {
-                    result += await RecursionBuildCommentsHtmlString(userId, i, comments, (nestingLevel >= 5) ? 6 : nestingLevel + 1);
+                    { "AuthorName", user.Name },
+                    { "AuthorSurname", user.Surname },
+                    {"PostId",comment.PostId.ToString() },
+                    {"UserId",comment.UserId.ToString() },
+                    {"AuthorId",comment.AuthorId.ToString() },
+                    {"Text",comment.Text },
+                    {"Date",comment.Date.ToString() }
+                    //Add other information if needed
                 }
+                );
+
+
+            foreach (var _comment in comments.Where(i => i.CommentId == comment.Id))
+            {
+                result.AddRange(await GetCommentsRecursive(_comment, comments, nestingLevel + 1));
             }
+
             return result;
         }
         #endregion

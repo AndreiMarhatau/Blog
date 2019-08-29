@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,14 @@ namespace Data
         public async Task<List<User>> GetUserList()
         {
             return await db.Users.ToListAsync();
+        }
+        public async Task<User> GetUserById(int id)
+        {
+            return await db.Users.Where(i => i.Id == id).SingleAsync();
+        }
+        public async Task<User> GetUserByLogin(string Login)
+        {
+            return await db.Users.Where(i => i.Login == Login).SingleAsync();
         }
     }
 }

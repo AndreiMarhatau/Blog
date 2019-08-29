@@ -43,18 +43,18 @@ namespace Blog
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-                ServiceLifetime.Singleton);
+                ServiceLifetime.Transient);
 
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<ITokenService, TokenService>();
-            services.AddSingleton<IPostsService, PostsService>();
-            services.AddSingleton<ICommentsService, CommentsService>();
-            services.AddSingleton<ICommentsAndPostsService, CommentsAndPostsService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<ICommentsAndPostsService, CommentsAndPostsService>();
 
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ITokenRepository, TokenRepository>();
-            services.AddSingleton<IPostsRepository, PostsRepository>();
-            services.AddSingleton<ICommentsRepository, CommentsRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+            services.AddTransient<IPostsRepository, PostsRepository>();
+            services.AddTransient<ICommentsRepository, CommentsRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

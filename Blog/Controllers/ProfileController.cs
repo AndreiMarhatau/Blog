@@ -38,6 +38,8 @@ namespace Blog.Controllers
             var token = GenerateToken();
 
             string model = "";
+            bool isOwner = false;
+
             var userId = await tokenService.GetUserIdByToken(token);
 
             //Check get data
@@ -46,6 +48,7 @@ namespace Blog.Controllers
                 if (id == null || id == userId)
                 {
                     id = userId;
+                    isOwner = true;
                     model +=
                         "<div class=\"post_send\"><form>" +
                         "<textarea name = \"Text\"></textarea>" +
@@ -74,9 +77,16 @@ namespace Blog.Controllers
             }
 
             //Add strings of comments and posts for view
+
+            Tuple<bool, List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>> Model =
+                new Tuple<bool, List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>(
+                    isOwner, 
+                    await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
+                    );
+            
             model += await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value);
 
-            return View("Profile", model);
+            return View("Profile", Model);
         }
 
         public async Task<IActionResult> SignOut()

@@ -87,34 +87,38 @@ namespace BL
 
         public async Task<Dictionary<string, string>> GetUserById(int id)
         {
-            User user = (await _userRepository.GetUserList()).Single(i => i.Id == id);
+            User user = await _userRepository.GetUserById(id);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("Id", user.Id.ToString());
-            dict.Add("Login", user.Login);
-            dict.Add("Name", user.Name);
-            dict.Add("Surname", user.Surname);
-            dict.Add("BornDate", user.BornDate.ToShortDateString());
-            dict.Add("RegisterDate", user.RegisterDate.ToLongDateString());
-            dict.Add("Email", user.Email);
-            dict.Add("Password", user.Password);
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Id", user.Id.ToString() },
+                { "Login", user.Login },
+                { "Name", user.Name },
+                { "Surname", user.Surname },
+                { "BornDate", user.BornDate.ToShortDateString() },
+                { "RegisterDate", user.RegisterDate.ToLongDateString() },
+                { "Email", user.Email },
+                { "Password", user.Password }
+            };
 
             return dict;
         }
 
         public async Task<Dictionary<string, string>> GetUserByLogin(string Login)
         {
-            User user = (await _userRepository.GetUserList()).Single(i => i.Login == Login);
+            User user = await _userRepository.GetUserByLogin(Login);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("Id", user.Id.ToString());
-            dict.Add("Login", user.Login);
-            dict.Add("Name", user.Name);
-            dict.Add("Surname", user.Surname);
-            dict.Add("BornDate", user.BornDate.ToShortDateString());
-            dict.Add("RegisterDate", user.RegisterDate.ToLongDateString());
-            dict.Add("Email", user.Email);
-            dict.Add("Password", user.Password);
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Id", user.Id.ToString() },
+                { "Login", user.Login },
+                { "Name", user.Name },
+                { "Surname", user.Surname },
+                { "BornDate", user.BornDate.ToShortDateString() },
+                { "RegisterDate", user.RegisterDate.ToLongDateString() },
+                { "Email", user.Email },
+                { "Password", user.Password }
+            };
 
             return dict;
         }

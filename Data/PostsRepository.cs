@@ -31,7 +31,11 @@ namespace Data
 
         public async Task<List<Post>> GetPostsByUserId(int id)
         {
-            return (await db.Posts.ToArrayAsync()).Where(i => i.UserId == id).ToList();
+            var a = await db.Posts
+                .Where(i => i.UserId == id)
+                .Include(i => i.Comments)
+                .ToListAsync();
+            return a;
         }
     }
 }

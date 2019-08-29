@@ -7,6 +7,6 @@ namespace IServices
 {
     public interface ICommentsAndPostsService
     {
-        Task<string> GetCommentsAndPostsByUserId(int id);
+        Task<List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>> GetCommentsAndPostsByUserId(int id);
     }
 }

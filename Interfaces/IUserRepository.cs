@@ -10,5 +10,7 @@ namespace Interfaces
     {
         Task AddUser(User user);
         Task<List<User>> GetUserList();
+        Task<User> GetUserById(int id);
+        Task<User> GetUserByLogin(string Login);
     }
 }

@@ -28,13 +28,9 @@ namespace BL
             if (Login == null) Login = "";
 
             //Create result list of search
-            var resultList = (await _userRepository.GetUserList())
-                .Where(
-                i => i.Name.ToLower().Contains(Name.ToLower()) &&
-                i.Surname.ToLower().Contains(Surname.ToLower()) &&
-                i.Login.ToLower().Contains(Login.ToLower())).ToList();
+            var resultList = await _userRepository.GetUserListByLoginNameSurname(Login, Name, Surname);
 
-            //Create string result from result list
+            //Create dictionary from result list
             List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
             foreach (var i in resultList)
             {
@@ -66,12 +62,12 @@ namespace BL
                 Email = Email,
                 Password = Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password)))
             };
-            var isA = user.IsValidData();
-            var isB = (await _userRepository.GetUserList()).Where(i => i.Login == Login || i.Email == Email).Count() == 0;
-            if (isA && isB)
+
+            if (user.IsValidData() &&
+                await _userRepository.CheckExistsOfUser(Login, Email))
             {
                 await _userRepository.AddUser(user);
-                return (await _userRepository.GetUserList()).Single(i => i.Login == Login).Id;
+                return (await _userRepository.GetUserByLogin(Login)).Id;
             }
             else
                 throw new ArgumentException("Invalid arguments");
@@ -79,10 +75,12 @@ namespace BL
 
         public async Task<int> CheckUser(string Login, string Password)
         {
-            var user = (await _userRepository.GetUserList())
-                .Single(i => i.Login == Login && i.Password ==
-                Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password))));
-            return user.Id;
+            var User = await _userRepository.GetUserByLogin(Login);
+
+            if (User.Password != Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password))))
+                throw new InvalidOperationException("Incorrect password");
+
+            return User.Id;
         }
 
         public async Task<Dictionary<string, string>> GetUserById(int id)

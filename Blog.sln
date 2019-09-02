@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{828DB4E0-10A5-461C-95C0-3D29E6F29346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IServices", "IServices\IServices.csproj", "{B2B6DE16-D4AE-4EE8-9D92-2E9E958473F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IServices", "IServices\IServices.csproj", "{B2B6DE16-D4AE-4EE8-9D92-2E9E958473F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{BBAE0818-3208-46D8-9B18-BAB93F3E5241}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{BBAE0818-3208-46D8-9B18-BAB93F3E5241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

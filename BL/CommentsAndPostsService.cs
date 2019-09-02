@@ -39,15 +39,15 @@ namespace BL
             List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>> result =
                 new List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>();
 
-            posts = posts.OrderByDescending(i => i.Id).ToList();
+            //posts = posts.OrderByDescending(i => i.Id).ToList();
             User user = await _userRepository.GetUserById(userId);
 
             foreach (var post in posts)
             {
                 List<Dictionary<string, string>> resultComments = new List<Dictionary<string, string>>();
 
-                var tempComments = post.Comments.Where(i => i.CommentId == -1).ToList();
-                foreach (var tempComment in tempComments)
+                var tempComments = post.Comments.ToList();
+                foreach (var tempComment in tempComments.Where(i => i.CommentId == -1).ToList())
                 {
                     resultComments = await GetCommentsRecursive(tempComment, tempComments);
                 }
@@ -57,6 +57,7 @@ namespace BL
                     {
                         new Dictionary<string, string>()
                         {
+                            { "Id", post.Id.ToString() },
                             { "UserName", user.Name },
                             { "UserSurname", user.Surname },
                             { "UserId",post.UserId.ToString() },
@@ -79,13 +80,15 @@ namespace BL
             result.Add(
                 new Dictionary<string, string>()
                 {
+                    { "Id", comment.Id.ToString() },
                     { "AuthorName", user.Name },
                     { "AuthorSurname", user.Surname },
                     {"PostId",comment.PostId.ToString() },
                     {"UserId",comment.UserId.ToString() },
                     {"AuthorId",comment.AuthorId.ToString() },
                     {"Text",comment.Text },
-                    {"Date",comment.Date.ToString() }
+                    {"Date",comment.Date.ToString() },
+                    {"Nesting", nestingLevel.ToString() }
                     //Add other information if needed
                 }
                 );

@@ -34,6 +34,7 @@ namespace Data
             var a = await db.Posts
                 .Where(i => i.UserId == id)
                 .Include(i => i.Comments)
+                .OrderByDescending(i => i.Id)
                 .ToListAsync();
             return a;
         }

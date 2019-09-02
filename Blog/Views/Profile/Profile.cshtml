@@ -29,4 +29,44 @@
     
 }
 @Html.Raw(addPostHtml)
-@Html.Raw(Model.Item2)
+@{ 
+    foreach(var i in Model.Item2)
+    {
+        foreach(var post in i.Keys)
+        {
+    <div id="posts_comments">
+    <br><br><div class="post_@post["Id"]">
+    @post["Date"]<br>
+    @post["UserName"] @post["UserSurname"] пишет:<br>
+    @post["Text"]
+    <br>
+    <form>
+
+        <input type="hidden" name="PostId" value=@post["Id"] />
+        <input type="hidden" name="UserId" value=@post["UserId"] />
+        <textarea name="Text"></textarea>
+        <input type="hidden" name="CommentId" value=-1 />
+        <input type="submit" value="Добавить комментарий"
+               formmethod="post" formaction="/Profile/AddComment" />
+    </form>
+</div>
+    </div>
+            foreach(var comment in i[post])
+            {
+    <div class="comment_nesting_@comment["Nesting"]">
+        @comment["Date"]<br>
+        @comment["AuthorName"] @comment["AuthorSurname"] пишет:<br>
+        @comment["Text"]
+        <form>
+            <input type="hidden" name="PostId" value=@comment["PostId"] />
+            <input type="hidden" name="UserId" value=@comment["UserId"] />
+            <textarea name="Text"></textarea>
+            <input type="hidden" name="CommentId" value=@comment["Id"] />
+            <input type="submit" value="Ответить"
+                   formmethod="post" formaction="/Profile/AddComment" />
+        </form>
+    </div>
+            }
+        }
+    }
+}

@@ -13,11 +13,11 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace Blog.Controllers
 {
-    public class SearchController : Controller
+    public class SearchUsersController : Controller
     {
         IUserService userService;
         ITokenService tokenService;
-        public SearchController(IUserService userService, ITokenService tokenService)
+        public SearchUsersController(IUserService userService, ITokenService tokenService)
         {
             this.userService = userService;
             this.tokenService = tokenService;

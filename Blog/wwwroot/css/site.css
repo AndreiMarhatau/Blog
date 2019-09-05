@@ -53,27 +53,6 @@ footer{
 }
 
 
-.comment_nesting_1{
-    margin-left: 30px;
-}
-.comment_nesting_2 {
-    margin-left: 60px;
-}
-.comment_nesting_3 {
-    margin-left: 90px;
-}
-.comment_nesting_4 {
-    margin-left: 120px;
-}
-.comment_nesting_5 {
-    margin-left: 150px;
-}
-.comment_nesting_6 {
-    margin-left: 180px;
-}
-
-
-
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

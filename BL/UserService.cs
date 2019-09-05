@@ -78,7 +78,7 @@ namespace BL
         {
             var User = await _userRepository.GetUserByLogin(Login);
 
-            if (User.Password != Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password))))
+            if (!User.Password.Equals(Encoding.UTF8.GetString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(Password)))))
                 throw new InvalidOperationException("Incorrect password");
 
             return User.Id;

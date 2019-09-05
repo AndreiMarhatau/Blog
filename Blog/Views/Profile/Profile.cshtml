@@ -1,4 +1,5 @@
-﻿@model Tuple<bool, List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>
+﻿@using BL;
+@model Tuple<bool, List<PostWithComments>>
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -13,7 +14,7 @@
                          "value=\"Добавить пост\" formaction=\"/Profile/AddPost\"/>" +
                          "</form></div><br><br>";
     }
-}
+            }
 
 <div id="profile_info_left">
     <h1>@ViewBag.User["Name"] @ViewBag.User["Surname"]</h1>
@@ -26,14 +27,12 @@
 </div>
 <div style="float:none"></div><br><br><br><br><br><br><br><br><br><br>
 @{
-    
-}
-@Html.Raw(addPostHtml)
-@{ 
-    foreach(var i in Model.Item2)
-    {
-        foreach(var post in i.Keys)
-        {
+
+            }
+            @Html.Raw(addPostHtml)
+@{
+                foreach(var post in Model.Item2)
+                {
     <div id="posts_comments">
     <br><br><div class="post_@post["Id"]">
     @post["Date"]<br>
@@ -51,11 +50,18 @@
     </form>
 </div>
     </div>
-            foreach(var comment in i[post])
-            {
-    <div class="comment_nesting_@comment["Nesting"]">
+        foreach (var comment in post.Comments)
+        {
+    <div class="comment_@comment["Id"]">
         @comment["Date"]<br>
         @comment["AuthorName"] @comment["AuthorSurname"] пишет:<br>
+        @{
+            if(comment["CommentId"] != "-1")
+            {
+                var com = post.Comments.Where(c => c["Id"] == comment["CommentId"]).Single();
+                comment["Text"] = $"@{com["AuthorName"]} {com["AuthorSurname"]}, {comment["Text"]}";
+            }
+        }
         @comment["Text"]
         <form>
             <input type="hidden" name="PostId" value=@comment["PostId"] />
@@ -67,6 +73,5 @@
         </form>
     </div>
             }
-        }
     }
 }

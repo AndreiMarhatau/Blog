@@ -30,21 +30,21 @@ namespace Data
         }
         public async Task<User> GetUserByLogin(string Login)
         {
-            return await db.Users.Where(i => i.Login == Login).SingleAsync();
+            return await db.Users.Where(i => i.Login.Equals(Login)).SingleAsync();
         }
         public async Task<bool> CheckExistsOfUser(string login, string email)
         {
-            return (await db.Users.Where(i => i.Login == login ||
-                                           i.Email == email)
+            return (await db.Users.Where(i => i.Login.Equals(login) ||
+                                           i.Email.Equals(email))
                                           .ToListAsync())
-                                          .Count > 0;
+                                          .Any();
         }
 
         public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
         {
-            return await db.Users.Where(i => i.Login.ToLower().Contains(Login.ToLower()) &&
-                                       i.Name.ToLower().Contains(Name.ToLower()) &&
-                                       i.Surname.ToLower().Contains(Surname.ToLower())).ToListAsync();
+            return await db.Users.Where(i => i.Login.Contains(Login, StringComparison.OrdinalIgnoreCase) &&
+                                       i.Name.Contains(Name, StringComparison.OrdinalIgnoreCase) &&
+                                       i.Surname.Contains(Surname, StringComparison.OrdinalIgnoreCase)).ToListAsync();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Data
 
         public async Task<int> GetUserIdByToken(string token)
         {
-            return (await db.Tokens.Where(j => j.StrToken == token).SingleAsync()).UserId;
+            return (await db.Tokens.Where(j => j.StrToken.Equals(token)).SingleAsync()).UserId;
         }
 
         public async Task RmToken(Token token)

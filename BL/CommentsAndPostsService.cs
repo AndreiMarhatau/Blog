@@ -22,84 +22,50 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>
+        public async Task<List<PostWithComments>>
             GetCommentsAndPostsByUserId(int id)
         {
             List<Post> posts = await _postsRepository.GetPostsByUserId(id);
 
-            return await GetAllPostsAndCommentsByUserId(posts, id);
-        }
-
-
-        #region PrivateMethods
-
-        private async Task<List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>
-            GetAllPostsAndCommentsByUserId(List<Post> posts, int userId)
-        {
-            List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>> result =
-                new List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>();
-            
-            User user = await _userRepository.GetUserById(userId);
+            List<PostWithComments> postsWithComments = new List<PostWithComments>();
+            User user = await _userRepository.GetUserById(id);
 
             foreach (var post in posts)
             {
-                List<Dictionary<string, string>> resultComments = new List<Dictionary<string, string>>();
-
-                var tempComments = post.Comments.ToList();
-                foreach (var tempComment in tempComments.Where(i => i.CommentId == -1).ToList())
+                //Preparation comments
+                List<CommentInPost> commentsInPost = new List<CommentInPost>();
+                foreach (var comment in post.Comments)
                 {
-                    resultComments.AddRange(await GetCommentsRecursive(tempComment, tempComments));
-                }
-
-                result.Add(new Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>()
-                {
+                    var author = await _userRepository.GetUserById(comment.AuthorId);
+                    commentsInPost.Add(new CommentInPost(new Dictionary<string, string>()
                     {
-                        new Dictionary<string, string>()
-                        {
-                            { "Id", post.Id.ToString() },
-                            { "UserName", user.Name },
-                            { "UserSurname", user.Surname },
-                            { "UserId",post.UserId.ToString() },
-                            { "Text", post.Text },
-                            { "Date", post.Date.ToString() }
-                            //Add other information if needed
-                        },
-                        resultComments
-                    }
-                });
-            }
-            return result;
-        }
-
-        private async Task<List<Dictionary<string, string>>> GetCommentsRecursive(Comment comment, List<Comment> comments, int nestingLevel = 0)
-        {
-            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
-            User user = await _userRepository.GetUserById(comment.AuthorId);
-
-            result.Add(
-                new Dictionary<string, string>()
-                {
-                    { "Id", comment.Id.ToString() },
-                    { "AuthorName", user.Name },
-                    { "AuthorSurname", user.Surname },
-                    {"PostId",comment.PostId.ToString() },
-                    {"UserId",comment.UserId.ToString() },
-                    {"AuthorId",comment.AuthorId.ToString() },
-                    {"Text",comment.Text },
-                    {"Date",comment.Date.ToString() },
-                    {"Nesting", nestingLevel.ToString() }
-                    //Add other information if needed
+                        { "Id", comment.Id.ToString() },
+                        { "AuthorName", author.Name },
+                        { "AuthorSurname", author.Surname },
+                        {"PostId",comment.PostId.ToString() },
+                        {"UserId",comment.UserId.ToString() },
+                        {"AuthorId",comment.AuthorId.ToString() },
+                        {"Text",comment.Text },
+                        {"Date",comment.Date.ToString() },
+                        {"CommentId",comment.CommentId.ToString() }
+                        //Add other information if needed
+                    }));
                 }
-                );
 
-
-            foreach (var _comment in comments.Where(i => i.CommentId == comment.Id))
-            {
-                result.AddRange(await GetCommentsRecursive(_comment, comments, nestingLevel + 1));
+                //Preparation post and add to result list
+                postsWithComments.Add(new PostWithComments(new Dictionary<string, string>()
+                {
+                    { "Id", post.Id.ToString() },
+                    { "UserName", user.Name },
+                    { "UserSurname", user.Surname },
+                    { "UserId",post.UserId.ToString() },
+                    { "Text", post.Text },
+                    { "Date", post.Date.ToString() }
+                    //Add other information if needed
+                }, commentsInPost));
             }
 
-            return result;
+            return postsWithComments;
         }
-        #endregion
     }
 }

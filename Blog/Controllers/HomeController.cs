@@ -14,8 +14,9 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        IUserService userService;
-        ITokenService tokenService;
+        private IUserService userService;
+        private ITokenService tokenService;
+
         public HomeController(IUserService userService, ITokenService tokenService)
         {
             this.userService = userService;

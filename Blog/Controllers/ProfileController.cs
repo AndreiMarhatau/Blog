@@ -13,11 +13,11 @@ namespace Blog.Controllers
 {
     public class ProfileController : Controller
     {
-        IUserService userService;
-        ITokenService tokenService;
-        ICommentsAndPostsService commentsAndPostsService;
-        IPostsService postsService;
-        ICommentsService commentsService;
+        private IUserService userService;
+        private ITokenService tokenService;
+        private ICommentsAndPostsService commentsAndPostsService;
+        private IPostsService postsService;
+        private ICommentsService commentsService;
 
         public ProfileController(
             IUserService userService, 
@@ -36,8 +36,6 @@ namespace Blog.Controllers
         public async Task<IActionResult> Index(int? id)
         {
             var token = GenerateToken();
-
-            string model = "";
             bool isOwner = false;
 
             var userId = await tokenService.GetUserIdByToken(token);
@@ -49,12 +47,6 @@ namespace Blog.Controllers
                 {
                     id = userId;
                     isOwner = true;
-                    model +=
-                        "<div class=\"post_send\"><form>" +
-                        "<textarea name = \"Text\"></textarea>" +
-                        "<input type=\"submit\" formmethod=\"post\" " +
-                        "value=\"Добавить пост\" formaction=\"/Profile/AddPost\"/>" +
-                        "</form></div><br><br>";
                 }
             }
             catch (Exception e)
@@ -76,15 +68,12 @@ namespace Blog.Controllers
                 throw;
             }
 
-            //Add strings of comments and posts for view
-
+            //Add list of posts and comments to view model
             Tuple<bool, List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>> Model =
                 new Tuple<bool, List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>>(
                     isOwner, 
                     await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
                     );
-            
-            model += await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value);
 
             return View("Profile", Model);
         }

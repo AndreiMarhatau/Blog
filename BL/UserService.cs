@@ -14,7 +14,8 @@ namespace BL
 {
     public class UserService : IUserService
     {
-        IUserRepository _userRepository;
+        private IUserRepository _userRepository;
+
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -64,7 +65,7 @@ namespace BL
             };
 
             if (user.IsValidData() &&
-                await _userRepository.CheckExistsOfUser(Login, Email))
+                !(await _userRepository.CheckExistsOfUser(Login, Email)))
             {
                 await _userRepository.AddUser(user);
                 return (await _userRepository.GetUserByLogin(Login)).Id;

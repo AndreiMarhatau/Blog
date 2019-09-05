@@ -12,7 +12,8 @@ namespace Data
 {
     public class UserRepository : IUserRepository
     {
-        DatabaseContext db;
+        private DatabaseContext db;
+
         public UserRepository(DatabaseContext db)
         {
             this.db = db;
@@ -41,9 +42,9 @@ namespace Data
 
         public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
         {
-            return await db.Users.Where(i => i.Login.ToLower() == Login.ToLower() &&
-                                       i.Name.ToLower() == Name.ToLower() &&
-                                       i.Surname.ToLower() == Surname.ToLower()).ToListAsync();
+            return await db.Users.Where(i => i.Login.ToLower().Contains(Login.ToLower()) &&
+                                       i.Name.ToLower().Contains(Name.ToLower()) &&
+                                       i.Surname.ToLower().Contains(Surname.ToLower())).ToListAsync();
         }
     }
 }

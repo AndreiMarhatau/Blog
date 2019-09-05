@@ -11,7 +11,8 @@ namespace Data
 {
     public class PostsRepository:IPostsRepository
     {
-        DatabaseContext db;
+        private DatabaseContext db;
+
         public PostsRepository(DatabaseContext db)
         {
             this.db = db;

@@ -11,9 +11,9 @@ namespace BL
 {
     public class CommentsAndPostsService : ICommentsAndPostsService
     {
-        ICommentsRepository _commentsRepository;
-        IPostsRepository _postsRepository;
-        IUserRepository _userRepository;
+        private ICommentsRepository _commentsRepository;
+        private IPostsRepository _postsRepository;
+        private IUserRepository _userRepository;
 
         public CommentsAndPostsService(ICommentsRepository commentsRepository, IPostsRepository postsRepository, IUserRepository userRepository)
         {
@@ -38,8 +38,7 @@ namespace BL
         {
             List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>> result =
                 new List<Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>>();
-
-            //posts = posts.OrderByDescending(i => i.Id).ToList();
+            
             User user = await _userRepository.GetUserById(userId);
 
             foreach (var post in posts)
@@ -49,7 +48,7 @@ namespace BL
                 var tempComments = post.Comments.ToList();
                 foreach (var tempComment in tempComments.Where(i => i.CommentId == -1).ToList())
                 {
-                    resultComments = await GetCommentsRecursive(tempComment, tempComments);
+                    resultComments.AddRange(await GetCommentsRecursive(tempComment, tempComments));
                 }
 
                 result.Add(new Dictionary<Dictionary<string, string>, List<Dictionary<string, string>>>()

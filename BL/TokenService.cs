@@ -12,7 +12,8 @@ namespace BL
 {
     public class TokenService : ITokenService
     {
-        ITokenRepository _tokenRepository;
+        private ITokenRepository _tokenRepository;
+
         public TokenService(ITokenRepository tokenRepository)
         {
             _tokenRepository = tokenRepository;

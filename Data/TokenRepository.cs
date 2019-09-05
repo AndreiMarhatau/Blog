@@ -11,7 +11,8 @@ namespace Data
 {
     public class TokenRepository : ITokenRepository
     {
-        DatabaseContext db;
+        private DatabaseContext db;
+
         public TokenRepository(DatabaseContext db)
         {
             this.db = db;

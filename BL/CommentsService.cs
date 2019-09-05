@@ -10,7 +10,8 @@ namespace BL
 {
     public class CommentsService:ICommentsService
     {
-        ICommentsRepository _commentsRepository;
+        private ICommentsRepository _commentsRepository;
+
         public CommentsService(ICommentsRepository commentsRepository)
         {
             _commentsRepository = commentsRepository;

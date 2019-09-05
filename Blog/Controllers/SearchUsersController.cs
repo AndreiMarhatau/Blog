@@ -15,8 +15,9 @@ namespace Blog.Controllers
 {
     public class SearchUsersController : Controller
     {
-        IUserService userService;
-        ITokenService tokenService;
+        private IUserService userService;
+        private ITokenService tokenService;
+
         public SearchUsersController(IUserService userService, ITokenService tokenService)
         {
             this.userService = userService;
@@ -40,19 +41,10 @@ namespace Blog.Controllers
             }
             
             //Create result list of search
-            var resultList = await userService.SearchUsers(Login, Name, Surname);
+            List<Dictionary<string,string>> resultList = await userService.SearchUsers(Login, Name, Surname);
+            string pathBase = HttpContext.Request.PathBase;
 
-            string result = "";
-            //Create string result from result list
-            foreach (var i in resultList)
-            {
-                result +=
-                    $"<a href=\"{HttpContext.Request.PathBase}/Profile/Index?id={i["Id"]}\"><br>" +
-                    i["Login"] + ": " + i["Name"] + " " + i["Surname"] +
-                    i["BornDate"] + "</a><br><br>";
-            }
-
-            return View("Search", result);
+            return View("Search", new Tuple<List<Dictionary<string,string>>, string>(resultList, pathBase));
         }
         public async Task<IActionResult> SearchUsers()
         {

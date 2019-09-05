@@ -8,7 +8,6 @@ namespace Interfaces
 {
     public interface ICommentsRepository
     {
-        Task<List<Comment>> GetCommentsByUserId(int id);
         Task AddComment(Comment post);
     }
 }

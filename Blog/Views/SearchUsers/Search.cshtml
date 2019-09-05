@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model Tuple<List<Dictionary<string, string>>, string>
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -8,11 +8,20 @@
 
 Введите в одно или несколько полей фильтры для поиска<br><br>
 
-                                                         <form>
-                                                             Имя: <input name="Name" /><br><br>
-                                                             Фамилия: <input name="Surname" /><br><br>
-                                                             Логин:<input name="Login" /><br><br>
-                                                             <input type="submit" value="Найти" asp-action="SearchUsers" formmethod="post" />
-                                                         </form>
+<form>
+    Имя: <input name="Name" /><br><br>
+    Фамилия: <input name="Surname" /><br><br>
+    Логин:<input name="Login" /><br><br>
+    <input type="submit" value="Найти" asp-action="SearchUsers" formmethod="post" />
+</form>
 
-@Html.Raw(Model)
+@{
+    foreach (var i in Model.Item1)
+    {
+            <a href="@Model.Item2/Profile/Index?id=@i["Id"]">
+<br>
+    @i["Login"]: @i["Name"] @i["Surname"]
+    @i["BornDate"]
+</a><br><br>
+            }
+}

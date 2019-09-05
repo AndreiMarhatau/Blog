@@ -10,7 +10,8 @@ namespace BL
 {
     public class PostsService :IPostsService
     {
-        IPostsRepository _postsRepository;
+        private IPostsRepository _postsRepository;
+
         public PostsService(IPostsRepository postsRepository)
         {
             _postsRepository = postsRepository;

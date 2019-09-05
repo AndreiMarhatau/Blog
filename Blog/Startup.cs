@@ -56,6 +56,8 @@ namespace Blog
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<ICommentsRepository, CommentsRepository>();
 
+            services.AddSingleton<Random>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

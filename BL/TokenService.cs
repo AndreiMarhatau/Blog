@@ -27,7 +27,19 @@ namespace BL
                 UserId = UserId
             };
 
-            if (token.IsValidData())
+            bool isExistsInDb = true;
+            try
+            {
+                await _tokenRepository.GetUserIdByToken(token.StrToken);
+            }
+            catch
+            {
+                isExistsInDb = false;
+            }
+
+
+            if (token.IsValidData() &&
+                isExistsInDb)
                 await _tokenRepository.AddToken(token);
             else
                 throw new ArgumentException("Invalid arguments");

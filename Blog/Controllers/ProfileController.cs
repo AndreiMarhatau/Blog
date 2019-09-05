@@ -13,6 +13,7 @@ namespace Blog.Controllers
 {
     public class ProfileController : Controller
     {
+        private Random random;
         private IUserService userService;
         private ITokenService tokenService;
         private ICommentsAndPostsService commentsAndPostsService;
@@ -20,12 +21,14 @@ namespace Blog.Controllers
         private ICommentsService commentsService;
 
         public ProfileController(
+            Random random,
             IUserService userService, 
             ITokenService tokenService, 
             ICommentsAndPostsService commentsAndPostsService, 
             IPostsService postsService, 
             ICommentsService commentsService)
         {
+            this.random = random;
             this.userService = userService;
             this.tokenService = tokenService;
             this.commentsAndPostsService = commentsAndPostsService;
@@ -141,7 +144,7 @@ namespace Blog.Controllers
 
             //Generate new token and add to cookie
             byte[] bytes = new byte[512];
-            new Random().NextBytes(bytes);
+            this.random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             HttpContext.Response.Cookies.Append("Token", token);
 

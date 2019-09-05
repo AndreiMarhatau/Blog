@@ -14,11 +14,13 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
+        private Random random;
         private IUserService userService;
         private ITokenService tokenService;
 
-        public HomeController(IUserService userService, ITokenService tokenService)
+        public HomeController(Random random, IUserService userService, ITokenService tokenService)
         {
+            this.random = random;
             this.userService = userService;
             this.tokenService = tokenService;
         }
@@ -128,7 +130,7 @@ namespace Blog.Controllers
 
             //Generate new token and add to cookie
             byte[] bytes = new byte[512];
-            new Random().NextBytes(bytes);
+            this.random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             HttpContext.Response.Cookies.Append("Token", token);
             

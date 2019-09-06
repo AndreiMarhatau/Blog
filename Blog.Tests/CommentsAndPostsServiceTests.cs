@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Blog.Tests
+namespace Blog.Services.Tests
 {
     public class CommentsAndPostsServiceTests
     {

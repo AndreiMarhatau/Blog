@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Blog.Tests
+namespace Blog.Services.Tests
 {
     public class UserServiceTests
     {

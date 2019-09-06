@@ -24,6 +24,16 @@ namespace Blog.Tests
             Assert.True(userId == 1);
         }
         [Fact]
+        public async void AddToken_AddTwoSameTokensForDifferentUsers()
+        {
+            //Arrange
+            TokenService tokenService = new TokenService(new RepositoriesForTests());
+            //Act
+            await tokenService.AddToken("token1", 1);
+            //Assert
+            await Assert.ThrowsAsync<ArgumentException>(async() => await tokenService.AddToken("token1", 2));
+        }
+        [Fact]
         public async void RmToken_AddTokenAndRemove()
         {
             //Arrange

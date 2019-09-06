@@ -17,11 +17,22 @@ namespace Blog.Tests
         {
             //Arrange
             var userService = new UserService(new RepositoriesForTests());
-            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
             //Act
+            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
             var actual = (await userService.GetUserByLogin("Test")).Login;
             //Assert
             Assert.Equal("Test", actual);
+        }
+        [Fact]
+        public async void AddUser_AddTwoUsersWithSameEmailOrLogin()
+        {
+            //Arrange
+            var userService = new UserService(new RepositoriesForTests());
+            //Act
+            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
+            //Assert
+            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.AddUser("Test2", "Name2", "Surname2", DateTime.Now, "Email@email.com", "Password2"));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.AddUser("Test", "Name3", "Surname3", DateTime.Now, "Email3@email.com", "Password3"));
         }
         [Fact]
         public async void CheckUser_CheckExistsUserByLoginPassword()

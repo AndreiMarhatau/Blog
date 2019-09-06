@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BL
 {
-    public class PostWithComments
+    public class PostViewModel
     {
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -15,7 +15,7 @@ namespace BL
 
         public List<CommentInPost> Comments { get; set; } = new List<CommentInPost>();
 
-        public PostWithComments(int Id, string UserName, string UserSurname, int UserId, string Text, DateTime Date, List<CommentInPost> comment)
+        public PostViewModel(int Id, string UserName, string UserSurname, int UserId, string Text, DateTime Date, List<CommentInPost> comment)
         {
             this.Id = Id;
             this.UserName = UserName;

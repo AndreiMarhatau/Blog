@@ -22,12 +22,12 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<PostWithComments>>
+        public async Task<List<PostViewModel>>
             GetCommentsAndPostsByUserId(int id)
         {
             List<Post> posts = await _postsRepository.GetPostsByUserId(id);
 
-            List<PostWithComments> postsWithComments = new List<PostWithComments>();
+            List<PostViewModel> postsWithComments = new List<PostViewModel>();
             User user = await _userRepository.GetUserById(id);
 
             foreach (var post in posts)
@@ -52,7 +52,7 @@ namespace BL
                 }
 
                 //Preparation post and add to result list
-                postsWithComments.Add(new PostWithComments(
+                postsWithComments.Add(new PostViewModel(
                     post.Id,
                     user.Name,
                     user.Surname,

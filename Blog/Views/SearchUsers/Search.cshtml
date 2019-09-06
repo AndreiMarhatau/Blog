@@ -1,4 +1,5 @@
-﻿@model Tuple<List<Dictionary<string, string>>, string>
+﻿@using BL;
+@model Tuple<List<UserViewModel>, string>
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -18,10 +19,10 @@
 @{
     foreach (var i in Model.Item1)
     {
-            <a href="@Model.Item2/Profile/Index?id=@i["Id"]">
+            <a href="@Model.Item2/Profile/Index?id=@i.Id">
 <br>
-    @i["Login"]: @i["Name"] @i["Surname"]
-    @i["BornDate"]
+    @i.Login: @i.Name @i.Surname
+    @i.BornDate
 </a><br><br>
             }
 }

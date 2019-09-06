@@ -43,10 +43,10 @@ namespace Blog.Controllers
             }
             
             //Create result list of search
-            List<Dictionary<string,string>> resultList = await userService.SearchUsers(Login, Name, Surname);
+            List<UserViewModel> resultList = await userService.SearchUsers(Login, Name, Surname);
             string pathBase = HttpContext.Request.PathBase;
 
-            return View("Search", new Tuple<List<Dictionary<string,string>>, string>(resultList, pathBase));
+            return View("Search", new Tuple<List<UserViewModel>, string>(resultList, pathBase));
         }
         public async Task<IActionResult> SearchUsers()
         {

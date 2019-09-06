@@ -8,6 +8,6 @@ namespace IServices
 {
     public interface ICommentsAndPostsService
     {
-        Task<List<PostWithComments>> GetCommentsAndPostsByUserId(int id);
+        Task<List<PostViewModel>> GetCommentsAndPostsByUserId(int id);
     }
 }

@@ -72,8 +72,8 @@ namespace Blog.Controllers
             }
 
             //Add list of posts and comments to view model
-            Tuple<bool, List<PostWithComments>> Model =
-                new Tuple<bool, List<PostWithComments>> (
+            Tuple<bool, List<PostViewModel>> Model =
+                new Tuple<bool, List<PostViewModel>> (
                     isOwner, 
                     await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
                     );

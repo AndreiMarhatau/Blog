@@ -17,12 +17,37 @@ namespace Blog.Tests
         {
             //Arrange
             var userService = new UserService(new RepositoriesForTests());
-            //Act
             await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
-            var actual = (await userService.GetUserByLogin("Test"))["Login"];
+            //Act
+            var actual = (await userService.GetUserByLogin("Test")).Login;
             //Assert
             Assert.Equal("Test", actual);
         }
+        [Fact]
+        public async void CheckUser_CheckExistsUserByLoginPassword()
+        {
+            //Arrange
+            var userService = new UserService(new RepositoriesForTests());
+            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
+            //Act
+            var id = await userService.CheckUser("Test", "Password");
+            //Assert
+            Assert.Equal(0, id);
+        }
+        [Fact]
+        public async void SearchUsers_GetUserListByLoginNameSurname()
+        {
+            //Arrange
+            var userService = new UserService(new RepositoriesForTests());
+            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
+            await userService.AddUser("Test2", "Name2", "Surname2", DateTime.Now, "Email2@email.com", "Password");
+            await userService.AddUser("Tset", "Name3", "Surname3", DateTime.Now, "Email3@email.com", "Password");
+            //Act
+            var count = (await userService.SearchUsers("Test", "Name", "Surname")).Count;
+            //Assert
+            Assert.Equal(2, count);
+        }
+
         private class RepositoriesForTests : IUserRepository
         {
             private List<User> users = new List<User>();
@@ -51,7 +76,9 @@ namespace Blog.Tests
             
             public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
             {
-                throw new NotImplementedException();
+                return users.Where(i => i.Login.Contains(Login, StringComparison.OrdinalIgnoreCase) &&
+                                       i.Name.Contains(Name, StringComparison.OrdinalIgnoreCase) &&
+                                       i.Surname.Contains(Surname, StringComparison.OrdinalIgnoreCase)).ToList();
             }
         }
     }

@@ -21,7 +21,7 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<Dictionary<string, string>>> SearchUsers(string Login, string Name, string Surname)
+        public async Task<List<UserViewModel>> SearchUsers(string Login, string Name, string Surname)
         {
             //Check params
             if (Name == null) Name = "";
@@ -32,22 +32,21 @@ namespace BL
             var resultList = await _userRepository.GetUserListByLoginNameSurname(Login, Name, Surname);
 
             //Create dictionary from result list
-            List<Dictionary<string, string>> result = new List<Dictionary<string, string>>();
+            List<UserViewModel> result = new List<UserViewModel>();
             foreach (var i in resultList)
             {
                 result.Add(
-                    new Dictionary<string, string>()
-                    {
-                        { "Id", i.Id.ToString() },
-                        { "Login", i.Login },
-                        { "Name", i.Name },
-                        { "Surname", i.Surname },
-                        { "BornDate", i.BornDate.ToShortDateString() },
-                        { "RegisterDate", i.RegisterDate.ToLongDateString() },
-                        { "Email", i.Email },
-                        { "Password", i.Password },
-                    }
-                    );
+                    new UserViewModel
+                    (
+                        i.Id,
+                        i.Login,
+                        i.Name,
+                        i.Surname,
+                        i.BornDate,
+                        i.RegisterDate,
+                        i.Email,
+                        i.Password
+                    ));
             }
             return result;
         }
@@ -84,42 +83,42 @@ namespace BL
             return User.Id;
         }
 
-        public async Task<Dictionary<string, string>> GetUserById(int id)
+        public async Task<UserViewModel> GetUserById(int id)
         {
-            User user = await _userRepository.GetUserById(id);
+            User i = await _userRepository.GetUserById(id);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>
-            {
-                { "Id", user.Id.ToString() },
-                { "Login", user.Login },
-                { "Name", user.Name },
-                { "Surname", user.Surname },
-                { "BornDate", user.BornDate.ToShortDateString() },
-                { "RegisterDate", user.RegisterDate.ToLongDateString() },
-                { "Email", user.Email },
-                { "Password", user.Password }
-            };
+            UserViewModel user = new UserViewModel
+                    (
+                        i.Id,
+                        i.Login,
+                        i.Name,
+                        i.Surname,
+                        i.BornDate,
+                        i.RegisterDate,
+                        i.Email,
+                        i.Password
+                        );
 
-            return dict;
+            return user;
         }
 
-        public async Task<Dictionary<string, string>> GetUserByLogin(string Login)
+        public async Task<UserViewModel> GetUserByLogin(string Login)
         {
-            User user = await _userRepository.GetUserByLogin(Login);
+            User i = await _userRepository.GetUserByLogin(Login);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>
-            {
-                { "Id", user.Id.ToString() },
-                { "Login", user.Login },
-                { "Name", user.Name },
-                { "Surname", user.Surname },
-                { "BornDate", user.BornDate.ToShortDateString() },
-                { "RegisterDate", user.RegisterDate.ToLongDateString() },
-                { "Email", user.Email },
-                { "Password", user.Password }
-            };
+            UserViewModel user = new UserViewModel
+                    (
+                        i.Id,
+                        i.Login,
+                        i.Name,
+                        i.Surname,
+                        i.BornDate,
+                        i.RegisterDate,
+                        i.Email,
+                        i.Password
+                        );
 
-            return dict;
+            return user;
         }
     }
 }

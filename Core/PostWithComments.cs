@@ -6,41 +6,50 @@ namespace BL
 {
     public class PostWithComments
     {
-        public string this [string key]
-        {
-            get
-            {
-                return Post[key];
-            }
-        }
-        public IDictionary<string, string> Post { get; protected set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string UserSurname { get; set; }
+        public int UserId { get; set; }
+        public string Text { get; set; }
+        public DateTime Date { get; set; }
+
         public List<CommentInPost> Comments { get; set; } = new List<CommentInPost>();
 
-        public PostWithComments(IDictionary<string,string> post, List<CommentInPost> comment)
+        public PostWithComments(int Id, string UserName, string UserSurname, int UserId, string Text, DateTime Date, List<CommentInPost> comment)
         {
-            Post = post;
+            this.Id = Id;
+            this.UserName = UserName;
+            this.UserSurname = UserSurname;
+            this.UserId = UserId;
+            this.Text = Text;
+            this.Date = Date;
+
             Comments = comment;
         }
     }
     public class CommentInPost
     {
-        private IDictionary<string, string> _comment;
+        public int Id { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorSurname { get; set; }
+        public int PostId { get; set; }
+        public int UserId { get; set; }
+        public int AuthorId { get; set; }
+        public string Text { get; set; }
+        public DateTime Date { get; set; }
+        public int CommentId { get; set; }
 
-        public string this[string key]
+        public CommentInPost(int Id, string AuthorName, string AuthorSurname, int PostId, int UserId, int AuthorId, string Text, DateTime Date, int CommentId)
         {
-            get
-            {
-                return _comment[key];
-            }
-            set
-            {
-                _comment[key] = value;
-            }
-        }
-
-        public CommentInPost(IDictionary<string,string> comment)
-        {
-            _comment = comment;
+            this.Id = Id;
+            this.AuthorName = AuthorName;
+            this.AuthorSurname = AuthorSurname;
+            this.PostId = PostId;
+            this.UserId = UserId;
+            this.AuthorId = AuthorId;
+            this.Text = Text;
+            this.Date = Date;
+            this.CommentId = CommentId;
         }
     }
 }

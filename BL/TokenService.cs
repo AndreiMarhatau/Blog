@@ -39,7 +39,7 @@ namespace BL
 
 
             if (token.IsValidData() &&
-                isExistsInDb)
+                !isExistsInDb)
                 await _tokenRepository.AddToken(token);
             else
                 throw new ArgumentException("Invalid arguments");

@@ -18,12 +18,6 @@ namespace Data
             this.db = db;
         }
 
-        public async Task AddComment(Comment comment)
-        {
-            db.Comments.Add(comment);
-            await db.SaveChangesAsync();
-        }
-
         public async Task AddPost(Post post)
         {
             db.Posts.Add(post);

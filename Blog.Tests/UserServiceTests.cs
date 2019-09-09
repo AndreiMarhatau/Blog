@@ -7,56 +7,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace Blog.Services.Tests
 {
     public class UserServiceTests
     {
         [Fact]
-        public async void AddUser_AddUserAndCheckExists()
+        public async void AddUser_AddUserWithInvalidArguments()
         {
             //Arrange
-            var userService = new UserService(new RepositoriesForTests());
+            var userRepo = new Mock<IUserRepository>();
+            var userService = new UserService(userRepo.Object);
             //Act
-            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
-            var actual = (await userService.GetUserByLogin("Test")).Login;
+            var result = userService.AddUser("","","",DateTime.MinValue,"","");
             //Assert
-            Assert.Equal("Test", actual);
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
         [Fact]
         public async void AddUser_AddTwoUsersWithSameEmailOrLogin()
         {
             //Arrange
-            var userService = new UserService(new RepositoriesForTests());
+            var userRepo = new Mock<IUserRepository>();
+            userRepo.Setup(a => a.CheckExistsOfUser("Test", "mail@mail.ru")).ReturnsAsync(true);
+            var userService = new UserService(userRepo.Object);
             //Act
-            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
+            var result = userService.AddUser("Test", "Name", "Surname", DateTime.MinValue, "mail@mail.ru", "Password");
             //Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.AddUser("Test2", "Name2", "Surname2", DateTime.Now, "Email@email.com", "Password2"));
-            await Assert.ThrowsAsync<ArgumentException>(async () => await userService.AddUser("Test", "Name3", "Surname3", DateTime.Now, "Email3@email.com", "Password3"));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
         [Fact]
         public async void CheckUser_CheckExistsUserByLoginPassword()
         {
             //Arrange
-            var userService = new UserService(new RepositoriesForTests());
-            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
+            var userRepo = new Mock<IUserRepository>();
+            userRepo.Setup(a => a.GetUserByLogin("Login")).ReturnsAsync(new User() { Login = "Login", Password = "Password" });
+            var userService = new UserService(userRepo.Object);
             //Act
-            var id = await userService.CheckUser("Test", "Password");
+            var result = userService.CheckUser("Login", "Pswd2");
             //Assert
-            Assert.Equal(0, id);
+            await Assert.ThrowsAsync<InvalidOperationException>(async() => await result);
         }
         [Fact]
         public async void SearchUsers_GetUserListByLoginNameSurname()
         {
             //Arrange
-            var userService = new UserService(new RepositoriesForTests());
-            await userService.AddUser("Test", "Name", "Surname", DateTime.Now, "Email@email.com", "Password");
-            await userService.AddUser("Test2", "Name2", "Surname2", DateTime.Now, "Email2@email.com", "Password");
-            await userService.AddUser("Tset", "Name3", "Surname3", DateTime.Now, "Email3@email.com", "Password");
+            var userRepo = new Mock<IUserRepository>();
+            userRepo.Setup(a => a.GetUserListByLoginNameSurname("Login", "Name", "Surname")).ReturnsAsync(new List<User>
+            {
+                new User{Login = "Login1", Name = "Name1", Surname = "Surname1", Email = "email1@mail.ru", BornDate = DateTime.MinValue, RegisterDate = DateTime.MinValue, Password = "Password1"},
+                new User{Login = "Login2", Name = "Name2", Surname = "Surname2", Email = "email2@mail.ru", BornDate = DateTime.MinValue, RegisterDate = DateTime.MinValue, Password = "Password2"},
+                new User{Login = "Login3", Name = "Name3", Surname = "Surname3", Email = "email3@mail.ru", BornDate = DateTime.MinValue, RegisterDate = DateTime.MinValue, Password = "Password3"}
+            });
+            var userService = new UserService(userRepo.Object);
             //Act
-            var count = (await userService.SearchUsers("Test", "Name", "Surname")).Count;
+            var result = userService.SearchUsers("Login", "Name", "Surname");
             //Assert
-            Assert.Equal(2, count);
+            var expected = new List<UserViewModel>
+            {
+                new UserViewModel(0, "Login1", "Name1", "Surname1", DateTime.MinValue, DateTime.MinValue, "email1@mail.ru", "Password1"),
+                new UserViewModel(0, "Login2", "Name2", "Surname2", DateTime.MinValue, DateTime.MinValue, "email2@mail.ru", "Password2"),
+                new UserViewModel(0, "Login3", "Name3", "Surname3", DateTime.MinValue, DateTime.MinValue, "email3@mail.ru", "Password3")
+            };
+            Assert.Equal(expected, result.Result);
         }
 
         private class RepositoriesForTests : IUserRepository

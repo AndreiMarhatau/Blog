@@ -33,7 +33,7 @@
 @{
                 foreach(var post in Model.Item2)
                 {
-    <div id="posts_comments">
+    <div id="post">
     <br><br><div class="post_@post.Id">
     @post.Date<br>
     @post.UserName @post.UserSurname пишет:<br>
@@ -54,7 +54,7 @@
         {
     <div class="comment_@comment.Id">
         @comment.Date<br>
-        @comment.AuthorName @comment.AuthorSurname пишет:<br>
+        @comment.AuthorName @comment.AuthorSurname комментирует:<br>
         @{
             if(comment.CommentId != -1)
             {

@@ -11,13 +11,11 @@ namespace BL
 {
     public class CommentsAndPostsService : ICommentsAndPostsService
     {
-        private ICommentsRepository _commentsRepository;
         private IPostsRepository _postsRepository;
         private IUserRepository _userRepository;
 
-        public CommentsAndPostsService(ICommentsRepository commentsRepository, IPostsRepository postsRepository, IUserRepository userRepository)
+        public CommentsAndPostsService(IPostsRepository postsRepository, IUserRepository userRepository)
         {
-            _commentsRepository = commentsRepository;
             _postsRepository = postsRepository;
             _userRepository = userRepository;
         }

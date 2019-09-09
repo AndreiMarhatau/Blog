@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace Blog.Services.Tests
 {
@@ -16,51 +17,13 @@ namespace Blog.Services.Tests
         public async void AddToken_AddTokenAndGetUserId()
         {
             //Arrange
-            TokenService tokenService = new TokenService(new RepositoriesForTests());
+            var tokenRepo = new Mock<ITokenRepository>();
+            tokenRepo.Setup(a => a.AddToken(new Token() { StrToken = "1", UserId = 1 })).Returns(() => throw new Exception());
+            TokenService tokenService = new TokenService(tokenRepo.Object);
             //Act
-            await tokenService.AddToken("token1", 1);
-            var userId = await tokenService.GetUserIdByToken("token1");
+            var result1 = tokenService.AddToken("1", 1);
             //Assert
-            Assert.True(userId == 1);
-        }
-        [Fact]
-        public async void AddToken_AddTwoSameTokensForDifferentUsers()
-        {
-            //Arrange
-            TokenService tokenService = new TokenService(new RepositoriesForTests());
-            //Act
-            await tokenService.AddToken("token1", 1);
-            //Assert
-            await Assert.ThrowsAsync<ArgumentException>(async() => await tokenService.AddToken("token1", 2));
-        }
-        [Fact]
-        public async void RmToken_AddTokenAndRemove()
-        {
-            //Arrange
-            TokenService tokenService = new TokenService(new RepositoriesForTests());
-            //Act
-            await tokenService.AddToken("token1", 1);
-            await tokenService.RmToken("token1");
-            //Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(async() => await tokenService.GetUserIdByToken("token1"));
-        }
-
-        private class RepositoriesForTests : ITokenRepository
-        {
-            private List<Token> tokens = new List<Token>();
-            
-            public async Task AddToken(Token token)
-            {
-                tokens.Add(token);
-            }
-            public async Task<int> GetUserIdByToken(string token)
-            {
-                return tokens.Where(i => i.StrToken.Equals(token)).Single().UserId;
-            }
-            public async Task RmToken(Token token)
-            {
-                tokens.Remove(token);
-            }
+            await Assert.ThrowsAsync<ArgumentException>(async() => await result1);
         }
     }
 }

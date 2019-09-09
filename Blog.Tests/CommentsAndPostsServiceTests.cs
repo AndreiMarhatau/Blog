@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace Blog.Services.Tests
 {
@@ -15,9 +16,14 @@ namespace Blog.Services.Tests
         public async void GetCommentsAndPostsByUserIdTest()
         {
             //Arrange
-            RepositoriesForTests repo = new RepositoriesForTests();
+            var postsRepo = new Mock<IPostsRepository>();
+            var usersRepo = new Mock<IUserRepository>();
+            postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
+            usersRepo.Setup(a => a.GetUserById(1)).ReturnsAsync(GetUserById(1));
+            usersRepo.Setup(a => a.GetUserById(2)).ReturnsAsync(GetUserById(2));
+            
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
-                repo, repo, repo);
+                postsRepo.Object, usersRepo.Object);
             //Act
             var result = commentsAndPostsService.GetCommentsAndPostsByUserId(1);
             //Assert
@@ -27,31 +33,9 @@ namespace Blog.Services.Tests
                 (await result)[0].Comments.Count == 4 &&
                 (await result)[0].Comments[1].Id == 2
                 );
-        }
 
-        private class RepositoriesForTests : IUserRepository, ICommentsRepository, IPostsRepository
-        {
-            public async Task AddComment(Comment post)
-            {
-                throw new NotImplementedException();
-            }
 
-            public async Task AddPost(Post post)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task AddUser(User user)
-            {
-                throw new NotImplementedException();
-            }
-
-            public async Task<bool> CheckExistsOfUser(string login, string email)
-            {
-                throw new NotImplementedException();
-            }
-
-            public async Task<List<Post>> GetPostsByUserId(int id)
+            List<Post> GetPostsByUserId(int id)
             {
                 List<Post> posts = new List<Post>();
                 posts.AddRange(new List<Post>()
@@ -121,8 +105,7 @@ namespace Blog.Services.Tests
 
                 return posts;
             }
-
-            public async Task<User> GetUserById(int id)
+            User GetUserById(int id)
             {
                 if (id == 1)
                 {
@@ -154,16 +137,6 @@ namespace Blog.Services.Tests
                 }
                 else
                     throw new NotImplementedException();
-            }
-
-            public async Task<User> GetUserByLogin(string Login)
-            {
-                throw new NotImplementedException();
-            }
-
-            public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
-            {
-                throw new NotImplementedException();
             }
         }
     }

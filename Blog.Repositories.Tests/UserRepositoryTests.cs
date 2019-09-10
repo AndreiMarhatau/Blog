@@ -7,54 +7,36 @@ using Data;
 using Domain.Core;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Moq;
+using System.Threading;
 
 namespace Blog.Repositories.Tests
 {
     public class UserRepositoryTests
     {
-        //[Fact]
-        //public async void AddUser_AddUserAndCheckExistsInDb()
-        //{
-        //    //Arrange
-        //    DatabaseContext dbContext = new DatabaseContext(
-        //        new Microsoft.EntityFrameworkCore.DbContextOptions<DatabaseContext>()
-        //        );
+        [Fact]
+        public async void GetUserById()
+        {
+            //Arrange
+            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbSetOfUsers = new Mock<DbSet<User>>();
+            IQueryable<User> data = (IQueryable<User>)new List<User>()
+            {
+                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Name1", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
+            }.AsQueryable();
 
-        //    dbContext.Database
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            //mockDbSetOfUsers.Setup(m => m.SingleAsync(It.IsAny<System.Linq.Expressions.Expression<Func<User,bool>>>(), It.IsAny<CancellationToken>())).ReturnsAsync(data.ToList()[0]);
 
-        //    UserRepository userRepository = new UserRepository(dbContext);
-        //    //Act
-        //    await userRepository.AddUser(new User()
-        //    {
-        //        Login = "TestLogin",
-        //        Email = "testemail@email.com",
-        //        BornDate = DateTime.Now,
-        //        Name = "TestName",
-        //        Surname = "TestSurname",
-        //        RegisterDate = DateTime.Now,
-        //        Password = "Password"
-        //    });
-
-        //    //Assert
-        //    Assert.Equal("testemail@email.com", dbContext.Users.Where(i => i.Login == "TestLogin").Single().Email);
-        //}
-
-
-        //private class DatabaseCont:DbContext
-        //{
-        //    public DbSet<User> Users { get; set; }
-        //    public DbSet<Post> Posts { get; set; }
-        //    public DbSet<Comment> Comments { get; set; }
-        //    public DbSet<Token> Tokens { get; set; }
-
-
-        //    public DatabaseCont(DbContextOptions<DatabaseContext> options)
-        //        : base(options)
-        //    {
-        //        Database.EnsureCreated();
-        //    }
-
-        //    public override 
-        //}
+            mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
+            var userRepo = new UserRepository(mockDbContext.Object);
+            //Act
+            var result = await userRepo.GetUserById(1);
+            //Assert
+            Assert.Equal("Login1", result.Login);
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Blog.Services.Tests
             await Assert.ThrowsAsync<InvalidOperationException>(async() => await result);
         }
         [Fact]
-        public async void SearchUsers_GetUserListByLoginNameSurname()
+        public void SearchUsers_GetUserListByLoginNameSurname()
         {
             //Arrange
             var userRepo = new Mock<IUserRepository>();
@@ -69,7 +69,7 @@ namespace Blog.Services.Tests
                 new UserViewModel(0, "Login2", "Name2", "Surname2", DateTime.MinValue, DateTime.MinValue, "email2@mail.ru", "Password2"),
                 new UserViewModel(0, "Login3", "Name3", "Surname3", DateTime.MinValue, DateTime.MinValue, "email3@mail.ru", "Password3")
             };
-            Assert.Equal(expected, result.Result);
+            Assert.Equal(expected.Count, result.Result.Count);
         }
     }
 }

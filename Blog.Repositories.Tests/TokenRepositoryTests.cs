@@ -1,0 +1,44 @@
+﻿using Data;
+using Domain.Core;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Xunit;
+
+namespace Blog.Repositories.Tests
+{
+    public class TokenRepositoryTests
+    {
+        [Fact]
+        public async void GetUserIdByToken_AddTokenWithUserIdAndGetUserId()
+        {
+            //Arrange
+            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbSetOfTokens = new Mock<DbSet<Token>>();
+            IQueryable<Token> data = new List<Token>()
+            {
+                new Token() { Id = 1, StrToken = "Token", UserId = 1000 },
+            }.AsQueryable();
+
+            mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.Provider).Returns(
+                new TestAsyncQueryProvider<Token>(data.Provider)
+                );
+            mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            mockDbContext.Setup(a => a.Tokens).Returns(mockDbSetOfTokens.Object);
+
+            var tokenRepo = new TokenRepository(mockDbContext.Object);
+
+            //Act
+            var result = await tokenRepo.GetUserIdByToken("Token");
+
+            //Assert
+            Assert.Equal(data.Single().UserId, result);
+        }
+    }
+}

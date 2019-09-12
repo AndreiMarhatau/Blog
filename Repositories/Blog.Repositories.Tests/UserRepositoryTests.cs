@@ -150,7 +150,7 @@ namespace Blog.Repositories.Tests
                 .Returns(
                 () => {
                     Assert.True(true);
-                    return (EntityEntry<User>)null;
+                    return null;
                 });
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetUsers.Object);
 

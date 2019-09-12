@@ -1,11 +1,7 @@
-﻿using Data;
-using Domain.Core;
+﻿using Domain.Core;
 using Interfaces;
 using IServices;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BL

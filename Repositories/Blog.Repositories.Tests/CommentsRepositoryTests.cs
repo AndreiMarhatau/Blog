@@ -24,7 +24,7 @@ namespace Blog.Repositories.Tests
                 .Returns(
                 () => {
                     Assert.True(true);
-                    return (EntityEntry<Comment>)null;
+                    return null;
                 });
             mockDbContext.Setup(a => a.Comments).Returns(mockDbSetComments.Object);
 

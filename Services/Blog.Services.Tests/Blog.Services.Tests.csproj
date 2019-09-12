@@ -14,12 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog\Blog.csproj" />
+    <ProjectReference Include="..\..\Repositories\Interfaces\Interfaces.csproj" />
     <ProjectReference Include="..\BL\BL.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\IServices\IServices.csproj" />
   </ItemGroup>
 
 </Project>

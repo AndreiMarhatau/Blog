@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace BL
 {
@@ -26,7 +27,7 @@ namespace BL
             List<Post> posts = await _postsRepository.GetPostsByUserId(id);
 
             List<PostViewModel> postsWithComments = new List<PostViewModel>();
-            User user = await _userRepository.GetUserById(id);
+            UserInfo user = (await _userRepository.GetUserById(id)).ToUserInfo();
 
             foreach (var post in posts)
             {
@@ -34,31 +35,12 @@ namespace BL
                 List<CommentInPost> commentsInPost = new List<CommentInPost>();
                 foreach (var comment in post.Comments)
                 {
-                    var author = await _userRepository.GetUserById(comment.AuthorId);
-                    commentsInPost.Add(new CommentInPost(
-                        comment.Id,
-                        author.Name,
-                        author.Surname,
-                        comment.PostId,
-                        comment.UserId,
-                        comment.AuthorId,
-                        comment.Text,
-                        comment.Date,
-                        comment.CommentId
-                        //Add other information if needed
-                    ));
+                    UserInfo author = (await _userRepository.GetUserById(comment.AuthorId)).ToUserInfo();
+                    commentsInPost.Add(comment.ToCommentInPost(author));
                 }
 
                 //Preparation post and add to result list
-                postsWithComments.Add(new PostViewModel(
-                    post.Id,
-                    user.Name,
-                    user.Surname,
-                    post.UserId,
-                    post.Text,
-                    post.Date
-                    //Add other information if needed
-                , commentsInPost));
+                postsWithComments.Add(post.ToPostViewModel(commentsInPost, user));
             }
 
             return postsWithComments;

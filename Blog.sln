@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{BBAE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Services.Tests", "Blog.Tests\Blog.Services.Tests.csproj", "{CF30CDDF-8256-4FAE-AE71-09ABD775FECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Repositories.Tests", "Blog.Repositories.Tests\Blog.Repositories.Tests.csproj", "{89024495-D15F-460E-B129-CC2949C0A217}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Repositories.Tests", "Blog.Repositories.Tests\Blog.Repositories.Tests.csproj", "{89024495-D15F-460E-B129-CC2949C0A217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{09F0E16B-370A-4699-B517-B580EAE6D64F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{89024495-D15F-460E-B129-CC2949C0A217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89024495-D15F-460E-B129-CC2949C0A217}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89024495-D15F-460E-B129-CC2949C0A217}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F0E16B-370A-4699-B517-B580EAE6D64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F0E16B-370A-4699-B517-B580EAE6D64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F0E16B-370A-4699-B517-B580EAE6D64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F0E16B-370A-4699-B517-B580EAE6D64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

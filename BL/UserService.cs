@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data;
 using Domain.Core;
+using Helpers;
 using Interfaces;
 using IServices;
 using Microsoft.EntityFrameworkCore;
@@ -35,18 +36,7 @@ namespace BL
             List<UserViewModel> result = new List<UserViewModel>();
             foreach (var i in resultList)
             {
-                result.Add(
-                    new UserViewModel
-                    (
-                        i.Id,
-                        i.Login,
-                        i.Name,
-                        i.Surname,
-                        i.BornDate,
-                        i.RegisterDate,
-                        i.Email,
-                        i.Password
-                    ));
+                result.Add(i.ToUserViewModel());
             }
             return result;
         }
@@ -87,17 +77,7 @@ namespace BL
         {
             User i = await _userRepository.GetUserById(id);
 
-            UserViewModel user = new UserViewModel
-                    (
-                        i.Id,
-                        i.Login,
-                        i.Name,
-                        i.Surname,
-                        i.BornDate,
-                        i.RegisterDate,
-                        i.Email,
-                        i.Password
-                        );
+            UserViewModel user = i.ToUserViewModel();
 
             return user;
         }
@@ -106,17 +86,7 @@ namespace BL
         {
             User i = await _userRepository.GetUserByLogin(Login);
 
-            UserViewModel user = new UserViewModel
-                    (
-                        i.Id,
-                        i.Login,
-                        i.Name,
-                        i.Surname,
-                        i.BornDate,
-                        i.RegisterDate,
-                        i.Email,
-                        i.Password
-                        );
+            UserViewModel user = i.ToUserViewModel();
 
             return user;
         }

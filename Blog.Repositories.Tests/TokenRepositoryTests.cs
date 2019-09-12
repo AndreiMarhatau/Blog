@@ -1,6 +1,7 @@
 ﻿using Data;
 using Domain.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,26 @@ namespace Blog.Repositories.Tests
 
             //Assert
             Assert.Equal(data.Single().UserId, result);
+        }
+        [Fact]
+        public async void AddToken()
+        {
+            //Arrange
+            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbSetTokens = new Mock<DbSet<Token>>();
+
+            mockDbSetTokens
+                .Setup(a => a.Add(new Token()))
+                .Returns(
+                () => {
+                    Assert.True(true);
+                    return (EntityEntry<Token>)null;
+                });
+            mockDbContext.Setup(a => a.Tokens).Returns(mockDbSetTokens.Object);
+
+            var tokensRepo = new TokenRepository(mockDbContext.Object);
+            //Act
+            await tokensRepo.AddToken(new Token());
         }
     }
 }

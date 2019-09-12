@@ -21,7 +21,7 @@ namespace Blog.Services.Tests
             postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
             usersRepo.Setup(a => a.GetUserById(1)).ReturnsAsync(GetUserById(1));
             usersRepo.Setup(a => a.GetUserById(2)).ReturnsAsync(GetUserById(2));
-            
+
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
                 postsRepo.Object, usersRepo.Object);
             //Act
@@ -33,12 +33,12 @@ namespace Blog.Services.Tests
                 (await result)[0].Comments.Count == 4 &&
                 (await result)[0].Comments[1].Id == 2
                 );
+        }
 
-
-            List<Post> GetPostsByUserId(int id)
-            {
-                List<Post> posts = new List<Post>();
-                posts.AddRange(new List<Post>()
+        private List<Post> GetPostsByUserId(int id)
+        {
+            List<Post> posts = new List<Post>();
+            posts.AddRange(new List<Post>()
             {
                 new Post()
                 {
@@ -103,41 +103,40 @@ namespace Blog.Services.Tests
                 }
             });
 
-                return posts;
-            }
-            User GetUserById(int id)
+            return posts;
+        }
+        private User GetUserById(int id)
+        {
+            if (id == 1)
             {
-                if (id == 1)
+                return new User()
                 {
-                    return new User()
-                    {
-                        Id = 1,
-                        BornDate = DateTime.Now,
-                        Email = "fsdf@mail.ru",
-                        Login = "Andr1o",
-                        Name = "Andrey",
-                        Surname = "Margatov",
-                        RegisterDate = DateTime.Now,
-                        Password = "fdsafuhdanfkjwehy fqukywegfh kjbwfwgeqfckhbj"
-                    };
-                }
-                else if (id == 2)
-                {
-                    return new User()
-                    {
-                        Id = 2,
-                        BornDate = DateTime.Now,
-                        Email = "fs1fdsf@mail.ru",
-                        Login = "Andr",
-                        Name = "Andrey2",
-                        Surname = "Margatov2",
-                        RegisterDate = DateTime.Now,
-                        Password = "fdsafuhdanfkjwehy fqukywegfh kjbwfwgeqfckhbj"
-                    };
-                }
-                else
-                    throw new NotImplementedException();
+                    Id = 1,
+                    BornDate = DateTime.Now,
+                    Email = "fsdf@mail.ru",
+                    Login = "Andr1o",
+                    Name = "Andrey",
+                    Surname = "Margatov",
+                    RegisterDate = DateTime.Now,
+                    Password = "fdsafuhdanfkjwehy fqukywegfh kjbwfwgeqfckhbj"
+                };
             }
+            else if (id == 2)
+            {
+                return new User()
+                {
+                    Id = 2,
+                    BornDate = DateTime.Now,
+                    Email = "fs1fdsf@mail.ru",
+                    Login = "Andr",
+                    Name = "Andrey2",
+                    Surname = "Margatov2",
+                    RegisterDate = DateTime.Now,
+                    Password = "fdsafuhdanfkjwehy fqukywegfh kjbwfwgeqfckhbj"
+                };
+            }
+            else
+                throw new NotImplementedException();
         }
     }
 }

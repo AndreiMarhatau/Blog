@@ -13,6 +13,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Blog.Repositories.Tests
 {
@@ -136,6 +137,26 @@ namespace Blog.Repositories.Tests
 
             //Assert
             Assert.Equal(2, result.Count);
+        }
+        [Fact]
+        public async void AddUser()
+        {
+            //Arrange
+            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbSetUsers = new Mock<DbSet<User>>();
+
+            mockDbSetUsers
+                .Setup(a => a.Add(new User()))
+                .Returns(
+                () => {
+                    Assert.True(true);
+                    return (EntityEntry<User>)null;
+                });
+            mockDbContext.Setup(a => a.Users).Returns(mockDbSetUsers.Object);
+
+            var usersRepo = new UserRepository(mockDbContext.Object);
+            //Act
+            await usersRepo.AddUser(new User());
         }
     }
 }

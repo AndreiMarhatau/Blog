@@ -48,6 +48,7 @@ namespace Helpers
         {
             return new UserInfo()
             {
+                Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname
             };

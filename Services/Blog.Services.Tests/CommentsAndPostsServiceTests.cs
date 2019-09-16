@@ -19,8 +19,8 @@ namespace Blog.Services.Tests
             var postsRepo = new Mock<IPostsRepository>();
             var usersRepo = new Mock<IUserRepository>();
             postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
-            usersRepo.Setup(a => a.GetUserById(1)).ReturnsAsync(GetUserById(1));
-            usersRepo.Setup(a => a.GetUserById(2)).ReturnsAsync(GetUserById(2));
+            usersRepo.Setup(a => a.GetManyUsersByIds(1,2)).ReturnsAsync(new List<User> { GetUserById(1), GetUserById(2) });
+            //usersRepo.Setup(a => a.GetUserById(2)).ReturnsAsync(GetUserById(2));
 
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
                 postsRepo.Object, usersRepo.Object);

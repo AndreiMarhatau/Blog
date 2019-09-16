@@ -158,5 +158,36 @@ namespace Blog.Repositories.Tests
             //Act
             await usersRepo.AddUser(new User());
         }
+        [Fact]
+        public async void GetManyUsersByIds()
+        {
+            //Arrange
+            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbSetOfUsers = new Mock<DbSet<User>>();
+
+            IQueryable<User> data = new List<User>()
+            {
+                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Andrey", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = 2, BornDate = DateTime.Now, Email = "mail2@mail.ru", Login = "Login2", Name = "Andrei", Surname = "Surname2", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = 3, BornDate = DateTime.Now, Email = "mail3@mail.ru", Login = "Login3", Name = "Gennadiy", Surname = "Surname3", RegisterDate = DateTime.Now, Password = "Password" },
+            }.AsQueryable();
+
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
+                new TestAsyncQueryProvider<User>(data.Provider)
+                );
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
+
+            var userRepo = new UserRepository(mockDbContext.Object);
+
+            //Act
+            var result = await userRepo.GetManyUsersByIds(1,2);
+
+            //Assert
+            Assert.Equal(2, result.Count);
+        }
     }
 }

@@ -27,7 +27,22 @@ namespace BL
             List<Post> posts = await _postsRepository.GetPostsByUserId(id);
 
             List<PostViewModel> postsWithComments = new List<PostViewModel>();
-            UserInfo user = (await _userRepository.GetUserById(id)).ToUserInfo();
+
+            List<int> ids = new List<int>();
+            foreach(var post in posts)
+            {
+                ids.Add(post.UserId);
+                foreach(var comment in post.Comments)
+                {
+                    ids.Add(comment.AuthorId);
+                }
+            }
+            ids = ids.Distinct().ToList();
+
+            List<UserInfo> userInfoList = 
+                (await _userRepository.GetManyUsersByIds(ids.ToArray()))
+                .Select(u => u.ToUserInfo())
+                .ToList();
 
             foreach (var post in posts)
             {
@@ -35,12 +50,11 @@ namespace BL
                 List<CommentInPost> commentsInPost = new List<CommentInPost>();
                 foreach (var comment in post.Comments)
                 {
-                    UserInfo author = (await _userRepository.GetUserById(comment.AuthorId)).ToUserInfo();
-                    commentsInPost.Add(comment.ToCommentInPost(author));
+                    commentsInPost.Add(comment.ToCommentInPost(userInfoList.Single(i => i.Id == comment.AuthorId)));
                 }
 
                 //Preparation post and add to result list
-                postsWithComments.Add(post.ToPostViewModel(commentsInPost, user));
+                postsWithComments.Add(post.ToPostViewModel(commentsInPost, userInfoList.Single(i => i.Id == post.UserId)));
             }
 
             return postsWithComments;

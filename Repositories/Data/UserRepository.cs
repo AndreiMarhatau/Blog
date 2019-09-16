@@ -46,5 +46,10 @@ namespace Data
                                        i.Name.Contains(Name, StringComparison.OrdinalIgnoreCase) &&
                                        i.Surname.Contains(Surname, StringComparison.OrdinalIgnoreCase)).ToListAsync();
         }
+        
+        public async Task<List<User>> GetManyUsersByIds(params int[] ids)
+        {
+            return await db.Users.Where(i => ids.Contains(i.Id)).ToListAsync();
+        }
     }
 }

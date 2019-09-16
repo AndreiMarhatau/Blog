@@ -28,19 +28,19 @@ namespace BL
 
             List<PostViewModel> postsWithComments = new List<PostViewModel>();
 
-            List<int> ids = new List<int>();
+            List<int> idsList = new List<int>();
             foreach(var post in posts)
             {
-                ids.Add(post.UserId);
+                idsList.Add(post.UserId);
                 foreach(var comment in post.Comments)
                 {
-                    ids.Add(comment.AuthorId);
+                    idsList.Add(comment.AuthorId);
                 }
             }
-            ids = ids.Distinct().ToList();
+            var idsArray = idsList.Distinct().ToArray();
 
             List<UserInfo> userInfoList = 
-                (await _userRepository.GetManyUsersByIds(ids.ToArray()))
+                (await _userRepository.GetManyUsersByIds(idsArray))
                 .Select(u => u.ToUserInfo())
                 .ToList();
 

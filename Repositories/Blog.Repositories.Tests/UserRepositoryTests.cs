@@ -133,7 +133,7 @@ namespace Blog.Repositories.Tests
             var userRepo = new UserRepository(mockDbContext.Object);
 
             //Act
-            var result = await userRepo.GetUserListByLoginNameSurname("login", "andre", "");
+            var result = await userRepo.GetUserListByLoginNameSurname("Login", "Andre", "");
 
             //Assert
             Assert.Equal(2, result.Count);

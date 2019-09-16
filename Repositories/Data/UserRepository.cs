@@ -42,9 +42,9 @@ namespace Data
 
         public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
         {
-            return await db.Users.Where(i => i.Login.Contains(Login, StringComparison.OrdinalIgnoreCase) &&
-                                       i.Name.Contains(Name, StringComparison.OrdinalIgnoreCase) &&
-                                       i.Surname.Contains(Surname, StringComparison.OrdinalIgnoreCase)).ToListAsync();
+            return await db.Users.Where(i => i.Login.Contains(Login) &&
+                                       i.Name.Contains(Name) &&
+                                       i.Surname.Contains(Surname)).ToListAsync();
         }
         
         public async Task<List<User>> GetManyUsersByIds(params int[] ids)

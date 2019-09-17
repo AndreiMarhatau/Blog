@@ -1,26 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Core
+namespace EntityModels
 {
     public class Comment
     {
+        [Key]
         public int Id { get; set; }
         public int PostId { get; set; }
         public int UserId { get; set; }
-        public User Author { get; set; }
+        public int AuthorId { get; set; }
         public int CommentId { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        
 
-        public bool IsValidData()
-        {
-            if (Text == null ||
-                Text.Replace(" ", "").Equals(""))
-            {
-                return false;
-            }
-            return true;
-        }
+        public User Author { get; set; }
     }
 }

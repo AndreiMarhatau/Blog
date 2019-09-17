@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Blog.Models;
 using IServices;
-using BL;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Helpers;
+using Domain.Core;
 
 namespace Blog.Controllers
 {
@@ -44,10 +39,10 @@ namespace Blog.Controllers
             }
             
             //Create result list of search
-            List<UserViewModel> resultList = await userService.SearchUsers(Login, Name, Surname);
+            List<User> resultList = await userService.SearchUsers(Login, Name, Surname);
             string pathBase = HttpContext.Request.PathBase;
 
-            return View("Search", new Tuple<List<UserViewModel>, string>(resultList, pathBase));
+            return View("Search", new Tuple<List<User>, string>(resultList, pathBase));
         }
         public async Task<IActionResult> SearchUsers()
         {

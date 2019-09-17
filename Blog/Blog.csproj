@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Repositories\Data\Data.csproj" />
+    <ProjectReference Include="..\Repositories\Data\Repositories.csproj" />
     <ProjectReference Include="..\Services\BL\BL.csproj" />
     <ProjectReference Include="..\Services\IServices\IServices.csproj" />
   </ItemGroup>

@@ -1,11 +1,7 @@
 ﻿using BL;
-using Domain.Core;
 using Interfaces;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Blog.Services.Tests
@@ -13,7 +9,7 @@ namespace Blog.Services.Tests
     public class CommentsServiceTests
     {
         [Fact]
-        public async void AddComment_AddInvalidComment()
+        public async void AddComment_AddInvalidComment_ReturnsThrowArgumentException()
         {
             //Arrange
             var mockRepository = new Mock<ICommentsRepository>();

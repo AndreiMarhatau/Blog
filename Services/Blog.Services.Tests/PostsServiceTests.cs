@@ -2,8 +2,6 @@
 using Interfaces;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Blog.Services.Tests
@@ -11,7 +9,7 @@ namespace Blog.Services.Tests
     public class PostsServiceTests
     {
         [Fact]
-        public async void AddPost_AddInvalidPost()
+        public async void AddPost_AddInvalidPost_ReturnsThrowArgumentException()
         {
             //Arrange
             var mockRepository = new Mock<IPostsRepository>();

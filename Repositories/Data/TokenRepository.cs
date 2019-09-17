@@ -1,13 +1,11 @@
 ﻿using Domain.Core;
 using Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using Repositories.Helpers;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Repositories
 {
     public class TokenRepository : ITokenRepository
     {
@@ -19,7 +17,7 @@ namespace Data
         }
         public async Task AddToken(Token token)
         {
-            db.Tokens.Add(token);
+            db.Tokens.Add(token.ToEntityModel());
             await db.SaveChangesAsync();
         }
 
@@ -30,7 +28,7 @@ namespace Data
 
         public async Task RmToken(Token token)
         {
-            db.Tokens.Remove(token);
+            db.Tokens.Remove(token.ToEntityModel());
             await db.SaveChangesAsync();
         }
     }

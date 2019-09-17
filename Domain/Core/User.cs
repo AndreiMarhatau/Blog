@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Domain.Core
 {
@@ -16,6 +12,20 @@ namespace Domain.Core
         public DateTime RegisterDate { get; set; } = DateTime.Now;
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public User() { }
+
+        public User(int Id, string Login, string Name, string Surname, DateTime BornDate, DateTime RegisterDate, string Email, string Password)
+        {
+            this.Id = Id;
+            this.Login = Login;
+            this.Name = Name;
+            this.Surname = Surname;
+            this.BornDate = BornDate;
+            this.RegisterDate = RegisterDate;
+            this.Email = Email;
+            this.Password = Password;
+        }
 
         public bool IsValidData()
         {

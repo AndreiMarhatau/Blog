@@ -1,13 +1,9 @@
 ﻿using Domain.Core;
 using Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Repositories.Helpers;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Repositories
 {
     public class CommentsRepository : ICommentsRepository
     {
@@ -20,7 +16,7 @@ namespace Data
 
         public async Task AddComment(Comment comment)
         {
-            db.Comments.Add(comment);
+            db.Comments.Add(comment.ToEntityModel());
             await db.SaveChangesAsync();
         }
     }

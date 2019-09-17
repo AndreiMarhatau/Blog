@@ -1,13 +1,12 @@
 ﻿using Domain.Core;
 using Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Repositories.Helpers;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Repositories
 {
     public class PostsRepository:IPostsRepository
     {
@@ -20,18 +19,20 @@ namespace Data
 
         public async Task AddPost(Post post)
         {
-            db.Posts.Add(post);
+            db.Posts.Add(post.ToEntityModel());
             await db.SaveChangesAsync();
         }
 
         public async Task<List<Post>> GetPostsByUserId(int id)
         {
-            var a = await db.Posts
-                .Where(i => i.UserId == id)
+            return
+                (await db.Posts
+                .Where(p => p.UserId == id)
+                .OrderByDescending(p => p.Id)
                 .Include(i => i.Comments)
-                .OrderByDescending(i => i.Id)
-                .ToListAsync();
-            return a;
+                    .ThenInclude(c => c.Author)
+                .Include(i => i.Author)
+                .ToListAsync()).Select(i => i.ToDomainModel()).ToList();
         }
     }
 }

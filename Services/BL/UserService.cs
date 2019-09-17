@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Core;
-using Helpers;
 using Interfaces;
 using IServices;
 
@@ -19,7 +18,7 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<UserViewModel>> SearchUsers(string Login, string Name, string Surname)
+        public async Task<List<User>> SearchUsers(string Login, string Name, string Surname)
         {
             //Check params
             if (Name == null) Name = "";
@@ -30,10 +29,10 @@ namespace BL
             var resultList = await _userRepository.GetUserListByLoginNameSurname(Login, Name, Surname);
 
             //Create dictionary from result list
-            List<UserViewModel> result = new List<UserViewModel>();
+            List<User> result = new List<User>();
             foreach (var i in resultList)
             {
-                result.Add(i.ToUserViewModel());
+                result.Add(i);
             }
             return result;
         }
@@ -70,22 +69,14 @@ namespace BL
             return User.Id;
         }
 
-        public async Task<UserViewModel> GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            User i = await _userRepository.GetUserById(id);
-
-            UserViewModel user = i.ToUserViewModel();
-
-            return user;
+            return await _userRepository.GetUserById(id);
         }
 
-        public async Task<UserViewModel> GetUserByLogin(string Login)
+        public async Task<User> GetUserByLogin(string Login)
         {
-            User i = await _userRepository.GetUserByLogin(Login);
-
-            UserViewModel user = i.ToUserViewModel();
-
-            return user;
+            return await _userRepository.GetUserByLogin(Login);
         }
     }
 }

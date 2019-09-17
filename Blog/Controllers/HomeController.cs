@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Models;
 using System.Text;
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions;
 using IServices;
 
 namespace Blog.Controllers

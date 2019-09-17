@@ -2,8 +2,6 @@
 using Interfaces;
 using IServices;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BL
@@ -23,7 +21,7 @@ namespace BL
             {
                 PostId = PostId,
                 UserId = UserId,
-                AuthorId = AuthorId,
+                Author = new User() { Id = AuthorId },
                 CommentId = CommentId,
                 Text = Text
             };

@@ -1,5 +1,5 @@
-﻿@using Helpers;
-@model Tuple<bool, List<PostViewModel>>
+﻿@using Domain.Core;
+@model Tuple<bool, List<Post>>
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -36,13 +36,13 @@
     <div id="post">
     <br><br><div class="post_@post.Id">
     @post.Date<br>
-    @post.UserName @post.UserSurname пишет:<br>
+    @post.Author.Name @post.Author.Surname пишет:<br>
     @post.Text
     <br>
     <form>
 
         <input type="hidden" name="PostId" value=@post.Id />
-        <input type="hidden" name="UserId" value=@post.UserId />
+        <input type="hidden" name="UserId" value=@post.Author.Id />
         <textarea name="Text"></textarea>
         <input type="hidden" name="CommentId" value=-1 />
         <input type="submit" value="Добавить комментарий"
@@ -54,12 +54,12 @@
         {
     <div class="comment_@comment.Id">
         @comment.Date<br>
-        @comment.AuthorName @comment.AuthorSurname комментирует:<br>
+        @comment.Author.Name @comment.Author.Surname комментирует:<br>
         @{
             if(comment.CommentId != -1)
             {
                 var com = post.Comments.Where(c => c.Id == comment.CommentId).Single();
-                comment.Text = $"@{com.AuthorName} {com.AuthorSurname}, {comment.Text}";
+                comment.Text = $"@{com.Author.Name} {com.Author.Surname}, {comment.Text}";
             }
         }
         @comment.Text

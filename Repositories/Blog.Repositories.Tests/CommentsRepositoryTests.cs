@@ -1,19 +1,15 @@
-﻿using Data;
-using Domain.Core;
+﻿using Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
+using EntityModels;
 
 namespace Blog.Repositories.Tests
 {
     public class CommentsRepositoryTests
     {
         [Fact]
-        public async void AddToken()
+        public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
@@ -30,7 +26,7 @@ namespace Blog.Repositories.Tests
 
             var commentsRepo = new CommentsRepository(mockDbContext.Object);
             //Act
-            await commentsRepo.AddComment(new Comment());
+            await commentsRepo.AddComment(new Domain.Core.Comment() { Author = new Domain.Core.User()});
         }
     }
 }

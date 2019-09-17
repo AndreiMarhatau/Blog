@@ -1,12 +1,9 @@
 ﻿using Domain.Core;
 using Interfaces;
 using IServices;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Helpers;
 
 namespace BL
 {
@@ -21,36 +18,13 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<PostViewModel>>
+        public async Task<List<Post>>
             GetCommentsAndPostsByUserId(int id)
         {
-            List<Post> posts = await _postsRepository.GetPostsByUserId(id);
-
-            List<PostViewModel> postsWithComments = new List<PostViewModel>();
-
-            if (posts.Count > 0)
-            {
-                int[] idsArray = new int[] { posts.First().UserId }
-                    .Union(
-                    from post in posts
-                    from comm in post.Comments
-                    select comm.AuthorId
-                    ).ToArray();
-
-                List<UserInfo> userInfoList =
-                    (await _userRepository.GetManyUsersByIds(idsArray))
-                    .Select(u => u.ToUserInfo())
-                    .ToList();
-
-                postsWithComments.AddRange(
-                    from post in posts
-                    let commentsInPost =
-                        from comm in post.Comments
-                        orderby comm.Id
-                        select comm.ToCommentInPost(userInfoList.Single(i => i.Id == comm.AuthorId))
-                    select post.ToPostViewModel(commentsInPost, userInfoList.Single(i => i.Id == post.UserId)));
-            }
-            return postsWithComments;
+            var posts = (await _postsRepository.GetPostsByUserId(id)).OrderByDescending(p => p.Id);
+            foreach (var post in posts)
+                post.Comments = post.Comments.OrderBy(c => c.Id).ToList();
+            return posts.ToList();
         }
     }
 }

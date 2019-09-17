@@ -3,8 +3,6 @@ using Domain.Core;
 using Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Moq;
 
@@ -13,14 +11,12 @@ namespace Blog.Services.Tests
     public class CommentsAndPostsServiceTests
     {
         [Fact]
-        public async void GetCommentsAndPostsByUserIdTest()
+        public async void GetCommentsAndPostsByUserId_Add2Posts4CommentsAnd2UsersAndCheckCountAndOrder_Returns2PostsOrderByDescIdAnd4CommentsOrderById()
         {
             //Arrange
             var postsRepo = new Mock<IPostsRepository>();
             var usersRepo = new Mock<IUserRepository>();
             postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
-            usersRepo.Setup(a => a.GetManyUsersByIds(1,2)).ReturnsAsync(new List<User> { GetUserById(1), GetUserById(2) });
-            //usersRepo.Setup(a => a.GetUserById(2)).ReturnsAsync(GetUserById(2));
 
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
                 postsRepo.Object, usersRepo.Object);
@@ -42,26 +38,27 @@ namespace Blog.Services.Tests
             {
                 new Post()
                 {
+                    Id = 1,
+                    Author = GetUserById(1),
+                    Date = DateTime.Now,
+                    Text = "Пост 1",
+                    Comments = new List<Comment>()
+                    {
+
+                    }
+                },
+                new Post()
+                {
                     Id = 2,
-                    UserId = 1,
+                    Author = GetUserById(1),
                     Date = DateTime.Now,
                     Text = "Пост 2",
                     Comments = new List<Comment>()
                     {
                         new Comment()
                         {
-                            Id = 1,
-                            AuthorId = 1,
-                            CommentId = -1,
-                            PostId = 2,
-                            UserId = 1,
-                            Date = DateTime.Now,
-                            Text = "Комментарий 1"
-                        },
-                        new Comment()
-                        {
                             Id = 2,
-                            AuthorId = 2,
+                            Author = GetUserById(2),
                             CommentId = 1,
                             PostId = 2,
                             UserId = 1,
@@ -71,7 +68,7 @@ namespace Blog.Services.Tests
                         new Comment()
                         {
                             Id = 3,
-                            AuthorId = 1,
+                            Author = GetUserById(1),
                             CommentId = 2,
                             PostId = 2,
                             UserId = 1,
@@ -80,25 +77,24 @@ namespace Blog.Services.Tests
                         },
                         new Comment()
                         {
+                            Id = 1,
+                            Author = GetUserById(1),
+                            CommentId = -1,
+                            PostId = 2,
+                            UserId = 1,
+                            Date = DateTime.Now,
+                            Text = "Комментарий 1"
+                        },
+                        new Comment()
+                        {
                             Id = 4,
-                            AuthorId = 2,
+                            Author = GetUserById(2),
                             CommentId = 1,
                             PostId = 2,
                             UserId = 1,
                             Date = DateTime.Now,
                             Text = "Комментарий 4"
                         }
-                    }
-                },
-                new Post()
-                {
-                    Id = 1,
-                    UserId = 1,
-                    Date = DateTime.Now,
-                    Text = "Пост 1",
-                    Comments = new List<Comment>()
-                    {
-
                     }
                 }
             });

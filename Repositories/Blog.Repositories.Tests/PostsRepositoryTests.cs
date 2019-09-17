@@ -1,14 +1,11 @@
-﻿using Data;
-using Domain.Core;
+﻿using Repositories;
+using EntityModels;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Blog.Repositories.Tests
@@ -16,7 +13,7 @@ namespace Blog.Repositories.Tests
     public class PostsRepositoryTests
     {
         [Fact]
-        public async void GetPostsByUserId_AddPostWithCommentsAndGetThem()
+        public async void GetPostsByUserId_Add1PostAnd1CommentToDb_Returns1CommentIn1Post()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -39,8 +36,15 @@ namespace Blog.Repositories.Tests
                     {
                         new Comment() {Id=1,AuthorId=1000,CommentId=-1,PostId=1,UserId=1000,Date=DateTime.Now,Text="Comment1"},
                     };
+
+                    var users = new List<User>()
+                    {
+                        new User(){Id=1000}
+                    };
+
                     context.Posts.AddRange(posts);
                     context.Comments.AddRange(comments);
+                    context.Users.AddRange(users);
                     context.SaveChanges();
 
                     var postsRepo = new PostsRepository(context);
@@ -56,7 +60,7 @@ namespace Blog.Repositories.Tests
             }
         }
         [Fact]
-        public async void AddPost()
+        public async void AddPost_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
@@ -73,7 +77,7 @@ namespace Blog.Repositories.Tests
 
             var postsRepo = new PostsRepository(mockDbContext.Object);
             //Act
-            await postsRepo.AddPost(new Post());
+            await postsRepo.AddPost(new Domain.Core.Post() { Author = new Domain.Core.User() });
         }
     }
 }

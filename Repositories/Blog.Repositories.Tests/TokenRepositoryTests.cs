@@ -1,12 +1,9 @@
-﻿using Data;
-using Domain.Core;
+﻿using Repositories;
+using EntityModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Blog.Repositories.Tests
@@ -14,7 +11,7 @@ namespace Blog.Repositories.Tests
     public class TokenRepositoryTests
     {
         [Fact]
-        public async void GetUserIdByToken_AddTokenWithUserIdAndGetUserId()
+        public async void GetUserIdByToken_AddTokenWithUserId1AndGetUserId_Returns1()
         {
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
@@ -42,7 +39,7 @@ namespace Blog.Repositories.Tests
             Assert.Equal(data.Single().UserId, result);
         }
         [Fact]
-        public async void AddToken()
+        public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
@@ -59,7 +56,7 @@ namespace Blog.Repositories.Tests
 
             var tokensRepo = new TokenRepository(mockDbContext.Object);
             //Act
-            await tokensRepo.AddToken(new Token());
+            await tokensRepo.AddToken(new Domain.Core.Token());
         }
     }
 }

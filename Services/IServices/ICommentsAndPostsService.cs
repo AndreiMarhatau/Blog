@@ -1,13 +1,11 @@
-﻿using Helpers;
-using System;
+﻿using Domain.Core;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IServices
 {
     public interface ICommentsAndPostsService
     {
-        Task<List<PostViewModel>> GetCommentsAndPostsByUserId(int id);
+        Task<List<Post>> GetCommentsAndPostsByUserId(int id);
     }
 }

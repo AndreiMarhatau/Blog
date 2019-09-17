@@ -3,19 +3,15 @@ using Domain.Core;
 using Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Moq;
-using Helpers;
 
 namespace Blog.Services.Tests
 {
     public class UserServiceTests
     {
         [Fact]
-        public async void AddUser_AddUserWithInvalidArguments()
+        public async void AddUser_AddUserWithInvalidArguments_ReturnsThrowArgumentException()
         {
             //Arrange
             var userRepo = new Mock<IUserRepository>();
@@ -26,7 +22,7 @@ namespace Blog.Services.Tests
             await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
         [Fact]
-        public async void AddUser_AddTwoUsersWithSameEmailOrLogin()
+        public async void AddUser_AddTwoUsersWithSameEmailOrLogin_ReturnsThrowArgumentException()
         {
             //Arrange
             var userRepo = new Mock<IUserRepository>();
@@ -38,7 +34,7 @@ namespace Blog.Services.Tests
             await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
         [Fact]
-        public async void CheckUser_CheckExistsUserByLoginPassword()
+        public async void CheckUser_InputInvalidPassword_ReturnsThrowInvalidOperationException()
         {
             //Arrange
             var userRepo = new Mock<IUserRepository>();
@@ -50,7 +46,7 @@ namespace Blog.Services.Tests
             await Assert.ThrowsAsync<InvalidOperationException>(async() => await result);
         }
         [Fact]
-        public void SearchUsers_GetUserListByLoginNameSurname()
+        public void SearchUsers_Add3UsersAndGetByLoginNameSurname_Returns3Users()
         {
             //Arrange
             var userRepo = new Mock<IUserRepository>();
@@ -64,13 +60,7 @@ namespace Blog.Services.Tests
             //Act
             var result = userService.SearchUsers("Login", "Name", "Surname");
             //Assert
-            var expected = new List<UserViewModel>
-            {
-                new UserViewModel(0, "Login1", "Name1", "Surname1", DateTime.MinValue, DateTime.MinValue, "email1@mail.ru", "Password1"),
-                new UserViewModel(0, "Login2", "Name2", "Surname2", DateTime.MinValue, DateTime.MinValue, "email2@mail.ru", "Password2"),
-                new UserViewModel(0, "Login3", "Name3", "Surname3", DateTime.MinValue, DateTime.MinValue, "email3@mail.ru", "Password3")
-            };
-            Assert.Equal(expected.Count, result.Result.Count);
+            Assert.Equal(3, result.Result.Count);
         }
     }
 }

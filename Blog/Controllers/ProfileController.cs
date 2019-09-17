@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Blog.Models;
 using IServices;
-using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Helpers;
+using Domain.Core;
 
 namespace Blog.Controllers
 {
@@ -73,8 +70,8 @@ namespace Blog.Controllers
             }
 
             //Add list of posts and comments to view model
-            Tuple<bool, List<PostViewModel>> Model =
-                new Tuple<bool, List<PostViewModel>> (
+            Tuple<bool, List<Post>> Model =
+                new Tuple<bool, List<Post>> (
                     isOwner, 
                     await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
                     );

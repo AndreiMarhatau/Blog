@@ -28,35 +28,28 @@ namespace BL
 
             List<PostViewModel> postsWithComments = new List<PostViewModel>();
 
-            List<int> idsList = new List<int>();
-            foreach(var post in posts)
+            if (posts.Count > 0)
             {
-                idsList.Add(post.UserId);
-                foreach(var comment in post.Comments)
-                {
-                    idsList.Add(comment.AuthorId);
-                }
+                int[] idsArray = new int[] { posts.First().UserId }
+                    .Union(
+                    from post in posts
+                    from comm in post.Comments
+                    select comm.AuthorId
+                    ).ToArray();
+
+                List<UserInfo> userInfoList =
+                    (await _userRepository.GetManyUsersByIds(idsArray))
+                    .Select(u => u.ToUserInfo())
+                    .ToList();
+
+                postsWithComments.AddRange(
+                    from post in posts
+                    let commentsInPost =
+                        from comm in post.Comments
+                        orderby comm.Id
+                        select comm.ToCommentInPost(userInfoList.Single(i => i.Id == comm.AuthorId))
+                    select post.ToPostViewModel(commentsInPost, userInfoList.Single(i => i.Id == post.UserId)));
             }
-            var idsArray = idsList.Distinct().ToArray();
-
-            List<UserInfo> userInfoList = 
-                (await _userRepository.GetManyUsersByIds(idsArray))
-                .Select(u => u.ToUserInfo())
-                .ToList();
-
-            foreach (var post in posts)
-            {
-                //Preparation comments
-                List<CommentInPost> commentsInPost = new List<CommentInPost>();
-                foreach (var comment in post.Comments)
-                {
-                    commentsInPost.Add(comment.ToCommentInPost(userInfoList.Single(i => i.Id == comment.AuthorId)));
-                }
-
-                //Preparation post and add to result list
-                postsWithComments.Add(post.ToPostViewModel(commentsInPost, userInfoList.Single(i => i.Id == post.UserId)));
-            }
-
             return postsWithComments;
         }
     }

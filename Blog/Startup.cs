@@ -8,8 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using IServices;
 using BL;
-using Interfaces;
 using Repositories;
+using Interfaces;
 
 namespace Blog
 {

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
-using EntityModels;
 
 namespace Blog.Repositories.Tests
 {
@@ -26,7 +25,7 @@ namespace Blog.Repositories.Tests
 
             var commentsRepo = new CommentsRepository(mockDbContext.Object);
             //Act
-            await commentsRepo.AddComment(new Domain.Core.Comment() { Author = new Domain.Core.User()});
+            await commentsRepo.AddComment(new DomainModels.Comment() { Author = new DomainModels.User()});
         }
     }
 }

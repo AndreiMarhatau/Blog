@@ -1,4 +1,4 @@
-﻿using Domain.Core;
+﻿using DomainModels;
 using System.Threading.Tasks;
 
 namespace Interfaces

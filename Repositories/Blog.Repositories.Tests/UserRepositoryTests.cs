@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Xunit;
 using Repositories;
-using EntityModels;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -150,7 +149,7 @@ namespace Blog.Repositories.Tests
 
             var usersRepo = new UserRepository(mockDbContext.Object);
             //Act
-            await usersRepo.AddUser(new Domain.Core.User());
+            await usersRepo.AddUser(new DomainModels.User());
         }
     }
 }

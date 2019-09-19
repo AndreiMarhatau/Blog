@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Core;
 using Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Helpers;
 
 namespace Repositories
 {
@@ -16,17 +14,17 @@ namespace Repositories
         {
             this.db = db;
         }
-        public async Task AddUser(User user)
+        public async Task AddUser(DomainModels.User user)
         {
             db.Users.Add(user.ToEntityModel());
             await db.SaveChangesAsync();
         }
         
-        public async Task<User> GetUserById(int id)
+        public async Task<DomainModels.User> GetUserById(int id)
         {
             return (await db.Users.Where(i => i.Id == id).SingleAsync()).ToDomainModel();
         }
-        public async Task<User> GetUserByLogin(string Login)
+        public async Task<DomainModels.User> GetUserByLogin(string Login)
         {
             return (await db.Users.Where(i => i.Login.Equals(Login)).SingleAsync()).ToDomainModel();
         }
@@ -38,7 +36,7 @@ namespace Repositories
                                           .Any();
         }
 
-        public async Task<List<User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
+        public async Task<List<DomainModels.User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
         {
             return await db.Users
                 .Where(i => i.Login.Contains(Login) &&

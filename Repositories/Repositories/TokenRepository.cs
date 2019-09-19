@@ -1,7 +1,5 @@
-﻿using Domain.Core;
-using Interfaces;
+﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +13,7 @@ namespace Repositories
         {
             this.db = db;
         }
-        public async Task AddToken(Token token)
+        public async Task AddToken(DomainModels.Token token)
         {
             db.Tokens.Add(token.ToEntityModel());
             await db.SaveChangesAsync();
@@ -26,7 +24,7 @@ namespace Repositories
             return (await db.Tokens.Where(j => j.StrToken.Equals(token)).SingleAsync()).UserId;
         }
 
-        public async Task RmToken(Token token)
+        public async Task RmToken(DomainModels.Token token)
         {
             db.Tokens.Remove(token.ToEntityModel());
             await db.SaveChangesAsync();

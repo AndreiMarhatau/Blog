@@ -19,10 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repositories\Data\Repositories.csproj" />
+    <ProjectReference Include="..\Repositories\Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories\Repositories.csproj" />
     <ProjectReference Include="..\Services\BLModels\BLModels.csproj" />
     <ProjectReference Include="..\Services\BL\BL.csproj" />
-    <ProjectReference Include="..\Services\IServices\IServices.csproj" />
+    <ProjectReference Include="..\Services\Interfaces\IServices.csproj" />
   </ItemGroup>
 
 </Project>

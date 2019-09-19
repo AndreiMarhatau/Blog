@@ -1,29 +1,32 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Repositories.Helpers
+namespace Repositories
 {
-    public static class Converter
+    internal static class Converter
     {
-        public static Domain.Core.Token ToDomainModel(this EntityModels.Token model)
+        internal static DomainModels.Token ToDomainModel(this Repositories.Token model)
         {
-            return new Domain.Core.Token()
+            return new DomainModels.Token()
             {
                 StrToken = model.StrToken,
                 UserId = model.UserId
             };
         }
-        public static EntityModels.Token ToEntityModel(this Domain.Core.Token model)
+        internal static Token ToEntityModel(this DomainModels.Token model)
         {
-            return new EntityModels.Token()
+            return new Token()
             {
                 StrToken = model.StrToken,
                 UserId = model.UserId
             };
         }
 
-        public static Domain.Core.User ToDomainModel(this EntityModels.User model)
+        internal static DomainModels.User ToDomainModel(this User model)
         {
-            return new Domain.Core.User(
+            return new DomainModels.User(
                 model.Id,
                 model.Login,
                 model.Name,
@@ -33,9 +36,9 @@ namespace Repositories.Helpers
                 model.Email,
                 model.Password);
         }
-        public static EntityModels.User ToEntityModel(this Domain.Core.User model)
+        internal static User ToEntityModel(this DomainModels.User model)
         {
-            return new EntityModels.User()
+            return new User()
             {
                 Id = model.Id,
                 Login = model.Login,
@@ -48,9 +51,9 @@ namespace Repositories.Helpers
             };
         }
 
-        public static Domain.Core.Post ToDomainModel(this EntityModels.Post model)
+        internal static DomainModels.Post ToDomainModel(this Post model)
         {
-            return new Domain.Core.Post()
+            return new DomainModels.Post()
             {
                 Id = model.Id,
                 Date = model.Date,
@@ -59,9 +62,9 @@ namespace Repositories.Helpers
                 Comments = model.Comments.Select(i => i.ToDomainModel()).ToList()
             };
         }
-        public static EntityModels.Post ToEntityModel(this Domain.Core.Post model)
+        internal static Post ToEntityModel(this DomainModels.Post model)
         {
-            return new EntityModels.Post()
+            return new Post()
             {
                 Id = model.Id,
                 UserId = model.Author.Id,
@@ -70,9 +73,9 @@ namespace Repositories.Helpers
             };
         }
 
-        public static Domain.Core.Comment ToDomainModel(this EntityModels.Comment model)
+        internal static DomainModels.Comment ToDomainModel(this Comment model)
         {
-            return new Domain.Core.Comment()
+            return new DomainModels.Comment()
             {
                 Id = model.Id,
                 Date = model.Date,
@@ -83,9 +86,9 @@ namespace Repositories.Helpers
                 UserId = model.UserId
             };
         }
-        public static EntityModels.Comment ToEntityModel(this Domain.Core.Comment model)
+        internal static Comment ToEntityModel(this DomainModels.Comment model)
         {
-            return new EntityModels.Comment()
+            return new Comment()
             {
                 Id = model.Id,
                 AuthorId = model.Author.Id,

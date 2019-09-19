@@ -7,7 +7,7 @@ namespace BLModels
 {
     public static class Converter
     {
-        public static User ToBLModel(this Domain.Core.User user)
+        public static User ToBLModel(this DomainModels.User user)
         {
             return new User(
                 user.Id,
@@ -19,7 +19,7 @@ namespace BLModels
                 user.Email
                 );
         }
-        public static List<Post> ToBLModel(this List<Domain.Core.Post> posts)
+        public static List<Post> ToBLModel(this List<DomainModels.Post> posts)
         {
             return
                 (from post in posts
@@ -43,7 +43,7 @@ namespace BLModels
                  }).ToList();
         }
 
-        public static UserInfo ToUserInfo(this Domain.Core.User user)
+        public static UserInfo ToUserInfo(this DomainModels.User user)
         {
             return new UserInfo()
             {

@@ -1,5 +1,4 @@
 ﻿using Repositories;
-using EntityModels;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -77,7 +76,7 @@ namespace Blog.Repositories.Tests
 
             var postsRepo = new PostsRepository(mockDbContext.Object);
             //Act
-            await postsRepo.AddPost(new Domain.Core.Post() { Author = new Domain.Core.User() });
+            await postsRepo.AddPost(new DomainModels.Post() { Author = new DomainModels.User() });
         }
     }
 }

@@ -31,31 +31,31 @@ namespace Blog.Services.Tests
                 );
         }
 
-        private List<Domain.Core.Post> GetPostsByUserId(int id)
+        private List<DomainModels.Post> GetPostsByUserId(int id)
         {
-            List<Domain.Core.Post> posts = new List<Domain.Core.Post>();
-            posts.AddRange(new List<Domain.Core.Post>()
+            List<DomainModels.Post> posts = new List<DomainModels.Post>();
+            posts.AddRange(new List<DomainModels.Post>()
             {
-                new Domain.Core.Post()
+                new DomainModels.Post()
                 {
                     Id = 1,
                     Author = GetUserById(1),
                     Date = DateTime.Now,
                     Text = "Пост 1",
-                    Comments = new List<Domain.Core.Comment>()
+                    Comments = new List<DomainModels.Comment>()
                     {
 
                     }
                 },
-                new Domain.Core.Post()
+                new DomainModels.Post()
                 {
                     Id = 2,
                     Author = GetUserById(1),
                     Date = DateTime.Now,
                     Text = "Пост 2",
-                    Comments = new List<Domain.Core.Comment>()
+                    Comments = new List<DomainModels.Comment>()
                     {
-                        new Domain.Core.Comment()
+                        new DomainModels.Comment()
                         {
                             Id = 2,
                             Author = GetUserById(2),
@@ -65,7 +65,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 2"
                         },
-                        new Domain.Core.Comment()
+                        new DomainModels.Comment()
                         {
                             Id = 3,
                             Author = GetUserById(1),
@@ -75,7 +75,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 3"
                         },
-                        new Domain.Core.Comment()
+                        new DomainModels.Comment()
                         {
                             Id = 1,
                             Author = GetUserById(1),
@@ -85,7 +85,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 1"
                         },
-                        new Domain.Core.Comment()
+                        new DomainModels.Comment()
                         {
                             Id = 4,
                             Author = GetUserById(2),
@@ -101,11 +101,11 @@ namespace Blog.Services.Tests
 
             return posts;
         }
-        private Domain.Core.User GetUserById(int id)
+        private DomainModels.User GetUserById(int id)
         {
             if (id == 1)
             {
-                return new Domain.Core.User()
+                return new DomainModels.User()
                 {
                     Id = 1,
                     BornDate = DateTime.Now,
@@ -119,7 +119,7 @@ namespace Blog.Services.Tests
             }
             else if (id == 2)
             {
-                return new Domain.Core.User()
+                return new DomainModels.User()
                 {
                     Id = 2,
                     BornDate = DateTime.Now,

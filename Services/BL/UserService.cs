@@ -39,7 +39,7 @@ namespace BL
 
         public async Task<int> AddUser(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
         {
-            Domain.Core.User user = new Domain.Core.User()
+            DomainModels.User user = new DomainModels.User()
             {
                 Login = Login,
                 Name = Name,

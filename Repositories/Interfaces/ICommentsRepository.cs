@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Domain.Core;
+using DomainModels;
 
 namespace Interfaces
 {

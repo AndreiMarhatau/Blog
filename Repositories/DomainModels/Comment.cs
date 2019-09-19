@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Domain.Core
+namespace DomainModels
 {
-    public class Post
+    public class Comment
     {
         public int Id { get; set; }
+        public int PostId { get; set; }
+        public int UserId { get; set; }
         public User Author { get; set; }
+        public int CommentId { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public virtual List<Comment> Comments { get; set; }
         
 
         public bool IsValidData()

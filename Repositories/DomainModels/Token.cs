@@ -1,4 +1,4 @@
-﻿namespace Domain.Core
+﻿namespace DomainModels
 {
     public class Token
     {

@@ -10,10 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Core\Core.csproj" />
-    <ProjectReference Include="..\EntityModels\EntityModels.csproj" />
+    <ProjectReference Include="..\DomainModels\DomainModels.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\Repositories.Helpers\Repositories.Helpers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
 
 </Project>

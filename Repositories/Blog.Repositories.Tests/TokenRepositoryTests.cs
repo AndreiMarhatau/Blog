@@ -1,5 +1,4 @@
 ﻿using Repositories;
-using EntityModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace Blog.Repositories.Tests
 
             var tokensRepo = new TokenRepository(mockDbContext.Object);
             //Act
-            await tokensRepo.AddToken(new Domain.Core.Token());
+            await tokensRepo.AddToken(new DomainModels.Token());
         }
     }
 }

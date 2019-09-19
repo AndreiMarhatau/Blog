@@ -1,7 +1,5 @@
-﻿using Domain.Core;
-using Interfaces;
+﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,13 +15,13 @@ namespace Repositories
             this.db = db;
         }
 
-        public async Task AddPost(Post post)
+        public async Task AddPost(DomainModels.Post post)
         {
             db.Posts.Add(post.ToEntityModel());
             await db.SaveChangesAsync();
         }
 
-        public async Task<List<Post>> GetPostsByUserId(int id)
+        public async Task<List<DomainModels.Post>> GetPostsByUserId(int id)
         {
             return
                 (await db.Posts

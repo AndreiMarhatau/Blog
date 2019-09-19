@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Repositories
 {
     internal static class Converter
     {
-        internal static DomainModels.Token ToDomainModel(this Repositories.Token model)
+        internal static DomainModels.Token ToDomainModel(this Token model)
         {
             return new DomainModels.Token()
             {

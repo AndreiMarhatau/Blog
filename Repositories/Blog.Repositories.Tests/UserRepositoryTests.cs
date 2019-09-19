@@ -5,6 +5,7 @@ using Repositories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using EntityModels;
 
 namespace Blog.Repositories.Tests
 {

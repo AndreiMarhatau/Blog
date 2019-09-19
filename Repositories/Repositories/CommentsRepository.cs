@@ -13,7 +13,7 @@ namespace Repositories
             this.db = db;
         }
 
-        public async Task AddComment(DomainModels.Comment comment)
+        public async Task AddComment(Comment comment)
         {
             db.Comments.Add(comment.ToEntityModel());
             await db.SaveChangesAsync();

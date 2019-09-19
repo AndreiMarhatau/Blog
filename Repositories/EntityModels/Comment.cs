@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Repositories
+namespace EntityModels
 {
     public class Comment
     {

@@ -4,6 +4,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using EntityModels;
 
 namespace Blog.Repositories.Tests
 {

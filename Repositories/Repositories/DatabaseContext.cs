@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {

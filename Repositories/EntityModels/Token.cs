@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Repositories
+namespace EntityModels
 {
     public class Token
     {

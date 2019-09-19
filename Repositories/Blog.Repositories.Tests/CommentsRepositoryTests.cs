@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
+using EntityModels;
 
 namespace Blog.Repositories.Tests
 {

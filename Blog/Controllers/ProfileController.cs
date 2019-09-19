@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Core;
+using BLModels;
 
 namespace Blog.Controllers
 {

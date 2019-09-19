@@ -40,6 +40,7 @@ namespace Blog.Controllers
             SignIn,
             SignUp
         }
+
         [NonAction]
         public async Task<IActionResult> Sign(SignMethod sign)
         {

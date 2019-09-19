@@ -1,5 +1,5 @@
 using BL;
-using Domain.Core;
+using BLModels;
 using Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,31 +31,31 @@ namespace Blog.Services.Tests
                 );
         }
 
-        private List<Post> GetPostsByUserId(int id)
+        private List<Domain.Core.Post> GetPostsByUserId(int id)
         {
-            List<Post> posts = new List<Post>();
-            posts.AddRange(new List<Post>()
+            List<Domain.Core.Post> posts = new List<Domain.Core.Post>();
+            posts.AddRange(new List<Domain.Core.Post>()
             {
-                new Post()
+                new Domain.Core.Post()
                 {
                     Id = 1,
                     Author = GetUserById(1),
                     Date = DateTime.Now,
                     Text = "Пост 1",
-                    Comments = new List<Comment>()
+                    Comments = new List<Domain.Core.Comment>()
                     {
 
                     }
                 },
-                new Post()
+                new Domain.Core.Post()
                 {
                     Id = 2,
                     Author = GetUserById(1),
                     Date = DateTime.Now,
                     Text = "Пост 2",
-                    Comments = new List<Comment>()
+                    Comments = new List<Domain.Core.Comment>()
                     {
-                        new Comment()
+                        new Domain.Core.Comment()
                         {
                             Id = 2,
                             Author = GetUserById(2),
@@ -65,7 +65,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 2"
                         },
-                        new Comment()
+                        new Domain.Core.Comment()
                         {
                             Id = 3,
                             Author = GetUserById(1),
@@ -75,7 +75,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 3"
                         },
-                        new Comment()
+                        new Domain.Core.Comment()
                         {
                             Id = 1,
                             Author = GetUserById(1),
@@ -85,7 +85,7 @@ namespace Blog.Services.Tests
                             Date = DateTime.Now,
                             Text = "Комментарий 1"
                         },
-                        new Comment()
+                        new Domain.Core.Comment()
                         {
                             Id = 4,
                             Author = GetUserById(2),
@@ -101,11 +101,11 @@ namespace Blog.Services.Tests
 
             return posts;
         }
-        private User GetUserById(int id)
+        private Domain.Core.User GetUserById(int id)
         {
             if (id == 1)
             {
-                return new User()
+                return new Domain.Core.User()
                 {
                     Id = 1,
                     BornDate = DateTime.Now,
@@ -119,7 +119,7 @@ namespace Blog.Services.Tests
             }
             else if (id == 2)
             {
-                return new User()
+                return new Domain.Core.User()
                 {
                     Id = 2,
                     BornDate = DateTime.Now,

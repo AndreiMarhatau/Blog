@@ -1,4 +1,4 @@
-﻿using Domain.Core;
+﻿using BLModels;
 using Interfaces;
 using IServices;
 using System.Collections.Generic;
@@ -18,13 +18,12 @@ namespace BL
             _userRepository = userRepository;
         }
 
-        public async Task<List<Post>>
-            GetCommentsAndPostsByUserId(int id)
+        public async Task<List<BLModels.Post>> GetCommentsAndPostsByUserId(int id)
         {
             var posts = (await _postsRepository.GetPostsByUserId(id)).OrderByDescending(p => p.Id);
             foreach (var post in posts)
                 post.Comments = post.Comments.OrderBy(c => c.Id).ToList();
-            return posts.ToList();
+            return posts.ToList().ToBLModel();
         }
     }
 }

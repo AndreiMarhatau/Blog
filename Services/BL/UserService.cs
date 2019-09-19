@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Core;
+using BLModels;
 using Interfaces;
 using IServices;
 
@@ -32,14 +32,14 @@ namespace BL
             List<User> result = new List<User>();
             foreach (var i in resultList)
             {
-                result.Add(i);
+                result.Add(i.ToBLModel());
             }
             return result;
         }
 
         public async Task<int> AddUser(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
         {
-            User user = new User()
+            Domain.Core.User user = new Domain.Core.User()
             {
                 Login = Login,
                 Name = Name,
@@ -71,12 +71,12 @@ namespace BL
 
         public async Task<User> GetUserById(int id)
         {
-            return await _userRepository.GetUserById(id);
+            return (await _userRepository.GetUserById(id)).ToBLModel();
         }
 
         public async Task<User> GetUserByLogin(string Login)
         {
-            return await _userRepository.GetUserByLogin(Login);
+            return (await _userRepository.GetUserByLogin(Login)).ToBLModel();
         }
     }
 }

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Repositories\Data\Repositories.csproj" />
+    <ProjectReference Include="..\Services\BLModels\BLModels.csproj" />
     <ProjectReference Include="..\Services\BL\BL.csproj" />
     <ProjectReference Include="..\Services\IServices\IServices.csproj" />
   </ItemGroup>

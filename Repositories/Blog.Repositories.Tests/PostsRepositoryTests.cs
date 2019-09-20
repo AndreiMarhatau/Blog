@@ -1,12 +1,13 @@
-﻿using Repositories;
+﻿using EntityModels;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xunit;
-using EntityModels;
 
 namespace Blog.Repositories.Tests
 {
@@ -69,7 +70,8 @@ namespace Blog.Repositories.Tests
             mockDbSetPosts
                 .Setup(a => a.Add(new Post()))
                 .Returns(
-                () => {
+                () =>
+                {
                     Assert.True(true);
                     return null;
                 });

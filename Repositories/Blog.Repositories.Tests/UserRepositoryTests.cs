@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Xunit;
-using Repositories;
-using System.Linq;
+﻿using EntityModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using EntityModels;
+using Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Xunit;
 
 namespace Blog.Repositories.Tests
 {
@@ -28,7 +29,7 @@ namespace Blog.Repositories.Tests
             mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
             mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-            
+
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);

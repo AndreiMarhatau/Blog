@@ -1,8 +1,9 @@
-﻿using Repositories;
+using EntityModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using Repositories;
+using System;
 using Xunit;
-using EntityModels;
 
 namespace Blog.Repositories.Tests
 {
@@ -26,7 +27,7 @@ namespace Blog.Repositories.Tests
 
             var commentsRepo = new CommentsRepository(mockDbContext.Object);
             //Act
-            await commentsRepo.AddComment(new DomainModels.Comment() { Author = new DomainModels.User()});
+            await commentsRepo.AddComment(new DomainModels.Comment() { Author = new DomainModels.User() });
         }
     }
 }

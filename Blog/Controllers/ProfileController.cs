@@ -121,7 +121,7 @@ namespace Blog.Controllers
         {
             try
             {
-                await commentsService.AddComment(PostId, UserId, await tokenService.GetUserIdByToken(GenerateToken()), CommentId, Text);
+                await commentsService.AddComment(PostId, await tokenService.GetUserIdByToken(GenerateToken()), CommentId, Text);
             }
             catch (Exception e)
             {

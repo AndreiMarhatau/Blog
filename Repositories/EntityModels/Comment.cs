@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityModels
 {
@@ -8,7 +9,7 @@ namespace EntityModels
         [Key]
         public int Id { get; set; }
         public int PostId { get; set; }
-        public int UserId { get; set; }
+        [ForeignKey("User")]
         public int AuthorId { get; set; }
         public int CommentId { get; set; }
         public string Text { get; set; }

@@ -35,7 +35,7 @@ namespace Blog.Repositories.Tests
 
                     var comments = new List<Comment>()
                     {
-                        new Comment() {Id=1,AuthorId=1000,CommentId=-1,PostId=1,UserId=1000,Date=DateTime.Now,Text="Comment1"},
+                        new Comment() {Id=1,AuthorId=1000,CommentId=-1,PostId=1,Date=DateTime.Now,Text="Comment1"},
                     };
 
                     var users = new List<User>()

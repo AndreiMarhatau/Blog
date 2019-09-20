@@ -6,7 +6,6 @@ namespace DomainModels
     {
         public int Id { get; set; }
         public int PostId { get; set; }
-        public int UserId { get; set; }
         public User Author { get; set; }
         public int CommentId { get; set; }
         public string Text { get; set; }

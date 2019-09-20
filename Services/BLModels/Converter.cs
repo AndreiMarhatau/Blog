@@ -34,7 +34,6 @@ namespace BLModels
                                  {
                                      Id = comment.Id,
                                      PostId = comment.PostId,
-                                     UserId = comment.UserId,
                                      CommentId = comment.CommentId,
                                      Author = comment.Author.ToUserInfo(),
                                      Date = comment.Date,

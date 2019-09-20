@@ -65,7 +65,7 @@
         @comment.Text
         <form>
             <input type="hidden" name="PostId" value=@comment.PostId />
-            <input type="hidden" name="UserId" value=@comment.UserId />
+            <input type="hidden" name="UserId" value=@post.Author.Id />
             <textarea name="Text"></textarea>
             <input type="hidden" name="CommentId" value=@comment.Id />
             <input type="submit" value="Ответить"

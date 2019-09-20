@@ -15,12 +15,11 @@ namespace BL
             _commentsRepository = commentsRepository;
         }
 
-        public async Task AddComment(int PostId, int UserId, int AuthorId, int CommentId, string Text)
+        public async Task AddComment(int PostId, int AuthorId, int CommentId, string Text)
         {
             Comment comment = new Comment()
             {
                 PostId = PostId,
-                UserId = UserId,
                 Author = new User() { Id = AuthorId },
                 CommentId = CommentId,
                 Text = Text

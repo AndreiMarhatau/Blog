@@ -83,8 +83,7 @@ namespace Repositories
                 Text = model.Text,
                 Author = model.Author.ToDomainModel(),
                 CommentId = model.CommentId,
-                PostId = model.PostId,
-                UserId = model.UserId
+                PostId = model.PostId
             };
         }
         internal static Comment ToEntityModel(this DomainModels.Comment model)
@@ -96,8 +95,7 @@ namespace Repositories
                 CommentId = model.CommentId,
                 Date = model.Date,
                 PostId = model.PostId,
-                Text = model.Text,
-                UserId = model.UserId
+                Text = model.Text
             };
         }
     }

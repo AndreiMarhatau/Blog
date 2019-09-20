@@ -18,18 +18,8 @@ namespace Blog.Repositories.Tests
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
-            IQueryable<User> data = new List<User>()
-            {
-                new User() { Id = 1, BornDate = DateTime.MinValue, Email = "mail1@mail.ru", Login = "Login1", Name = "Name1", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
-            }.AsQueryable();
 
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
-                new TestAsyncQueryProvider<User>(data.Provider)
-                );
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
+            SetupMockDbSetUsersForTests(mockDbSetOfUsers);
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
@@ -47,18 +37,8 @@ namespace Blog.Repositories.Tests
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
-            IQueryable<User> data = new List<User>()
-            {
-                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Name1", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
-            }.AsQueryable();
 
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
-                new TestAsyncQueryProvider<User>(data.Provider)
-                );
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
+            SetupMockDbSetUsersForTests(mockDbSetOfUsers);
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
@@ -76,18 +56,8 @@ namespace Blog.Repositories.Tests
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
-            IQueryable<User> data = new List<User>()
-            {
-                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Name1", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
-            }.AsQueryable();
 
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
-                new TestAsyncQueryProvider<User>(data.Provider)
-                );
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
+            SetupMockDbSetUsersForTests(mockDbSetOfUsers);
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
@@ -109,20 +79,8 @@ namespace Blog.Repositories.Tests
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
-            IQueryable<User> data = new List<User>()
-            {
-                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Andrey", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
-                new User() { Id = 2, BornDate = DateTime.Now, Email = "mail2@mail.ru", Login = "Login2", Name = "Andrei", Surname = "Surname2", RegisterDate = DateTime.Now, Password = "Password" },
-                new User() { Id = 3, BornDate = DateTime.Now, Email = "mail3@mail.ru", Login = "Login3", Name = "Gennadiy", Surname = "Surname3", RegisterDate = DateTime.Now, Password = "Password" },
-            }.AsQueryable();
 
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
-                new TestAsyncQueryProvider<User>(data.Provider)
-                );
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockDbSetOfUsers.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
+            SetupMockDbSetUsersForTests(mockDbSetOfUsers);
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
@@ -152,6 +110,25 @@ namespace Blog.Repositories.Tests
             var usersRepo = new UserRepository(mockDbContext.Object);
             //Act
             await usersRepo.AddUser(new DomainModels.User());
+        }
+
+        private IQueryable<User> SetupMockDbSetUsersForTests(Mock<DbSet<User>> mock)
+        {
+            IQueryable<User> data = new List<User>()
+            {
+                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Andrey", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = 2, BornDate = DateTime.Now, Email = "mail2@mail.ru", Login = "Login2", Name = "Andrei", Surname = "Surname2", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = 3, BornDate = DateTime.Now, Email = "mail3@mail.ru", Login = "Login3", Name = "Gennadiy", Surname = "Surname3", RegisterDate = DateTime.Now, Password = "Password" },
+            }.AsQueryable();
+
+            mock.As<IQueryable<User>>().Setup(m => m.Provider).Returns(
+                new TestAsyncQueryProvider<User>(data.Provider)
+                );
+            mock.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
+            mock.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            return data;
         }
     }
 }

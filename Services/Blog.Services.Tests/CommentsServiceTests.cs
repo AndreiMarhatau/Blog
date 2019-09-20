@@ -15,7 +15,7 @@ namespace Blog.Services.Tests
             var mockRepository = new Mock<ICommentsRepository>();
             var commentsService = new CommentsService(mockRepository.Object);
             //Act
-            var result = commentsService.AddComment(0, 0, 0, 0, "");
+            var result = commentsService.AddComment(0, 0, 0, "");
             //Assert
             await Assert.ThrowsAsync<ArgumentException>(async() => await result);
         }

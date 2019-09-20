@@ -61,7 +61,6 @@ namespace Blog.Services.Tests
                             Author = GetUserById(2),
                             CommentId = 1,
                             PostId = 2,
-                            UserId = 1,
                             Date = DateTime.Now,
                             Text = "Комментарий 2"
                         },
@@ -71,7 +70,6 @@ namespace Blog.Services.Tests
                             Author = GetUserById(1),
                             CommentId = 2,
                             PostId = 2,
-                            UserId = 1,
                             Date = DateTime.Now,
                             Text = "Комментарий 3"
                         },
@@ -81,7 +79,6 @@ namespace Blog.Services.Tests
                             Author = GetUserById(1),
                             CommentId = -1,
                             PostId = 2,
-                            UserId = 1,
                             Date = DateTime.Now,
                             Text = "Комментарий 1"
                         },
@@ -91,7 +88,6 @@ namespace Blog.Services.Tests
                             Author = GetUserById(2),
                             CommentId = 1,
                             PostId = 2,
-                            UserId = 1,
                             Date = DateTime.Now,
                             Text = "Комментарий 4"
                         }

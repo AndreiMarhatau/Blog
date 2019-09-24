@@ -25,7 +25,7 @@ namespace Repositories
         {
             return
                 (await db.Posts
-                .Where(p => p.UserId == id)
+                .Where(p => p.AuthorId == id)
                 .OrderByDescending(p => p.Id)
                 .Include(i => i.Comments)
                     .ThenInclude(c => c.Author)

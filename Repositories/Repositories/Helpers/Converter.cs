@@ -68,7 +68,7 @@ namespace Repositories
             return new Post()
             {
                 Id = model.Id,
-                UserId = model.Author.Id,
+                AuthorId = model.Author.Id,
                 Date = model.Date,
                 Text = model.Text,
             };

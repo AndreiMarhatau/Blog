@@ -30,7 +30,7 @@ namespace Blog.Repositories.Tests
 
                     var posts = new List<Post>()
                     {
-                        new Post() {Id=1,UserId=1000,Text="Post1",Date=DateTime.Now},
+                        new Post() {Id=1,AuthorId=1000,Text="Post1",Date=DateTime.Now},
                     };
 
                     var comments = new List<Comment>()

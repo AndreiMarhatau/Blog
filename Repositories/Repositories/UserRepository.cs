@@ -30,20 +30,20 @@ namespace Repositories
         }
         public async Task<bool> CheckExistsOfUser(string login, string email)
         {
-            return (await db.Users.Where(i => i.Login.Equals(login) ||
+            return await db.Users.Where(i => i.Login.Equals(login) ||
                                            i.Email.Equals(email))
-                                          .ToListAsync())
-                                          .Any();
+                                          .AnyAsync();
         }
 
         public async Task<List<DomainModels.User>> GetUserListByLoginNameSurname(string Login, string Name, string Surname)
         {
-            return await db.Users
+            return (await db.Users
                 .Where(i => i.Login.Contains(Login) &&
                             i.Name.Contains(Name) &&
                             i.Surname.Contains(Surname))
+                .ToListAsync())
                 .Select(i => i.ToDomainModel())
-                .ToListAsync();
+                .ToList();
         }
     }
 }

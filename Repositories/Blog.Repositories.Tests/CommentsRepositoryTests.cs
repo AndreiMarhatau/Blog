@@ -13,7 +13,7 @@ namespace Blog.Repositories.Tests
         public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetComments = new Mock<DbSet<Comment>>();
 
             mockDbSetComments

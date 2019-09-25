@@ -6,9 +6,9 @@ namespace Repositories
 {
     public class CommentsRepository : ICommentsRepository
     {
-        private DatabaseContext db;
+        private EntityModels.DatabaseContext db;
 
-        public CommentsRepository(DatabaseContext db)
+        public CommentsRepository(EntityModels.DatabaseContext db)
         {
             this.db = db;
         }

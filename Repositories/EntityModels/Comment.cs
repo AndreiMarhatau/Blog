@@ -6,7 +6,6 @@ namespace EntityModels
 {
     public class Comment
     {
-        [Key]
         public int Id { get; set; }
         public int PostId { get; set; }
         public int? AuthorId { get; set; }
@@ -15,6 +14,5 @@ namespace EntityModels
         public DateTime Date { get; set; } = DateTime.Now;
         
         public User Author { get; set; }
-        public Post Post { get; set; }
     }
 }

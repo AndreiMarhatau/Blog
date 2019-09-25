@@ -8,9 +8,9 @@ namespace Repositories
 {
     public class PostsRepository:IPostsRepository
     {
-        private DatabaseContext db;
+        private EntityModels.DatabaseContext db;
 
-        public PostsRepository(DatabaseContext db)
+        public PostsRepository(EntityModels.DatabaseContext db)
         {
             this.db = db;
         }

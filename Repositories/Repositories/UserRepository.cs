@@ -9,9 +9,9 @@ namespace Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private DatabaseContext db;
+        private EntityModels.DatabaseContext db;
 
-        public UserRepository(DatabaseContext db)
+        public UserRepository(EntityModels.DatabaseContext db)
         {
             this.db = db;
         }

@@ -16,7 +16,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserById_AddUserToQueryWithId1AndCheckReturnedUserIdById_Returns1()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -35,7 +35,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserByLogin_AddUserToQueryAndCheckReturnedUserIdByLogin_Returns1()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -54,7 +54,7 @@ namespace Blog.Repositories.Tests
         public async void CheckExistsOfUser_AddUserAndCheckExistsByLoginOrEmail_ReturnsTrueForSameLoginOrEmail()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -77,7 +77,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserListByLoginNameSurname_AddThreeUsersAndSearch_ReturnsTwoUsers()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -95,7 +95,7 @@ namespace Blog.Repositories.Tests
         public async void AddUser_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetUsers = new Mock<DbSet<User>>();
 
             mockDbSetUsers

@@ -7,9 +7,9 @@ namespace Repositories
 {
     public class TokenRepository : ITokenRepository
     {
-        private DatabaseContext db;
+        private EntityModels.DatabaseContext db;
 
-        public TokenRepository(DatabaseContext db)
+        public TokenRepository(EntityModels.DatabaseContext db)
         {
             this.db = db;
         }

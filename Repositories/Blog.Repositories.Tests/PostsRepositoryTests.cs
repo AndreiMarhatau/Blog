@@ -21,10 +21,10 @@ namespace Blog.Repositories.Tests
 
             try
             {
-                var options = new DbContextOptionsBuilder<DatabaseContext>()
+                var options = new DbContextOptionsBuilder<EntityModels.DatabaseContext>()
                     .UseSqlite(connection)
                     .Options;
-                using (var context = new DatabaseContext(options))
+                using (var context = new EntityModels.DatabaseContext(options))
                 {
                     context.Database.EnsureCreated();
 
@@ -64,7 +64,7 @@ namespace Blog.Repositories.Tests
         public async void AddPost_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetPosts = new Mock<DbSet<Post>>();
 
             mockDbSetPosts

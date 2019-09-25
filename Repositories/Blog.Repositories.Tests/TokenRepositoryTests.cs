@@ -16,7 +16,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserIdByToken_AddTokenWithUserId1AndGetUserId_Returns1()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetOfTokens = new Mock<DbSet<Token>>();
             IQueryable<Token> data = new List<Token>()
             {
@@ -44,7 +44,7 @@ namespace Blog.Repositories.Tests
         public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<DatabaseContext>();
+            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetTokens = new Mock<DbSet<Token>>();
 
             mockDbSetTokens

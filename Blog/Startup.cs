@@ -10,6 +10,7 @@ using IServices;
 using BL;
 using Repositories;
 using Interfaces;
+using EntityModels;
 
 namespace Blog
 {
@@ -37,8 +38,7 @@ namespace Blog
 
 
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .EnableSensitiveDataLogging(),
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Blog")),
                 ServiceLifetime.Transient);
 
             services.AddTransient<IUserService, UserService>();

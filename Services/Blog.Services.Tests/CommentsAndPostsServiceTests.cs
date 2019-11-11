@@ -43,7 +43,8 @@ namespace Blog.Services.Tests
                     Comments = new List<DomainModels.Comment>()
                     {
 
-                    }
+                    },
+                    Likes = new List<DomainModels.Like>(){}
                 },
                 new DomainModels.Post()
                 {
@@ -60,7 +61,8 @@ namespace Blog.Services.Tests
                             CommentId = 1,
                             PostId = 2,
                             Date = DateTime.Now,
-                            Text = "Комментарий 2"
+                            Text = "Комментарий 2",
+                            Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
@@ -69,7 +71,8 @@ namespace Blog.Services.Tests
                             CommentId = 2,
                             PostId = 2,
                             Date = DateTime.Now,
-                            Text = "Комментарий 3"
+                            Text = "Комментарий 3",
+                            Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
@@ -78,7 +81,8 @@ namespace Blog.Services.Tests
                             CommentId = -1,
                             PostId = 2,
                             Date = DateTime.Now,
-                            Text = "Комментарий 1"
+                            Text = "Комментарий 1",
+                            Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
@@ -87,9 +91,11 @@ namespace Blog.Services.Tests
                             CommentId = 1,
                             PostId = 2,
                             Date = DateTime.Now,
-                            Text = "Комментарий 4"
+                            Text = "Комментарий 4",
+                            Likes = new List<DomainModels.Like>(){}
                         }
-                    }
+                    },
+                    Likes = new List<DomainModels.Like>(){}
                 }
             });
 

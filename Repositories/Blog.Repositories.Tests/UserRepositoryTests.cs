@@ -5,7 +5,6 @@ using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Blog.Repositories.Tests
@@ -16,7 +15,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserById_AddUserToQueryWithId1AndCheckReturnedUserIdById_Returns1()
         {
             //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -54,7 +53,7 @@ namespace Blog.Repositories.Tests
         public async void CheckExistsOfUser_AddUserAndCheckExistsByLoginOrEmail_ReturnsTrueForSameLoginOrEmail()
         {
             //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -77,7 +76,7 @@ namespace Blog.Repositories.Tests
         public async void GetUserListByLoginNameSurname_AddThreeUsersAndSearch_ReturnsTwoUsers()
         {
             //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
@@ -95,13 +94,14 @@ namespace Blog.Repositories.Tests
         public async void AddUser_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetUsers = new Mock<DbSet<User>>();
 
             mockDbSetUsers
                 .Setup(a => a.Add(new User()))
                 .Returns(
-                () => {
+                () =>
+                {
                     Assert.True(true);
                     return null;
                 });

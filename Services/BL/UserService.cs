@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BLModels;
+using Interfaces;
+using IServices;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using BLModels;
-using Interfaces;
-using IServices;
 
 namespace BL
 {

@@ -30,12 +30,16 @@ namespace DomainModels
         public bool IsValidData()
         {
             if (Login == null ||
+                Login.Replace(" ", "").Equals("") ||
                 Name == null ||
+                Name.Replace(" ", "").Equals("") ||
                 Surname == null ||
+                Surname.Replace(" ", "").Equals("") ||
                 BornDate == null ||
                 Email == null ||
                 !Email.Replace(" ", "").Contains("@") ||
-                Password == null)
+                Password == null ||
+                Password.Replace(" ", "").Equals(""))
             {
                 return false;
             }

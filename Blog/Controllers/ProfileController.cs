@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BLModels;
 using IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BLModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Controllers
 {
@@ -17,14 +17,16 @@ namespace Blog.Controllers
         private ICommentsAndPostsService commentsAndPostsService;
         private IPostsService postsService;
         private ICommentsService commentsService;
+        private ILikeService likeService;
 
         public ProfileController(
             Random random,
-            IUserService userService, 
-            ITokenService tokenService, 
-            ICommentsAndPostsService commentsAndPostsService, 
-            IPostsService postsService, 
-            ICommentsService commentsService)
+            IUserService userService,
+            ITokenService tokenService,
+            ICommentsAndPostsService commentsAndPostsService,
+            IPostsService postsService,
+            ICommentsService commentsService,
+            ILikeService likeService)
         {
             this.random = random;
             this.userService = userService;
@@ -32,6 +34,7 @@ namespace Blog.Controllers
             this.commentsAndPostsService = commentsAndPostsService;
             this.postsService = postsService;
             this.commentsService = commentsService;
+            this.likeService = likeService;
         }
 
         public async Task<IActionResult> Index(int? id)
@@ -56,7 +59,7 @@ namespace Blog.Controllers
                     return RedirectToAction("SignIn", "Home");
                 throw;
             }
-            
+
             //Add content on the page
             try
             {
@@ -71,8 +74,8 @@ namespace Blog.Controllers
 
             //Add list of posts and comments to view model
             Tuple<bool, List<Post>> Model =
-                new Tuple<bool, List<Post>> (
-                    isOwner, 
+                new Tuple<bool, List<Post>>(
+                    isOwner,
                     await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
                     );
 
@@ -91,7 +94,7 @@ namespace Blog.Controllers
                 {
                     await tokenService.RmToken(token);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     if (!(e is ArgumentNullException || e is InvalidOperationException))
                         throw;
@@ -129,9 +132,32 @@ namespace Blog.Controllers
                     throw;
                 return RedirectToAction("SignIn", "Home");
             }
-            return RedirectToAction("Index", new { id=UserId });
+            return RedirectToAction("Index", new { id = UserId });
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> AddOrRemoveLikeToPost(int UserId, int PostId)
+        {
+            await likeService.AddOrRemoveLike(
+                await tokenService
+                .GetUserIdByToken(
+                    GenerateToken()),
+                    new Post()
+                    { Id = PostId });
+
+            return RedirectToAction("Index", new { id = UserId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddOrRemoveLikeToComment(int UserId, int CommentId)
+        {
+            await likeService.AddOrRemoveLike(
+                await tokenService
+                .GetUserIdByToken(
+                    GenerateToken()),
+                new Comment() 
+                { Id = CommentId });
+
+            return RedirectToAction("Index", new { id = UserId });
+        }
 
         private string GenerateToken()
         {
@@ -141,7 +167,7 @@ namespace Blog.Controllers
             }
 
             //Generate new token and add to cookie
-            byte[] bytes = new byte[512];
+            byte[] bytes = new byte[32];
             this.random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             HttpContext.Response.Cookies.Append("Token", token);

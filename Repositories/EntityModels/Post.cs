@@ -12,5 +12,6 @@ namespace EntityModels
 
         public List<Comment> Comments { get; set; }
         public User Author { get; set; }
+        public List<Like> Likes { get; set; }
     }
 }

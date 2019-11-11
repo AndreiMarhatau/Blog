@@ -1,14 +1,11 @@
 ﻿using EntityModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Repositories
 {
-    internal static class Converter
+    public static class Converter
     {
-        internal static DomainModels.Token ToDomainModel(this Token model)
+        public static DomainModels.Token ToDomainModel(this Token model)
         {
             return new DomainModels.Token()
             {
@@ -16,7 +13,7 @@ namespace Repositories
                 UserId = model.UserId
             };
         }
-        internal static Token ToEntityModel(this DomainModels.Token model)
+        public static Token ToEntityModel(this DomainModels.Token model)
         {
             return new Token()
             {
@@ -25,7 +22,7 @@ namespace Repositories
             };
         }
 
-        internal static DomainModels.User ToDomainModel(this User model)
+        public static DomainModels.User ToDomainModel(this User model)
         {
             return new DomainModels.User(
                 model.Id,
@@ -37,7 +34,7 @@ namespace Repositories
                 model.Email,
                 model.Password);
         }
-        internal static User ToEntityModel(this DomainModels.User model)
+        public static User ToEntityModel(this DomainModels.User model)
         {
             return new User()
             {
@@ -52,7 +49,7 @@ namespace Repositories
             };
         }
 
-        internal static DomainModels.Post ToDomainModel(this Post model)
+        public static DomainModels.Post ToDomainModel(this Post model)
         {
             return new DomainModels.Post()
             {
@@ -60,21 +57,22 @@ namespace Repositories
                 Date = model.Date,
                 Text = model.Text,
                 Author = model.Author.ToDomainModel(),
-                Comments = model.Comments.Select(i => i.ToDomainModel()).ToList()
+                Comments = model.Comments.Select(i => i.ToDomainModel()).ToList(),
+                Likes = model.Likes.Select(i => i.ToDomainModel()).ToList()
             };
         }
-        internal static Post ToEntityModel(this DomainModels.Post model)
+        public static Post ToEntityModel(this DomainModels.Post model)
         {
             return new Post()
             {
                 Id = model.Id,
                 AuthorId = model.Author.Id,
                 Date = model.Date,
-                Text = model.Text,
+                Text = model.Text
             };
         }
 
-        internal static DomainModels.Comment ToDomainModel(this Comment model)
+        public static DomainModels.Comment ToDomainModel(this Comment model)
         {
             return new DomainModels.Comment()
             {
@@ -83,10 +81,11 @@ namespace Repositories
                 Text = model.Text,
                 Author = model.Author.ToDomainModel(),
                 CommentId = model.CommentId,
-                PostId = model.PostId
+                PostId = model.PostId,
+                Likes = model.Likes.Select(i => i.ToDomainModel()).ToList()
             };
         }
-        internal static Comment ToEntityModel(this DomainModels.Comment model)
+        public static Comment ToEntityModel(this DomainModels.Comment model)
         {
             return new Comment()
             {
@@ -96,6 +95,27 @@ namespace Repositories
                 Date = model.Date,
                 PostId = model.PostId,
                 Text = model.Text
+            };
+        }
+
+        public static Like ToEntityModel(this DomainModels.Like model)
+        {
+            return new Like()
+            {
+                Id = model.Id,
+                CommentId = model.CommentId,
+                PostId = model.PostId,
+                UserId = model.UserId
+            };
+        }
+        public static DomainModels.Like ToDomainModel(this Like model)
+        {
+            return new DomainModels.Like()
+            {
+                Id = model.Id,
+                CommentId = model.CommentId,
+                PostId = model.PostId,
+                UserId = model.UserId
             };
         }
     }

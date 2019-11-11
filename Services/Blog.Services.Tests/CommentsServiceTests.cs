@@ -17,7 +17,7 @@ namespace Blog.Services.Tests
             //Act
             var result = commentsService.AddComment(0, 0, 0, "");
             //Assert
-            await Assert.ThrowsAsync<ArgumentException>(async() => await result);
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
     }
 }

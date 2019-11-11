@@ -6,7 +6,6 @@ using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace Blog.Repositories.Tests
@@ -21,10 +20,10 @@ namespace Blog.Repositories.Tests
 
             try
             {
-                var options = new DbContextOptionsBuilder<EntityModels.DatabaseContext>()
+                var options = new DbContextOptionsBuilder<DatabaseContext>()
                     .UseSqlite(connection)
                     .Options;
-                using (var context = new EntityModels.DatabaseContext(options))
+                using (var context = new DatabaseContext(options))
                 {
                     context.Database.EnsureCreated();
 

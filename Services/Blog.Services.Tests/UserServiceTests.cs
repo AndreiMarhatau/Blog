@@ -1,10 +1,10 @@
 ﻿using BL;
 using DomainModels;
 using Interfaces;
+using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
-using Moq;
 
 namespace Blog.Services.Tests
 {
@@ -17,7 +17,7 @@ namespace Blog.Services.Tests
             var userRepo = new Mock<IUserRepository>();
             var userService = new UserService(userRepo.Object);
             //Act
-            var result = userService.AddUser("","","",DateTime.MinValue,"","");
+            var result = userService.AddUser("", "", "", DateTime.MinValue, "", "");
             //Assert
             await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
@@ -43,7 +43,7 @@ namespace Blog.Services.Tests
             //Act
             var result = userService.CheckUser("Login", "Pswd2");
             //Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(async() => await result);
+            await Assert.ThrowsAsync<InvalidOperationException>(async () => await result);
         }
         [Fact]
         public void SearchUsers_Add3UsersAndGetByLoginNameSurname_Returns3Users()

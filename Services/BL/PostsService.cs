@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class PostsService :IPostsService
+    public class PostsService : IPostsService
     {
         private IPostsRepository _postsRepository;
 

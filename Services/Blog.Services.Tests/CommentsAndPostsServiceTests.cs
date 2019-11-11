@@ -1,10 +1,9 @@
 using BL;
-using BLModels;
 using Interfaces;
+using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
-using Moq;
 
 namespace Blog.Services.Tests
 {
@@ -15,11 +14,10 @@ namespace Blog.Services.Tests
         {
             //Arrange
             var postsRepo = new Mock<IPostsRepository>();
-            var usersRepo = new Mock<IUserRepository>();
             postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
 
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
-                postsRepo.Object, usersRepo.Object);
+                postsRepo.Object);
             //Act
             var result = commentsAndPostsService.GetCommentsAndPostsByUserId(1);
             //Assert

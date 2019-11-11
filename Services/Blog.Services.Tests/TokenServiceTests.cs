@@ -1,9 +1,9 @@
 ﻿using BL;
 using DomainModels;
 using Interfaces;
+using Moq;
 using System;
 using Xunit;
-using Moq;
 
 namespace Blog.Services.Tests
 {
@@ -19,7 +19,7 @@ namespace Blog.Services.Tests
             //Act
             var result1 = tokenService.AddToken("1", 1);
             //Assert
-            await Assert.ThrowsAsync<ArgumentException>(async() => await result1);
+            await Assert.ThrowsAsync<ArgumentException>(async () => await result1);
         }
     }
 }

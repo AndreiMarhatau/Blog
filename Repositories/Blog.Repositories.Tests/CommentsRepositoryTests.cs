@@ -2,7 +2,6 @@ using EntityModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Repositories;
-using System;
 using Xunit;
 
 namespace Blog.Repositories.Tests
@@ -13,13 +12,14 @@ namespace Blog.Repositories.Tests
         public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
             //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetComments = new Mock<DbSet<Comment>>();
 
             mockDbSetComments
                 .Setup(a => a.Add(new Comment()))
                 .Returns(
-                () => {
+                () =>
+                {
                     Assert.True(true);
                     return null;
                 });

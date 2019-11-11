@@ -10,12 +10,10 @@ namespace BL
     public class CommentsAndPostsService : ICommentsAndPostsService
     {
         private IPostsRepository _postsRepository;
-        private IUserRepository _userRepository;
 
-        public CommentsAndPostsService(IPostsRepository postsRepository, IUserRepository userRepository)
+        public CommentsAndPostsService(IPostsRepository postsRepository)
         {
             _postsRepository = postsRepository;
-            _userRepository = userRepository;
         }
 
         public async Task<List<BLModels.Post>> GetCommentsAndPostsByUserId(int id)

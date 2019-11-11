@@ -1,10 +1,4 @@
-﻿using EntityModels;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace EntityModels
 {
@@ -14,6 +8,7 @@ namespace EntityModels
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Token> Tokens { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Blog.Models;
-using System.Text;
-using Microsoft.AspNetCore.Http;
+﻿using Blog.Models;
 using IServices;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Controllers
 {
@@ -75,14 +75,14 @@ namespace Blog.Controllers
                 await tokenService.AddToken(GenerateToken(), id);
                 return RedirectToAction("Index", "Profile");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(e is InvalidOperationException)
+                if (e is InvalidOperationException)
                 {
                     ViewBag.Alert = "Неверный логин или пароль";
                     return View();
                 }
-                else if(e is ArgumentNullException)
+                else if (e is ArgumentNullException)
                 {
                     ViewBag.Alert = "Одно или несколько полей пустые";
                     return View();
@@ -101,14 +101,14 @@ namespace Blog.Controllers
                 await tokenService.AddToken(GenerateToken(), id);
                 return RedirectToAction("Index", "Profile");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (e is ArgumentNullException)
                 {
                     ViewBag.Alert = "Одно или несколько полей пустые";
                     return View();
                 }
-                else if(e is ArgumentException)
+                else if (e is ArgumentException)
                 {
                     ViewBag.Alert = "Логин и(или) Email заняты";
                     return View();
@@ -131,7 +131,7 @@ namespace Blog.Controllers
             this.random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             HttpContext.Response.Cookies.Append("Token", token);
-            
+
             return token;
         }
 

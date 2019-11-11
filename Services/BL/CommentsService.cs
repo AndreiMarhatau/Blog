@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class CommentsService:ICommentsService
+    public class CommentsService : ICommentsService
     {
         private ICommentsRepository _commentsRepository;
 

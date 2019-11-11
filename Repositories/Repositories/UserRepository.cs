@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
@@ -20,7 +19,7 @@ namespace Repositories
             db.Users.Add(user.ToEntityModel());
             await db.SaveChangesAsync();
         }
-        
+
         public async Task<DomainModels.User> GetUserById(int id)
         {
             return (await db.Users.Where(i => i.Id == id).SingleAsync()).ToDomainModel();

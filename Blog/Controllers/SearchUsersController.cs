@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BLModels;
 using IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BLModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Controllers
 {
@@ -37,7 +37,7 @@ namespace Blog.Controllers
                     return RedirectToAction("SignIn", "Home");
                 throw;
             }
-            
+
             //Create result list of search
             List<User> resultList = await userService.SearchUsers(Login, Name, Surname);
             string pathBase = HttpContext.Request.PathBase;
@@ -48,7 +48,7 @@ namespace Blog.Controllers
         {
             return await SearchUsers("", "", "");
         }
-        
+
         private string GenerateToken(HttpContext httpContext)
         {
             if (httpContext.Request.Cookies.ContainsKey("Token"))

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BLModels
 {
@@ -29,6 +27,7 @@ namespace BLModels
                      Author = post.Author.ToUserInfo(),
                      Text = post.Text,
                      Date = post.Date,
+                     Likes = post.Likes.Select(i => i.ToBLModel()).ToList(),
                      Comments = (from comment in post.Comments
                                  select new Comment()
                                  {
@@ -37,7 +36,8 @@ namespace BLModels
                                      CommentId = comment.CommentId,
                                      Author = comment.Author.ToUserInfo(),
                                      Date = comment.Date,
-                                     Text = comment.Text
+                                     Text = comment.Text,
+                                     Likes = comment.Likes.Select(i => i.ToBLModel()).ToList()
                                  }).ToList()
                  }).ToList();
         }
@@ -49,6 +49,38 @@ namespace BLModels
                 Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname
+            };
+        }
+
+        public static Like ToBLModel(this DomainModels.Like model)
+        {
+            return new Like()
+            {
+                Id = model.Id,
+                CommentId = model.CommentId,
+                PostId = model.PostId,
+                UserId = model.UserId
+            };
+        }
+
+        public static DomainModels.Post ToDomainModel(this Post post)
+        {
+            return new DomainModels.Post()
+            {
+                Id = post.Id,
+                Date = post.Date,
+                Text = post.Text
+            };
+        }
+        public static DomainModels.Comment ToDomainModel(this Comment comment)
+        {
+            return new DomainModels.Comment()
+            {
+                Id = comment.Id,
+                Date = comment.Date,
+                Text = comment.Text,
+                CommentId = comment.CommentId,
+                PostId = comment.PostId
             };
         }
     }

@@ -40,6 +40,12 @@
     @post.Text
     <br>
     <form>
+        <input type="hidden" name="UserId" value=@post.Author.Id />
+        <input type="hidden" name="PostId" value=@post.Id />
+        <input type="submit" value="@post.Likes.Count 💔" formmethod="post" asp-action="AddOrRemoveLikeToPost" />
+    </form>
+    <br>
+    <form>
 
         <input type="hidden" name="PostId" value=@post.Id />
         <input type="hidden" name="UserId" value=@post.Author.Id />
@@ -52,26 +58,32 @@
     </div>
         foreach (var comment in post.Comments)
         {
-    <div class="comment_@comment.Id">
-        @comment.Date<br>
-        @comment.Author.Name @comment.Author.Surname комментирует:<br>
-        @{
-            if(comment.CommentId != -1)
-            {
-                var com = post.Comments.Where(c => c.Id == comment.CommentId).Single();
-                comment.Text = $"@{com.Author.Name} {com.Author.Surname}, {comment.Text}";
-            }
+<div class="comment_@comment.Id">
+    @comment.Date<br>
+    @comment.Author.Name @comment.Author.Surname комментирует:<br>
+    @{
+        if (comment.CommentId != -1)
+        {
+            var com = post.Comments.Where(c => c.Id == comment.CommentId).Single();
+            comment.Text = $"@{com.Author.Name} {com.Author.Surname}, {comment.Text}";
         }
-        @comment.Text
-        <form>
-            <input type="hidden" name="PostId" value=@comment.PostId />
-            <input type="hidden" name="UserId" value=@post.Author.Id />
-            <textarea name="Text"></textarea>
-            <input type="hidden" name="CommentId" value=@comment.Id />
-            <input type="submit" value="Ответить"
-                   formmethod="post" formaction="/Profile/AddComment" />
-        </form>
-    </div>
+    }
+    @comment.Text
+    <form>
+        <input type="hidden" name="PostId" value=@comment.PostId />
+        <input type="hidden" name="UserId" value=@post.Author.Id />
+        <textarea name="Text"></textarea>
+        <input type="hidden" name="CommentId" value=@comment.Id />
+        <input type="submit" value="Ответить"
+               formmethod="post" formaction="/Profile/AddComment" />
+    </form>
+    <br>
+    <form>
+        <input type="hidden" name="UserId" value=@comment.Author.Id />
+        <input type="hidden" name="CommentId" value=@comment.Id />
+        <input type="submit" value="@comment.Likes.Count 💔" formmethod="post" asp-action="AddOrRemoveLikeToComment" />
+    </form>
+</div>
             }
     }
 }

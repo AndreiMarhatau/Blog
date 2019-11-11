@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DomainModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using DomainModels;
 
 namespace Interfaces
 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLModels
 {
@@ -10,5 +11,7 @@ namespace BLModels
         public int CommentId { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
+
+        public virtual List<Like> Likes { get; set; }
     }
 }

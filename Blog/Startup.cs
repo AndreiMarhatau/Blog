@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BL;
+using EntityModels;
+using Interfaces;
+using IServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,11 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using IServices;
-using BL;
 using Repositories;
-using Interfaces;
-using EntityModels;
+using System;
 
 namespace Blog
 {
@@ -51,6 +51,8 @@ namespace Blog
             services.AddTransient<ITokenRepository, TokenRepository>();
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<ICommentsRepository, CommentsRepository>();
+            services.AddTransient<ILikeRepository, LikeRepository>();
+            services.AddTransient<ILikeService, LikeService>();
 
             services.AddSingleton<Random>();
 

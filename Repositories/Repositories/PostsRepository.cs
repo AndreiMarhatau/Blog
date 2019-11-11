@@ -1,12 +1,13 @@
 ﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class PostsRepository:IPostsRepository
+    public class PostsRepository : IPostsRepository
     {
         private EntityModels.DatabaseContext db;
 
@@ -29,7 +30,10 @@ namespace Repositories
                 .OrderByDescending(p => p.Id)
                 .Include(i => i.Comments)
                     .ThenInclude(c => c.Author)
+                .Include(i => i.Comments)
+                    .ThenInclude(c => c.Likes)
                 .Include(i => i.Author)
+                .Include(i => i.Likes)
                 .ToListAsync()).Select(i => i.ToDomainModel()).ToList();
         }
     }

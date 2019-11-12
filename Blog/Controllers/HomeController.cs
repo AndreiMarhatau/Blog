@@ -127,7 +127,7 @@ namespace Blog.Controllers
             }
 
             //Generate new token and add to cookie
-            byte[] bytes = new byte[512];
+            byte[] bytes = new byte[256];
             this.random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             HttpContext.Response.Cookies.Append("Token", token);

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Repositories\DomainModels\DomainModels.csproj" />
+    <ProjectReference Include="..\Services\DomainModels\DomainModels.csproj" />
   </ItemGroup>
 
 </Project>

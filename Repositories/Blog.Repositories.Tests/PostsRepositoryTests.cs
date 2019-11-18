@@ -62,7 +62,7 @@ namespace Blog.Repositories.Tests
         [Fact]
         public async void AddPost_CheckCallOfAddMethodInDbSet()
         {
-            //Arrange
+
             var mockDbContext = new Mock<EntityModels.DatabaseContext>();
             var mockDbSetPosts = new Mock<DbSet<Post>>();
 
@@ -77,7 +77,7 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Posts).Returns(mockDbSetPosts.Object);
 
             var postsRepo = new PostsRepository(mockDbContext.Object);
-            //Act
+
             await postsRepo.AddPost(new DomainModels.Post() { Author = new DomainModels.User() });
         }
     }

@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Repositories\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\BLModels\BLModels.csproj" />
     <ProjectReference Include="..\Interfaces\IServices.csproj" />
   </ItemGroup>
 

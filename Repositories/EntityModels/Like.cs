@@ -21,5 +21,9 @@ namespace EntityModels
                 UserId == tmp.UserId) return true;
             return false;
         }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

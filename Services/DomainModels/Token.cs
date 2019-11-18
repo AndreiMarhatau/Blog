@@ -7,7 +7,7 @@
 
         public bool IsValidData()
         {
-            if (StrToken == null)
+            if (StrToken == null || UserId == 0)
             {
                 return false;
             }

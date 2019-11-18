@@ -20,9 +20,9 @@ namespace Blog.Services.Tests
             var tokenRepo = new Mock<ITokenRepository>();
             tokenRepo.Setup(a => a.CheckUserByToken(token)).Returns(Task.Run(() => true));
             TokenService tokenService = new TokenService(tokenRepo.Object);
-            //Act
+
             var result1 = tokenService.AddToken(strToken, userId);
-            //Assert
+
             await Assert.ThrowsAsync<InvalidOperationException>(async () => await result1);
         }
     }

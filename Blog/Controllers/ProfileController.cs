@@ -92,7 +92,7 @@ namespace Blog.Controllers
                 HttpContext.Response.Cookies.Delete("Token");
                 try
                 {
-                    await tokenService.RmToken(token);
+                    await tokenService.RemoveToken(token);
                 }
                 catch (Exception e)
                 {

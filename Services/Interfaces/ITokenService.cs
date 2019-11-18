@@ -6,6 +6,6 @@ namespace IServices
     {
         Task<int> GetUserIdByToken(string token);
         Task AddToken(string StrToken, int UserId);
-        Task RmToken(string StrToken);
+        Task RemoveToken(string StrToken);
     }
 }

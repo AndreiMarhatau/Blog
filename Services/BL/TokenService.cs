@@ -15,30 +15,24 @@ namespace BL
             _tokenRepository = tokenRepository;
         }
 
-        public async Task AddToken(string StrToken, int UserId)
+        public async Task AddToken(string strToken, int userId)
         {
             Token token = new Token()
             {
-                StrToken = StrToken,
-                UserId = UserId
+                StrToken = strToken,
+                UserId = userId
             };
 
-            bool isExistsInDb = true;
-            try
-            {
-                await _tokenRepository.GetUserIdByToken(token.StrToken);
-            }
-            catch
-            {
-                isExistsInDb = false;
-            }
+            if(!token.IsValidData())
+                throw new ArgumentException("Invalid arguments");
+
+            bool isExistsInDb = await _tokenRepository.CheckUserByToken(token);
 
 
-            if (token.IsValidData() &&
-                !isExistsInDb)
+            if (!isExistsInDb)
                 await _tokenRepository.AddToken(token);
             else
-                throw new ArgumentException("Invalid arguments");
+                throw new InvalidOperationException("Token exists already");
         }
 
         public async Task<int> GetUserIdByToken(string token)
@@ -46,9 +40,9 @@ namespace BL
             return await _tokenRepository.GetUserIdByToken(token);
         }
 
-        public async Task RmToken(string StrToken)
+        public async Task RemoveToken(string StrToken)
         {
-            await _tokenRepository.RmToken(new Token() { StrToken = StrToken, UserId = await GetUserIdByToken(StrToken) });
+            await _tokenRepository.RemoveToken(new Token() { StrToken = StrToken, UserId = await GetUserIdByToken(StrToken) });
         }
     }
 }

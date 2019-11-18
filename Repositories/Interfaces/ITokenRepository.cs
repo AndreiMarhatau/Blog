@@ -7,6 +7,7 @@ namespace Interfaces
     {
         Task<int> GetUserIdByToken(string token);
         Task AddToken(Token token);
-        Task RmToken(Token token);
+        Task RemoveToken(Token token);
+        Task<bool> CheckUserByToken(Token token);
     }
 }

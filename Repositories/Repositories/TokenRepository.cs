@@ -19,12 +19,17 @@ namespace Repositories
             await db.SaveChangesAsync();
         }
 
+        public async Task<bool> CheckUserByToken(DomainModels.Token token)
+        {
+            return await db.Tokens.ContainsAsync(token.ToEntityModel());
+        }
+
         public async Task<int> GetUserIdByToken(string token)
         {
             return (await db.Tokens.Where(j => j.StrToken.Equals(token)).SingleAsync()).UserId;
         }
 
-        public async Task RmToken(DomainModels.Token token)
+        public async Task RemoveToken(DomainModels.Token token)
         {
             db.Tokens.Remove(token.ToEntityModel());
             await db.SaveChangesAsync();

@@ -11,13 +11,11 @@ namespace Blog.Controllers
 {
     public class SearchUsersController : Controller
     {
-        private Random random;
         private IUserService userService;
         private ITokenService tokenService;
 
-        public SearchUsersController(Random random, IUserService userService, ITokenService tokenService)
+        public SearchUsersController(IUserService userService, ITokenService tokenService)
         {
-            this.random = random;
             this.userService = userService;
             this.tokenService = tokenService;
         }
@@ -26,7 +24,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> SearchUsers(string Name, string Surname, string Login)
         {
             //Check authenticate before give access
-            var token = GenerateToken(HttpContext);
+            var token = CookieController.GetOrGenerateToken(HttpContext);
             try
             {
                 await tokenService.GetUserIdByToken(token);
@@ -47,22 +45,6 @@ namespace Blog.Controllers
         public async Task<IActionResult> SearchUsers()
         {
             return await SearchUsers("", "", "");
-        }
-
-        private string GenerateToken(HttpContext httpContext)
-        {
-            if (httpContext.Request.Cookies.ContainsKey("Token"))
-            {
-                return httpContext.Request.Cookies["Token"];
-            }
-
-            //Generate new token and add to cookie
-            byte[] bytes = new byte[256];
-            this.random.NextBytes(bytes);
-            var token = Encoding.UTF8.GetString(bytes);
-            httpContext.Response.Cookies.Append("Token", token);
-
-            return token;
         }
     }
 }

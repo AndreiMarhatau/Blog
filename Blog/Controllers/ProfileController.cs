@@ -11,7 +11,6 @@ namespace Blog.Controllers
 {
     public class ProfileController : Controller
     {
-        private Random random;
         private IUserService userService;
         private ITokenService tokenService;
         private ICommentsAndPostsService commentsAndPostsService;
@@ -20,7 +19,6 @@ namespace Blog.Controllers
         private ILikeService likeService;
 
         public ProfileController(
-            Random random,
             IUserService userService,
             ITokenService tokenService,
             ICommentsAndPostsService commentsAndPostsService,
@@ -28,7 +26,6 @@ namespace Blog.Controllers
             ICommentsService commentsService,
             ILikeService likeService)
         {
-            this.random = random;
             this.userService = userService;
             this.tokenService = tokenService;
             this.commentsAndPostsService = commentsAndPostsService;
@@ -39,7 +36,7 @@ namespace Blog.Controllers
 
         public async Task<IActionResult> Index(string id)
         {
-            var token = GenerateToken();
+            var token = CookieController.GetOrGenerateToken(HttpContext);
             bool isOwner = false;
 
             var userId = await tokenService.GetUserIdByToken(token);
@@ -110,7 +107,7 @@ namespace Blog.Controllers
         {
             try
             {
-                await postsService.AddPost(await tokenService.GetUserIdByToken(GenerateToken()), Text);
+                await postsService.AddPost(await tokenService.GetUserIdByToken(CookieController.GetOrGenerateToken(HttpContext)), Text);
             }
             catch (Exception e)
             {
@@ -126,7 +123,7 @@ namespace Blog.Controllers
         {
             try
             {
-                await commentsService.AddComment(Guid.Parse(PostId), await tokenService.GetUserIdByToken(GenerateToken()), Guid.Parse(CommentId), Text);
+                await commentsService.AddComment(Guid.Parse(PostId), await tokenService.GetUserIdByToken(CookieController.GetOrGenerateToken(HttpContext)), Guid.Parse(CommentId), Text);
             }
             catch (Exception e)
             {
@@ -142,7 +139,7 @@ namespace Blog.Controllers
             await likeService.AddOrRemoveLike(
                 await tokenService
                 .GetUserIdByToken(
-                    GenerateToken()),
+                    CookieController.GetOrGenerateToken(HttpContext)),
                     new Post()
                     { Id = Guid.Parse(PostId) });
 
@@ -154,27 +151,11 @@ namespace Blog.Controllers
             await likeService.AddOrRemoveLike(
                 await tokenService
                 .GetUserIdByToken(
-                    GenerateToken()),
+                    CookieController.GetOrGenerateToken(HttpContext)),
                 new Comment() 
                 { Id = Guid.Parse(CommentId) });
 
             return RedirectToAction("Index", new { id = UserId });
-        }
-
-        private string GenerateToken()
-        {
-            if (HttpContext.Request.Cookies.ContainsKey("Token"))
-            {
-                return HttpContext.Request.Cookies["Token"];
-            }
-
-            //Generate new token and add to cookie
-            byte[] bytes = new byte[256];
-            this.random.NextBytes(bytes);
-            var token = Encoding.UTF8.GetString(bytes);
-            HttpContext.Response.Cookies.Append("Token", token);
-
-            return token;
         }
     }
 }

@@ -11,13 +11,11 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private Random random;
         private IUserService userService;
         private ITokenService tokenService;
 
-        public HomeController(Random random, IUserService userService, ITokenService tokenService)
+        public HomeController(IUserService userService, ITokenService tokenService)
         {
-            this.random = random;
             this.userService = userService;
             this.tokenService = tokenService;
         }
@@ -48,11 +46,11 @@ namespace Blog.Controllers
 
             if (!HttpContext.Request.Cookies.ContainsKey("Token"))
             {
-                ViewBag.Token = GenerateToken();
+                ViewBag.Token = CookieController.GetOrGenerateToken(HttpContext);
                 return View(defaultView);
             }
             //Check token in the cookie
-            var token = GenerateToken();
+            var token = CookieController.GetOrGenerateToken(HttpContext);
             try
             {
                 //Check token and user in DB
@@ -72,7 +70,7 @@ namespace Blog.Controllers
             try
             {
                 Guid id = await userService.CheckUser(Login, Password);
-                await tokenService.AddToken(GenerateToken(), id);
+                await tokenService.AddToken(CookieController.GetOrGenerateToken(HttpContext), id);
                 return RedirectToAction("Index", "Profile");
             }
             catch (Exception e)
@@ -98,7 +96,7 @@ namespace Blog.Controllers
             try
             {
                 Guid id = await userService.AddUser(Login, Name, Surname, BornDate, Email, Password);
-                await tokenService.AddToken(GenerateToken(), id);
+                await tokenService.AddToken(CookieController.GetOrGenerateToken(HttpContext), id);
                 return RedirectToAction("Index", "Profile");
             }
             catch (Exception e)
@@ -117,22 +115,6 @@ namespace Blog.Controllers
                 else
                     throw;
             }
-        }
-
-        private string GenerateToken()
-        {
-            if (HttpContext.Request.Cookies.ContainsKey("Token"))
-            {
-                return HttpContext.Request.Cookies["Token"];
-            }
-
-            //Generate new token and add to cookie
-            byte[] bytes = new byte[256];
-            this.random.NextBytes(bytes);
-            var token = Encoding.UTF8.GetString(bytes);
-            HttpContext.Response.Cookies.Append("Token", token);
-
-            return token;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

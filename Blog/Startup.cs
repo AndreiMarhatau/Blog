@@ -54,7 +54,6 @@ namespace Blog
             services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<ILikeService, LikeService>();
 
-            services.AddSingleton<Random>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

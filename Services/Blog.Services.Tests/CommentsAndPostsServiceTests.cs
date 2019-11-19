@@ -21,10 +21,10 @@ namespace Blog.Services.Tests
 
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
                 postsRepo.Object);
-            //Act
+
             var result = commentsAndPostsService.GetCommentsAndPostsByUserId(guid);
             var result1 = await result;
-            //Assert
+
             Assert.True(
                 (await result).Count == 2 &&
                 (await result)[0].Id == guid2 &&

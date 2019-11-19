@@ -11,13 +11,13 @@ namespace Blog.Services.Tests
         [Fact]
         public async void AddPost_AddInvalidPost_ReturnsThrowArgumentException()
         {
-            //Arrange
+            string postText = string.Empty;
             var mockRepository = new Mock<IPostsRepository>();
             var postsService = new PostsService(mockRepository.Object);
             Guid guid = Guid.NewGuid();
-            //Act
-            var result = postsService.AddPost(guid, "");
-            //Assert
+
+            var result = postsService.AddPost(guid, postText);
+
             await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }
     }

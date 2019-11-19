@@ -17,7 +17,6 @@ namespace Blog.Repositories.Tests
         [Fact]
         public async void GetUserById_AddUserToQueryWithId1AndCheckReturnedUserIdById_Returns1()
         {
-            //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
@@ -25,33 +24,35 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
-            //Act
+
             var result = await userRepo.GetUserById(guid);
 
-            //Assert
             var expectedUserId = guid;
             Assert.Equal(expectedUserId, result.Id);
         }
         [Fact]
         public async void GetUserByLogin_AddUserToQueryAndCheckReturnedUserIdByLogin_Returns1()
         {
-            //Arrange
-            var mockDbContext = new Mock<EntityModels.DatabaseContext>();
+            string login = "Login1";
+            var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
             SetupMockDbSetUsersForTests(mockDbSetOfUsers);
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
-            var result = await userRepo.GetUserByLogin("Login1");
+            var result = await userRepo.GetUserByLogin(login);
 
-            var expectedLogin = "Login1";
+            var expectedLogin = login;
             Assert.Equal(expectedLogin, result.Login);
         }
         [Fact]
         public async void CheckExistsOfUser_AddUserAndCheckExistsByLoginOrEmail_ReturnsTrueForSameLoginOrEmail()
         {
-            //Arrange
+            string nonExistsLogin = "NonExistsLogin";
+            string existsMail = "mail1@mail.ru";
+            string existsLogin = "Login1";
+            string nonExistsMail = "nonexistsmail@mail.ru";
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
@@ -60,13 +61,13 @@ namespace Blog.Repositories.Tests
 
             var userRepo = new UserRepository(mockDbContext.Object);
 
-            //Act
-            var resultUserWithExistsEmail = await userRepo.CheckExistsOfUser("NonExistsLogin", "mail1@mail.ru");
-            var resultUserWithExistsLogin = await userRepo.CheckExistsOfUser("Login1", "nonexistsmail@mail.ru");
+
+            var resultUserWithExistsEmail = await userRepo.CheckExistsOfUser(nonExistsLogin, existsMail);
+            var resultUserWithExistsLogin = await userRepo.CheckExistsOfUser(existsLogin, nonExistsMail);
             var resultUserWithNonExistsEmailAndLogin = await userRepo.CheckExistsOfUser(
-                "NonExistsLogin",
-                "nonexistsmail@mail.ru");
-            //Assert
+                nonExistsLogin,
+                nonExistsMail);
+
             Assert.True(resultUserWithExistsEmail);
             Assert.True(resultUserWithExistsLogin);
             Assert.False(resultUserWithNonExistsEmailAndLogin);
@@ -74,7 +75,7 @@ namespace Blog.Repositories.Tests
         [Fact]
         public async void GetUserListByLoginNameSurname_AddThreeUsersAndSearch_ReturnsTwoUsers()
         {
-            //Arrange
+            string login = "Login", name = "Andre", surname = "";
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfUsers = new Mock<DbSet<User>>();
 
@@ -83,16 +84,13 @@ namespace Blog.Repositories.Tests
 
             var userRepo = new UserRepository(mockDbContext.Object);
 
-            //Act
-            var result = await userRepo.GetUserListByLoginNameSurname("Login", "Andre", "");
+            var result = await userRepo.GetUserListByLoginNameSurname(login, name, surname);
 
-            //Assert
             Assert.Equal(2, result.Count);
         }
         [Fact]
         public async void AddUser_CheckCallOfAddMethodInDbSet()
         {
-            //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetUsers = new Mock<DbSet<User>>();
 
@@ -107,7 +105,7 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetUsers.Object);
 
             var usersRepo = new UserRepository(mockDbContext.Object);
-            //Act
+
             await usersRepo.AddUser(new DomainModels.User());
         }
 

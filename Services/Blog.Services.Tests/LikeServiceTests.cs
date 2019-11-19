@@ -29,7 +29,7 @@ namespace Blog.Services.Tests
                 });
 
             var service = new LikeService(mockRepo.Object);
-            //Act
+
             await service.AddOrRemoveLike(guid, new BLModels.Post() { Id = guid });
             await service.AddOrRemoveLike(guid, new BLModels.Comment() { Id = guid });
         }

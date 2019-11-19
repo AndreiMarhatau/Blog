@@ -29,6 +29,7 @@ namespace Blog.Repositories.Tests
 
                     Guid guid = Guid.NewGuid();
                     Guid guid2 = Guid.NewGuid();
+                    string commentText = "Comment1";
 
                     var posts = new List<Post>()
                     {
@@ -37,7 +38,7 @@ namespace Blog.Repositories.Tests
 
                     var comments = new List<Comment>()
                     {
-                        new Comment() {Id=guid,AuthorId=guid2,CommentId=Guid.Empty,PostId=guid,Date=DateTime.Now,Text="Comment1"},
+                        new Comment() {Id=guid,AuthorId=guid2,CommentId=Guid.Empty,PostId=guid,Date=DateTime.Now,Text=commentText},
                     };
 
                     var users = new List<User>()

@@ -14,14 +14,14 @@ namespace Blog.Repositories.Tests
         [Fact]
         public async void GetUserIdByToken_AddTokenWithUserId1AndGetUserId_Returns1()
         {
-            //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfTokens = new Mock<DbSet<Token>>();
             Guid guid = Guid.NewGuid();
             Guid guid2 = Guid.NewGuid();
+            string strToken = "Token";
             IQueryable<Token> data = new List<Token>()
             {
-                new Token() { Id = guid, StrToken = "Token", UserId = guid2 },
+                new Token() { Id = guid, StrToken = strToken, UserId = guid2 },
             }.AsQueryable();
 
             mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.Provider).Returns(
@@ -35,16 +35,13 @@ namespace Blog.Repositories.Tests
 
             var tokenRepo = new TokenRepository(mockDbContext.Object);
 
-            //Act
-            var result = await tokenRepo.GetUserIdByToken("Token");
+            var result = await tokenRepo.GetUserIdByToken(strToken);
 
-            //Assert
-            Assert.Equal(data.Single().UserId, result);
+            Assert.Equal(guid2, result);
         }
         [Fact]
         public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
-            //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetTokens = new Mock<DbSet<Token>>();
 
@@ -59,7 +56,7 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Tokens).Returns(mockDbSetTokens.Object);
 
             var tokensRepo = new TokenRepository(mockDbContext.Object);
-            //Act
+
             await tokensRepo.AddToken(new DomainModels.Token());
         }
     }

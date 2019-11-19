@@ -11,7 +11,6 @@ namespace Blog.Repositories.Tests
         [Fact]
         public async void AddToken_CheckCallOfAddMethodInDbSet()
         {
-            //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetComments = new Mock<DbSet<Comment>>();
 
@@ -26,7 +25,7 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Comments).Returns(mockDbSetComments.Object);
 
             var commentsRepo = new CommentsRepository(mockDbContext.Object);
-            //Act
+
             await commentsRepo.AddComment(new DomainModels.Comment() { Author = new DomainModels.User() });
         }
     }

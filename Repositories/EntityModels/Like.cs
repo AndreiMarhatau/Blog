@@ -6,10 +6,10 @@ namespace EntityModels
 {
     public class Like
     {
-        public int Id { get; set; }
-        public int? PostId { get; set; }
-        public int? CommentId { get; set; }
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
+        public Guid? PostId { get; set; }
+        public Guid? CommentId { get; set; }
+        public Guid UserId { get; set; }
 
         public override bool Equals(object obj)
         {

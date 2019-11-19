@@ -5,7 +5,7 @@ namespace DomainModels
 {
     public class Post
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public User Author { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

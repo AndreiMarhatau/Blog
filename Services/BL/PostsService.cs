@@ -15,7 +15,7 @@ namespace BL
             _postsRepository = postsRepository;
         }
 
-        public async Task AddPost(int UserId, string Text)
+        public async Task AddPost(Guid UserId, string Text)
         {
             Post post = new Post()
             {

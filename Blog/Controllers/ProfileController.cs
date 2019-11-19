@@ -37,21 +37,23 @@ namespace Blog.Controllers
             this.likeService = likeService;
         }
 
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(string id)
         {
             var token = GenerateToken();
             bool isOwner = false;
 
             var userId = await tokenService.GetUserIdByToken(token);
-
+            Guid Id;
             //Check get data
             try
             {
-                if (id == null || id == userId)
+                if (id == null || id == userId.ToString())
                 {
-                    id = userId;
+                    Id = userId;
                     isOwner = true;
                 }
+                else
+                    Id = Guid.Parse(id);
             }
             catch (Exception e)
             {
@@ -63,7 +65,7 @@ namespace Blog.Controllers
             //Add content on the page
             try
             {
-                ViewBag.User = await userService.GetUserById(id.Value);
+                ViewBag.User = await userService.GetUserById(Id);
             }
             catch (Exception e)
             {
@@ -76,7 +78,7 @@ namespace Blog.Controllers
             Tuple<bool, List<Post>> Model =
                 new Tuple<bool, List<Post>>(
                     isOwner,
-                    await commentsAndPostsService.GetCommentsAndPostsByUserId(id.Value)
+                    await commentsAndPostsService.GetCommentsAndPostsByUserId(Id)
                     );
 
             return View("Profile", Model);
@@ -120,11 +122,11 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(int PostId, int UserId, string Text, int CommentId)
+        public async Task<IActionResult> AddComment(string PostId, string UserId, string Text, string CommentId)
         {
             try
             {
-                await commentsService.AddComment(PostId, await tokenService.GetUserIdByToken(GenerateToken()), CommentId, Text);
+                await commentsService.AddComment(Guid.Parse(PostId), await tokenService.GetUserIdByToken(GenerateToken()), Guid.Parse(CommentId), Text);
             }
             catch (Exception e)
             {
@@ -135,26 +137,26 @@ namespace Blog.Controllers
             return RedirectToAction("Index", new { id = UserId });
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrRemoveLikeToPost(int UserId, int PostId)
+        public async Task<IActionResult> AddOrRemoveLikeToPost(string UserId, string PostId)
         {
             await likeService.AddOrRemoveLike(
                 await tokenService
                 .GetUserIdByToken(
                     GenerateToken()),
                     new Post()
-                    { Id = PostId });
+                    { Id = Guid.Parse(PostId) });
 
             return RedirectToAction("Index", new { id = UserId });
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrRemoveLikeToComment(int UserId, int CommentId)
+        public async Task<IActionResult> AddOrRemoveLikeToComment(string UserId, string CommentId)
         {
             await likeService.AddOrRemoveLike(
                 await tokenService
                 .GetUserIdByToken(
                     GenerateToken()),
                 new Comment() 
-                { Id = CommentId });
+                { Id = Guid.Parse(CommentId) });
 
             return RedirectToAction("Index", new { id = UserId });
         }

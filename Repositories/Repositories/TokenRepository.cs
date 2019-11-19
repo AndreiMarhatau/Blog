@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace Repositories
             return await db.Tokens.ContainsAsync(token.ToEntityModel());
         }
 
-        public async Task<int> GetUserIdByToken(string token)
+        public async Task<Guid> GetUserIdByToken(string token)
         {
             return (await db.Tokens.Where(j => j.StrToken.Equals(token)).SingleAsync()).UserId;
         }

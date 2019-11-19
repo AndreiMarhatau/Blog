@@ -32,15 +32,17 @@ namespace Blog.Repositories.Tests
 
             mockDbContext.Setup(a => a.Likes).Returns(mockDbSet.Object);
 
+            Guid guid = Guid.NewGuid();
+
             var likePost = new Like()
             {
-                PostId = 1,
-                UserId = 1
+                PostId = guid,
+                UserId = guid
             };
             var likeComment = new Like()
             {
-                CommentId = 1,
-                UserId = 1
+                CommentId = guid,
+                UserId = guid
             };
 
             mockDbSet
@@ -63,18 +65,18 @@ namespace Blog.Repositories.Tests
 
             var likeRepo = new LikeRepository(mockDbContext.Object);
             //Act
-            await likeRepo.AddOrRemoveLike(1, new DomainModels.Post() { Id = 1 });
-            await likeRepo.AddOrRemoveLike(1, new DomainModels.Comment() { Id = 1 });
+            await likeRepo.AddOrRemoveLike(guid, new DomainModels.Post() { Id = guid });
+            await likeRepo.AddOrRemoveLike(guid, new DomainModels.Comment() { Id = guid });
         }
         [Fact]
         public async void AddOrRemoveLike_RemoveLike()
         {
-            //Arrange
+            Guid guid = Guid.NewGuid();
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSet = new Mock<DbSet<Like>>();
             IQueryable<Like> data = new List<Like>()
             {
-                new Like(){Id=1,PostId=1,UserId=1}
+                new Like(){Id=guid,PostId=guid,UserId=guid}
             }.AsQueryable();
 
             mockDbSet.As<IQueryable<Like>>().Setup(m => m.Provider).Returns(
@@ -96,7 +98,7 @@ namespace Blog.Repositories.Tests
             var likeRepo = new LikeRepository(mockDbContext.Object);
 
             //Act
-            await likeRepo.AddOrRemoveLike(1, new DomainModels.Post() { Id = 1 });
+            await likeRepo.AddOrRemoveLike(guid, new DomainModels.Post() { Id = guid });
         }
     }
 }

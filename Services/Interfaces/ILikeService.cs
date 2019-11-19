@@ -8,7 +8,7 @@ namespace IServices
 {
     public interface ILikeService
     {
-        Task AddOrRemoveLike(int userId, Post post);
-        Task AddOrRemoveLike(int userId, Comment comment);
+        Task AddOrRemoveLike(Guid userId, Post post);
+        Task AddOrRemoveLike(Guid userId, Comment comment);
     }
 }

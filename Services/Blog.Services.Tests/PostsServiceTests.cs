@@ -14,8 +14,9 @@ namespace Blog.Services.Tests
             //Arrange
             var mockRepository = new Mock<IPostsRepository>();
             var postsService = new PostsService(mockRepository.Object);
+            Guid guid = Guid.NewGuid();
             //Act
-            var result = postsService.AddPost(0, "");
+            var result = postsService.AddPost(guid, "");
             //Assert
             await Assert.ThrowsAsync<ArgumentException>(async () => await result);
         }

@@ -16,7 +16,7 @@ namespace Repositories
         {
             this.db = db;
         }
-        public async Task AddOrRemoveLike(int userId, DomainModels.Post post)
+        public async Task AddOrRemoveLike(Guid userId, DomainModels.Post post)
         {
             var like = db.Likes.Where(l => l.PostId == post.Id && l.UserId == userId);
             if (like.Count() != 0)
@@ -32,7 +32,7 @@ namespace Repositories
             await db.SaveChangesAsync();
         }
 
-        public async Task AddOrRemoveLike(int userId, DomainModels.Comment comment)
+        public async Task AddOrRemoveLike(Guid userId, DomainModels.Comment comment)
         {
             var like = db.Likes.Where(l => l.CommentId == comment.Id && l.UserId == userId);
             if (like.Count() != 0)

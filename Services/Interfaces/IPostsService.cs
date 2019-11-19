@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace IServices
 {
     public interface IPostsService
     {
-        Task AddPost(int UserId, string Text);
+        Task AddPost(Guid UserId, string Text);
     }
 }

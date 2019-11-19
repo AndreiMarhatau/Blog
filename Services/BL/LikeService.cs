@@ -16,12 +16,12 @@ namespace BL
             this.likeRepository = likeRepository;
         }
 
-        public async Task AddOrRemoveLike(int userId, Post post)
+        public async Task AddOrRemoveLike(Guid userId, Post post)
         {
             await likeRepository.AddOrRemoveLike(userId, post.ToDomainModel());
         }
 
-        public async Task AddOrRemoveLike(int userId, Comment comment)
+        public async Task AddOrRemoveLike(Guid userId, Comment comment)
         {
             await likeRepository.AddOrRemoveLike(userId, comment.ToDomainModel());
         }

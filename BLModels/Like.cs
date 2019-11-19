@@ -6,9 +6,9 @@ namespace BLModels
 {
     public class Like
     {
-        public int Id { get; set; }
-        public int? PostId { get; set; }
-        public int? CommentId { get; set; }
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
+        public Guid LikableId { get; set; }
+        public Guid UserId { get; set; }
+        public LikableType LikableType { get; set; }
     }
 }

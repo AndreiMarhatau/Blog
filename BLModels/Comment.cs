@@ -5,10 +5,10 @@ namespace BLModels
 {
     public class Comment
     {
-        public int Id { get; set; }
-        public int PostId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PostId { get; set; }
         public UserInfo Author { get; set; }
-        public int CommentId { get; set; }
+        public Guid CommentId { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
 

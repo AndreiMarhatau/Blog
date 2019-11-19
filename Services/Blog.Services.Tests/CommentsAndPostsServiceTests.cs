@@ -9,35 +9,39 @@ namespace Blog.Services.Tests
 {
     public class CommentsAndPostsServiceTests
     {
+        Guid guid = Guid.NewGuid();
+        Guid guid2 = Guid.NewGuid();
+        Guid guid3 = Guid.NewGuid();
+        Guid guid4 = Guid.NewGuid();
         [Fact]
         public async void GetCommentsAndPostsByUserId_Add2Posts4CommentsAnd2UsersAndCheckCountAndOrder_Returns2PostsOrderByDescIdAnd4CommentsOrderById()
         {
-            //Arrange
             var postsRepo = new Mock<IPostsRepository>();
-            postsRepo.Setup(a => a.GetPostsByUserId(1)).ReturnsAsync(GetPostsByUserId(1));
+            postsRepo.Setup(a => a.GetPostsByUserId(guid)).ReturnsAsync(GetPostsByUserId(guid));
 
             CommentsAndPostsService commentsAndPostsService = new CommentsAndPostsService(
                 postsRepo.Object);
             //Act
-            var result = commentsAndPostsService.GetCommentsAndPostsByUserId(1);
+            var result = commentsAndPostsService.GetCommentsAndPostsByUserId(guid);
+            var result1 = await result;
             //Assert
             Assert.True(
                 (await result).Count == 2 &&
-                (await result)[0].Id == 2 &&
+                (await result)[0].Id == guid2 &&
                 (await result)[0].Comments.Count == 4 &&
-                (await result)[0].Comments[1].Id == 2
+                (await result)[0].Comments[1].Id == guid3
                 );
         }
 
-        private List<DomainModels.Post> GetPostsByUserId(int id)
+        private List<DomainModels.Post> GetPostsByUserId(Guid id)
         {
             List<DomainModels.Post> posts = new List<DomainModels.Post>();
             posts.AddRange(new List<DomainModels.Post>()
             {
                 new DomainModels.Post()
                 {
-                    Id = 1,
-                    Author = GetUserById(1),
+                    Id = guid,
+                    Author = GetUserById(guid),
                     Date = DateTime.Now,
                     Text = "Пост 1",
                     Comments = new List<DomainModels.Comment>()
@@ -48,48 +52,48 @@ namespace Blog.Services.Tests
                 },
                 new DomainModels.Post()
                 {
-                    Id = 2,
-                    Author = GetUserById(1),
+                    Id = guid2,
+                    Author = GetUserById(guid),
                     Date = DateTime.Now,
                     Text = "Пост 2",
                     Comments = new List<DomainModels.Comment>()
                     {
                         new DomainModels.Comment()
                         {
-                            Id = 2,
-                            Author = GetUserById(2),
-                            CommentId = 1,
-                            PostId = 2,
+                            Id = guid2,
+                            Author = GetUserById(guid2),
+                            CommentId = guid,
+                            PostId = guid2,
                             Date = DateTime.Now,
                             Text = "Комментарий 2",
                             Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
-                            Id = 3,
-                            Author = GetUserById(1),
-                            CommentId = 2,
-                            PostId = 2,
+                            Id = guid3,
+                            Author = GetUserById(guid),
+                            CommentId = guid2,
+                            PostId = guid2,
                             Date = DateTime.Now,
                             Text = "Комментарий 3",
                             Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
-                            Id = 1,
-                            Author = GetUserById(1),
-                            CommentId = -1,
-                            PostId = 2,
+                            Id = guid,
+                            Author = GetUserById(guid),
+                            CommentId = Guid.Empty,
+                            PostId = guid2,
                             Date = DateTime.Now,
                             Text = "Комментарий 1",
                             Likes = new List<DomainModels.Like>(){}
                         },
                         new DomainModels.Comment()
                         {
-                            Id = 4,
-                            Author = GetUserById(2),
-                            CommentId = 1,
-                            PostId = 2,
+                            Id = guid4,
+                            Author = GetUserById(guid2),
+                            CommentId = guid,
+                            PostId = guid2,
                             Date = DateTime.Now,
                             Text = "Комментарий 4",
                             Likes = new List<DomainModels.Like>(){}
@@ -101,13 +105,13 @@ namespace Blog.Services.Tests
 
             return posts;
         }
-        private DomainModels.User GetUserById(int id)
+        private DomainModels.User GetUserById(Guid id)
         {
-            if (id == 1)
+            if (id == guid)
             {
                 return new DomainModels.User()
                 {
-                    Id = 1,
+                    Id = guid,
                     BornDate = DateTime.Now,
                     Email = "fsdf@mail.ru",
                     Login = "Andr1o",
@@ -117,11 +121,11 @@ namespace Blog.Services.Tests
                     Password = "fdsafuhdanfkjwehy fqukywegfh kjbwfwgeqfckhbj"
                 };
             }
-            else if (id == 2)
+            else if (id == guid2)
             {
                 return new DomainModels.User()
                 {
-                    Id = 2,
+                    Id = guid2,
                     BornDate = DateTime.Now,
                     Email = "fs1fdsf@mail.ru",
                     Login = "Andr",

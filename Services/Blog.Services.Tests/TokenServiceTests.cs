@@ -14,7 +14,7 @@ namespace Blog.Services.Tests
         public async void AddToken_AddExistsToken_ReturnsThrowArgumentException()
         {
             string strToken = "1";
-            int userId = 1;
+            Guid userId = Guid.NewGuid();
             var token = new Token() { StrToken = strToken, UserId = userId };
 
             var tokenRepo = new Mock<ITokenRepository>();

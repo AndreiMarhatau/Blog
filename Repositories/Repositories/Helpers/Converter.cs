@@ -100,23 +100,35 @@ namespace Repositories
 
         public static Like ToEntityModel(this DomainModels.Like model)
         {
-            return new Like()
+            var temp = new Like()
             {
                 Id = model.Id,
-                CommentId = model.CommentId,
-                PostId = model.PostId,
                 UserId = model.UserId
             };
+            if (model.LikableType == DomainModels.LikableType.Post)
+                temp.PostId = model.LikableId;
+            else
+                temp.CommentId = model.LikableId;
+            return temp;
         }
         public static DomainModels.Like ToDomainModel(this Like model)
         {
-            return new DomainModels.Like()
+            var temp = new DomainModels.Like()
             {
                 Id = model.Id,
-                CommentId = model.CommentId,
-                PostId = model.PostId,
                 UserId = model.UserId
             };
+            if (model.PostId.HasValue)
+            {
+                temp.LikableId = model.PostId.Value;
+                temp.LikableType = DomainModels.LikableType.Post;
+            }
+            else
+            {
+                temp.LikableId = model.CommentId.Value;
+                temp.LikableType = DomainModels.LikableType.Comment;
+            }
+            return temp;
         }
     }
 }

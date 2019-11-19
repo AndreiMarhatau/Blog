@@ -27,19 +27,22 @@ namespace Blog.Repositories.Tests
                 {
                     context.Database.EnsureCreated();
 
+                    Guid guid = Guid.NewGuid();
+                    Guid guid2 = Guid.NewGuid();
+
                     var posts = new List<Post>()
                     {
-                        new Post() {Id=1,AuthorId=1000,Text="Post1",Date=DateTime.Now},
+                        new Post() {Id=guid,AuthorId=guid2,Text="Post1",Date=DateTime.Now},
                     };
 
                     var comments = new List<Comment>()
                     {
-                        new Comment() {Id=1,AuthorId=1000,CommentId=-1,PostId=1,Date=DateTime.Now,Text="Comment1"},
+                        new Comment() {Id=guid,AuthorId=guid2,CommentId=Guid.Empty,PostId=guid,Date=DateTime.Now,Text="Comment1"},
                     };
 
                     var users = new List<User>()
                     {
-                        new User(){Id=1000}
+                        new User(){Id=guid2}
                     };
 
                     context.Posts.AddRange(posts);
@@ -48,7 +51,7 @@ namespace Blog.Repositories.Tests
                     context.SaveChanges();
 
                     var postsRepo = new PostsRepository(context);
-                    var result = await postsRepo.GetPostsByUserId(1000);
+                    var result = await postsRepo.GetPostsByUserId(guid2);
 
                     Assert.Single(result);
                     Assert.Single(result.Single().Comments);

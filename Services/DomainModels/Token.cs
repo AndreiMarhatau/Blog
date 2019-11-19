@@ -1,13 +1,15 @@
-﻿namespace DomainModels
+﻿using System;
+
+namespace DomainModels
 {
     public class Token
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public string StrToken { get; set; }
 
         public bool IsValidData()
         {
-            if (StrToken == null || UserId == 0)
+            if (StrToken == null || UserId == Guid.Empty)
             {
                 return false;
             }
@@ -23,7 +25,7 @@
         }
         public override int GetHashCode()
         {
-            return StrToken.GetHashCode() ^ UserId;
+            return StrToken.GetHashCode() ^ UserId.GetHashCode();
         }
     }
 }

@@ -4,8 +4,8 @@ namespace EntityModels
 {
     public class Token
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         public string StrToken { get; set; }
 
         public override bool Equals(Object obj)
@@ -23,7 +23,7 @@ namespace EntityModels
         }
         public override int GetHashCode()
         {
-            return Id;
+            return StrToken.GetHashCode();
         }
     }
 }

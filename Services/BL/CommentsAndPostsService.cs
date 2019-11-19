@@ -1,6 +1,7 @@
 ﻿using BLModels;
 using Interfaces;
 using IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,11 +17,11 @@ namespace BL
             _postsRepository = postsRepository;
         }
 
-        public async Task<List<BLModels.Post>> GetCommentsAndPostsByUserId(int id)
+        public async Task<List<BLModels.Post>> GetCommentsAndPostsByUserId(Guid id)
         {
-            var posts = (await _postsRepository.GetPostsByUserId(id)).OrderByDescending(p => p.Id);
+            var posts = (await _postsRepository.GetPostsByUserId(id)).OrderByDescending(p => p.Date);
             foreach (var post in posts)
-                post.Comments = post.Comments.OrderBy(c => c.Id).ToList();
+                post.Comments = post.Comments.OrderBy(c => c.Date).ToList();
             return posts.ToList().ToBLModel();
         }
     }

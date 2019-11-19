@@ -4,7 +4,7 @@ namespace BLModels
 {
     public class User
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Login { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -14,7 +14,7 @@ namespace BLModels
 
         public User() { }
 
-        public User(int Id, string Login, string Name, string Surname, DateTime BornDate, DateTime RegisterDate, string Email)
+        public User(Guid Id, string Login, string Name, string Surname, DateTime BornDate, DateTime RegisterDate, string Email)
         {
             this.Id = Id;
             this.Login = Login;

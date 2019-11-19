@@ -15,7 +15,7 @@ namespace BL
             _tokenRepository = tokenRepository;
         }
 
-        public async Task AddToken(string strToken, int userId)
+        public async Task AddToken(string strToken, Guid userId)
         {
             Token token = new Token()
             {
@@ -35,7 +35,7 @@ namespace BL
                 throw new InvalidOperationException("Token exists already");
         }
 
-        public async Task<int> GetUserIdByToken(string token)
+        public async Task<Guid> GetUserIdByToken(string token)
         {
             return await _tokenRepository.GetUserIdByToken(token);
         }

@@ -11,6 +11,9 @@ namespace Blog.Repositories.Tests
 {
     public class UserRepositoryTests
     {
+        Guid guid = Guid.NewGuid();
+        Guid guid2 = Guid.NewGuid();
+        Guid guid3 = Guid.NewGuid();
         [Fact]
         public async void GetUserById_AddUserToQueryWithId1AndCheckReturnedUserIdById_Returns1()
         {
@@ -22,12 +25,11 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
-
             //Act
-            var result = await userRepo.GetUserById(1);
+            var result = await userRepo.GetUserById(guid);
 
             //Assert
-            var expectedUserId = 1;
+            var expectedUserId = guid;
             Assert.Equal(expectedUserId, result.Id);
         }
         [Fact]
@@ -41,13 +43,10 @@ namespace Blog.Repositories.Tests
             mockDbContext.Setup(a => a.Users).Returns(mockDbSetOfUsers.Object);
 
             var userRepo = new UserRepository(mockDbContext.Object);
-
-            //Act
             var result = await userRepo.GetUserByLogin("Login1");
 
-            //Assert
-            var expectedUserId = 1;
-            Assert.Equal(expectedUserId, result.Id);
+            var expectedLogin = "Login1";
+            Assert.Equal(expectedLogin, result.Login);
         }
         [Fact]
         public async void CheckExistsOfUser_AddUserAndCheckExistsByLoginOrEmail_ReturnsTrueForSameLoginOrEmail()
@@ -116,9 +115,9 @@ namespace Blog.Repositories.Tests
         {
             IQueryable<User> data = new List<User>()
             {
-                new User() { Id = 1, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Andrey", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
-                new User() { Id = 2, BornDate = DateTime.Now, Email = "mail2@mail.ru", Login = "Login2", Name = "Andrei", Surname = "Surname2", RegisterDate = DateTime.Now, Password = "Password" },
-                new User() { Id = 3, BornDate = DateTime.Now, Email = "mail3@mail.ru", Login = "Login3", Name = "Gennadiy", Surname = "Surname3", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = guid, BornDate = DateTime.Now, Email = "mail1@mail.ru", Login = "Login1", Name = "Andrey", Surname = "Surname1", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = guid2, BornDate = DateTime.Now, Email = "mail2@mail.ru", Login = "Login2", Name = "Andrei", Surname = "Surname2", RegisterDate = DateTime.Now, Password = "Password" },
+                new User() { Id = guid3, BornDate = DateTime.Now, Email = "mail3@mail.ru", Login = "Login3", Name = "Gennadiy", Surname = "Surname3", RegisterDate = DateTime.Now, Password = "Password" },
             }.AsQueryable();
 
             mock.As<IQueryable<User>>().Setup(m => m.Provider).Returns(

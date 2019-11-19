@@ -5,12 +5,12 @@ namespace DomainModels
 {
     public class Comment
     {
-        public int Id { get; set; }
-        public int PostId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PostId { get; set; }
         public User Author { get; set; }
-        public int CommentId { get; set; }
+        public Guid CommentId { get; set; }
         public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public virtual List<Like> Likes { get; set; }
 

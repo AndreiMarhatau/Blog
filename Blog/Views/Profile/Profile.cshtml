@@ -50,7 +50,7 @@
         <input type="hidden" name="PostId" value=@post.Id />
         <input type="hidden" name="UserId" value=@post.Author.Id />
         <textarea name="Text"></textarea>
-        <input type="hidden" name="CommentId" value=-1 />
+        <input type="hidden" name="CommentId" value=@Guid.Empty />
         <input type="submit" value="Добавить комментарий"
                formmethod="post" formaction="/Profile/AddComment" />
     </form>
@@ -62,7 +62,7 @@
     @comment.Date<br>
     @comment.Author.Name @comment.Author.Surname комментирует:<br>
     @{
-        if (comment.CommentId != -1)
+        if (comment.CommentId != Guid.Empty)
         {
             var com = post.Comments.Where(c => c.Id == comment.CommentId).Single();
             comment.Text = $"@{com.Author.Name} {com.Author.Surname}, {comment.Text}";

@@ -57,8 +57,8 @@ namespace BLModels
             return new Like()
             {
                 Id = model.Id,
-                CommentId = model.CommentId,
-                PostId = model.PostId,
+                LikableId = model.LikableId,
+                LikableType = (LikableType) model.LikableType,
                 UserId = model.UserId
             };
         }

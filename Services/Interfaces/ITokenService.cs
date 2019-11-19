@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace IServices
 {
     public interface ITokenService
     {
-        Task<int> GetUserIdByToken(string token);
-        Task AddToken(string StrToken, int UserId);
+        Task<Guid> GetUserIdByToken(string token);
+        Task AddToken(string StrToken, Guid UserId);
         Task RemoveToken(string StrToken);
     }
 }

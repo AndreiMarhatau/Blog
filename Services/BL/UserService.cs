@@ -37,7 +37,7 @@ namespace BL
             return result;
         }
 
-        public async Task<int> AddUser(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
+        public async Task<Guid> AddUser(string Login, string Name, string Surname, DateTime BornDate, string Email, string Password)
         {
             DomainModels.User user = new DomainModels.User()
             {
@@ -59,7 +59,7 @@ namespace BL
                 throw new ArgumentException("Invalid arguments");
         }
 
-        public async Task<int> CheckUser(string Login, string Password)
+        public async Task<Guid> CheckUser(string Login, string Password)
         {
             var User = await _userRepository.GetUserByLogin(Login);
 
@@ -69,7 +69,7 @@ namespace BL
             return User.Id;
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserById(Guid id)
         {
             return (await _userRepository.GetUserById(id)).ToBLModel();
         }

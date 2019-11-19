@@ -13,15 +13,15 @@ namespace Blog.Services.Tests
         [Fact]
         public async void AddOrRemoveLike_CheckCallOfRepositoryMethods()
         {
-            //Arrange
+            Guid guid = Guid.NewGuid();
             var mockRepo = new Mock<ILikeRepository>();
-            mockRepo.Setup(i => i.AddOrRemoveLike(1, new DomainModels.Post() { Id = 1 }))
+            mockRepo.Setup(i => i.AddOrRemoveLike(guid, new DomainModels.Post() { Id = guid }))
                 .Returns(() =>
                 {
                     Assert.True(true);
                     return null;
                 });
-            mockRepo.Setup(i => i.AddOrRemoveLike(1, new DomainModels.Comment() { Id = 1 }))
+            mockRepo.Setup(i => i.AddOrRemoveLike(guid, new DomainModels.Comment() { Id = guid }))
                 .Returns(() =>
                 {
                     Assert.True(true);
@@ -30,8 +30,8 @@ namespace Blog.Services.Tests
 
             var service = new LikeService(mockRepo.Object);
             //Act
-            await service.AddOrRemoveLike(1, new BLModels.Post() { Id = 1 });
-            await service.AddOrRemoveLike(1, new BLModels.Comment() { Id = 1 });
+            await service.AddOrRemoveLike(guid, new BLModels.Post() { Id = guid });
+            await service.AddOrRemoveLike(guid, new BLModels.Comment() { Id = guid });
         }
     }
 }

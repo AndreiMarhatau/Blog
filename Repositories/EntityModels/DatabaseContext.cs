@@ -12,7 +12,7 @@ namespace EntityModels
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
-            : base(options) { }
+            : base(options) { Database.EnsureCreated(); }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

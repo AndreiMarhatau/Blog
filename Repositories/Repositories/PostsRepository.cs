@@ -22,7 +22,7 @@ namespace Repositories
             await db.SaveChangesAsync();
         }
 
-        public async Task<List<DomainModels.Post>> GetPostsByUserId(int id)
+        public async Task<List<DomainModels.Post>> GetPostsByUserId(Guid id)
         {
             return
                 (await db.Posts

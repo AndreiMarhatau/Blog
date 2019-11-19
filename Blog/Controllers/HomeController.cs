@@ -71,7 +71,7 @@ namespace Blog.Controllers
         {
             try
             {
-                int id = await userService.CheckUser(Login, Password);
+                Guid id = await userService.CheckUser(Login, Password);
                 await tokenService.AddToken(GenerateToken(), id);
                 return RedirectToAction("Index", "Profile");
             }
@@ -97,7 +97,7 @@ namespace Blog.Controllers
         {
             try
             {
-                int id = await userService.AddUser(Login, Name, Surname, BornDate, Email, Password);
+                Guid id = await userService.AddUser(Login, Name, Surname, BornDate, Email, Password);
                 await tokenService.AddToken(GenerateToken(), id);
                 return RedirectToAction("Index", "Profile");
             }

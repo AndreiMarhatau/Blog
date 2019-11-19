@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -16,9 +17,11 @@ namespace Blog.Repositories.Tests
             //Arrange
             var mockDbContext = new Mock<DatabaseContext>();
             var mockDbSetOfTokens = new Mock<DbSet<Token>>();
+            Guid guid = Guid.NewGuid();
+            Guid guid2 = Guid.NewGuid();
             IQueryable<Token> data = new List<Token>()
             {
-                new Token() { Id = 1, StrToken = "Token", UserId = 1000 },
+                new Token() { Id = guid, StrToken = "Token", UserId = guid2 },
             }.AsQueryable();
 
             mockDbSetOfTokens.As<IQueryable<Token>>().Setup(m => m.Provider).Returns(

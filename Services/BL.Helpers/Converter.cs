@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using BLModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace BLModels
+namespace BL.Helpers
 {
     public static class Converter
     {
@@ -58,7 +60,7 @@ namespace BLModels
             {
                 Id = model.Id,
                 LikableId = model.LikableId,
-                LikableType = (LikableType) model.LikableType,
+                LikableType = (LikableType)model.LikableType,
                 UserId = model.UserId
             };
         }

@@ -1,7 +1,10 @@
 ﻿using EntityModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace Repositories
+namespace Repositories.Helpers
 {
     public static class Converter
     {

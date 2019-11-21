@@ -1,0 +1,17 @@
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\bin\Debug\netcoreapp2.1\Core.deps.json
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\bin\Debug\netcoreapp2.1\Core.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\bin\Debug\netcoreapp2.1\Core.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\obj\Debug\netcoreapp2.1\Core.csproj.CoreCompileInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\obj\Debug\netcoreapp2.1\Core.AssemblyInfoInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\obj\Debug\netcoreapp2.1\Core.AssemblyInfo.cs
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\obj\Debug\netcoreapp2.1\Core.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Core\obj\Debug\netcoreapp2.1\Core.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\bin\Debug\netcoreapp2.1\Core.deps.json
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\bin\Debug\netcoreapp2.1\Core.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\bin\Debug\netcoreapp2.1\Core.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.csproj.CoreCompileInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.AssemblyInfoInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.AssemblyInfo.cs
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Domain\Core\obj\Debug\netcoreapp2.1\Core.csprojAssemblyReference.cache

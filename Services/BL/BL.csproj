@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Repositories\Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\..\ViewModule\Interfaces\BLInterfaces.csproj" />
     <ProjectReference Include="..\BL.Helpers\Helpers.csproj" />
-    <ProjectReference Include="..\Interfaces\IServices.csproj" />
+    <ProjectReference Include="..\Interfaces\DALInterfaces.csproj" />
   </ItemGroup>
 
 </Project>

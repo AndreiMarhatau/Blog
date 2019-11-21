@@ -1,0 +1,88 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "BL/1.0.0": {
+        "dependencies": {
+          "BLInterfaces": "1.0.0",
+          "DALInterfaces": "1.0.0",
+          "Helpers": "1.0.0"
+        },
+        "runtime": {
+          "BL.dll": {}
+        }
+      },
+      "BLInterfaces/1.0.0": {
+        "dependencies": {
+          "BLModels": "1.0.0"
+        },
+        "runtime": {
+          "BLInterfaces.dll": {}
+        }
+      },
+      "BLModels/1.0.0": {
+        "runtime": {
+          "BLModels.dll": {}
+        }
+      },
+      "DALInterfaces/1.0.0": {
+        "dependencies": {
+          "DomainModels": "1.0.0"
+        },
+        "runtime": {
+          "DALInterfaces.dll": {}
+        }
+      },
+      "DomainModels/1.0.0": {
+        "runtime": {
+          "DomainModels.dll": {}
+        }
+      },
+      "Helpers/1.0.0": {
+        "dependencies": {
+          "BLModels": "1.0.0",
+          "DomainModels": "1.0.0"
+        },
+        "runtime": {
+          "Helpers.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BLInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BLModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DALInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DomainModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Helpers/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,7 +1,7 @@
 ﻿using BL.Helpers;
+using BLInterfaces;
 using BLModels;
-using Interfaces;
-using IServices;
+using DALInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

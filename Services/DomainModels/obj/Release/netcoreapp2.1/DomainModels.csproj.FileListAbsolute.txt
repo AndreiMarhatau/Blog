@@ -1,0 +1,9 @@
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\bin\Release\netcoreapp2.1\DomainModels.deps.json
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\bin\Release\netcoreapp2.1\DomainModels.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\bin\Release\netcoreapp2.1\DomainModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.csproj.CoreCompileInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.AssemblyInfoInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.AssemblyInfo.cs
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\DomainModels\obj\Release\netcoreapp2.1\DomainModels.csprojAssemblyReference.cache

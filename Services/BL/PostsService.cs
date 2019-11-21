@@ -1,6 +1,6 @@
-﻿using DomainModels;
-using Interfaces;
-using IServices;
+﻿using BLInterfaces;
+using DALInterfaces;
+using DomainModels;
 using System;
 using System.Threading.Tasks;
 

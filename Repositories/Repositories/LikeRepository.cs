@@ -1,6 +1,6 @@
-﻿using DomainModels;
+﻿using DALInterfaces;
+using DomainModels;
 using EntityModels;
-using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

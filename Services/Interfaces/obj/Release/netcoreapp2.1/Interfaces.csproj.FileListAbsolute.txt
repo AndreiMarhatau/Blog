@@ -1,0 +1,12 @@
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\bin\Release\netcoreapp2.1\Interfaces.deps.json
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\bin\Release\netcoreapp2.1\Interfaces.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\bin\Release\netcoreapp2.1\Interfaces.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.csprojAssemblyReference.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.AssemblyInfoInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.AssemblyInfo.cs
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.csproj.CopyComplete
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\obj\Release\netcoreapp2.1\Interfaces.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\bin\Release\netcoreapp2.1\DomainModels.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Interfaces\bin\Release\netcoreapp2.1\DomainModels.pdb

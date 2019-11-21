@@ -1,4 +1,4 @@
-﻿using Interfaces;
+﻿using DALInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Helpers;
 using System;

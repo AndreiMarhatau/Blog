@@ -1,5 +1,5 @@
-﻿using DomainModels;
-using Interfaces;
+﻿using DALInterfaces;
+using DomainModels;
 using Repositories.Helpers;
 using System;
 using System.Linq;

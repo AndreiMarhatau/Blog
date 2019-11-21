@@ -1,0 +1,393 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj",
+        "projectName": "Helpers",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj"
+              },
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj",
+        "projectName": "BL",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj"
+              },
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\DALInterfaces.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\DALInterfaces.csproj"
+              },
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\BLInterfaces.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\BLInterfaces.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj",
+        "projectName": "DomainModels",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\DALInterfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\DALInterfaces.csproj",
+        "projectName": "DALInterfaces",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\DALInterfaces.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj",
+        "projectName": "BLModels",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\BLInterfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\BLInterfaces.csproj",
+        "projectName": "BLInterfaces",
+        "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\BLInterfaces.csproj",
+        "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andrei_Marhatau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj": {
+                "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLModels\\BLModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

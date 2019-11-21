@@ -1,0 +1,13 @@
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\Helpers.deps.json
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\Helpers.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\Helpers.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\DomainModels.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\EntityModels.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\DomainModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\bin\Debug\netcoreapp3.0\EntityModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.csprojAssemblyReference.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.AssemblyInfoInputs.cache
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.AssemblyInfo.cs
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.csproj.CopyComplete
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.dll
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\Helpers\obj\Debug\netcoreapp3.0\Helpers.pdb

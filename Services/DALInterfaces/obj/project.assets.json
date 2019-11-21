@@ -208,42 +208,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "BLInterfaces/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "BLModels": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/BLInterfaces.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BLInterfaces.dll": {}
-        }
-      },
-      "BLModels/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "compile": {
-          "bin/placeholder/BLModels.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BLModels.dll": {}
-        }
-      },
-      "DALInterfaces/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "DomainModels": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/DALInterfaces.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DALInterfaces.dll": {}
-        }
-      },
       "DomainModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -252,20 +216,6 @@
         },
         "runtime": {
           "bin/placeholder/DomainModels.dll": {}
-        }
-      },
-      "Helpers/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "BLModels": "1.0.0",
-          "DomainModels": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Helpers.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Helpers.dll": {}
         }
       }
     }
@@ -741,37 +691,15 @@
         "netstandard.library.nuspec"
       ]
     },
-    "BLInterfaces/1.0.0": {
-      "type": "project",
-      "path": "../../ViewModule/BLInterfaces/BLInterfaces.csproj",
-      "msbuildProject": "../../ViewModule/BLInterfaces/BLInterfaces.csproj"
-    },
-    "BLModels/1.0.0": {
-      "type": "project",
-      "path": "../../ViewModule/BLModels/BLModels.csproj",
-      "msbuildProject": "../../ViewModule/BLModels/BLModels.csproj"
-    },
-    "DALInterfaces/1.0.0": {
-      "type": "project",
-      "path": "../DALInterfaces/DALInterfaces.csproj",
-      "msbuildProject": "../DALInterfaces/DALInterfaces.csproj"
-    },
     "DomainModels/1.0.0": {
       "type": "project",
       "path": "../DomainModels/DomainModels.csproj",
       "msbuildProject": "../DomainModels/DomainModels.csproj"
-    },
-    "Helpers/1.0.0": {
-      "type": "project",
-      "path": "../BL.Helpers/Helpers.csproj",
-      "msbuildProject": "../BL.Helpers/Helpers.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "BLInterfaces >= 1.0.0",
-      "DALInterfaces >= 1.0.0",
-      "Helpers >= 1.0.0",
+      "DomainModels >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -783,11 +711,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj",
-      "projectName": "BL",
-      "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\BL.csproj",
+      "projectUniqueName": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DALInterfaces\\DALInterfaces.csproj",
+      "projectName": "DALInterfaces",
+      "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DALInterfaces\\DALInterfaces.csproj",
       "packagesPath": "C:\\Users\\Andrei_Marhatau\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL\\obj\\",
+      "outputPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DALInterfaces\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -808,14 +736,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj": {
-              "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\BL.Helpers\\Helpers.csproj"
-            },
-            "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DALInterfaces\\DALInterfaces.csproj": {
-              "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DALInterfaces\\DALInterfaces.csproj"
-            },
-            "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLInterfaces\\BLInterfaces.csproj": {
-              "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\ViewModule\\BLInterfaces\\BLInterfaces.csproj"
+            "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj": {
+              "projectPath": "C:\\Users\\Andrei_Marhatau\\source\\repos\\Blog\\Services\\DomainModels\\DomainModels.csproj"
             }
           }
         }

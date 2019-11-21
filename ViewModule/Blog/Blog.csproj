@@ -15,8 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Repositories\Repositories\Repositories.csproj" />
     <ProjectReference Include="..\..\Services\BL\BL.csproj" />
-    <ProjectReference Include="..\..\Services\Interfaces\DALInterfaces.csproj" />
-    <ProjectReference Include="..\Interfaces\BLInterfaces.csproj" />
+    <ProjectReference Include="..\..\Services\DALInterfaces\DALInterfaces.csproj" />
+    <ProjectReference Include="..\BLInterfaces\BLInterfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

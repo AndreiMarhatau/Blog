@@ -6041,8 +6041,8 @@
     },
     "BLInterfaces/1.0.0": {
       "type": "project",
-      "path": "../../ViewModule/Interfaces/BLInterfaces.csproj",
-      "msbuildProject": "../../ViewModule/Interfaces/BLInterfaces.csproj"
+      "path": "../../ViewModule/BLInterfaces/BLInterfaces.csproj",
+      "msbuildProject": "../../ViewModule/BLInterfaces/BLInterfaces.csproj"
     },
     "BLModels/1.0.0": {
       "type": "project",
@@ -6051,8 +6051,8 @@
     },
     "DALInterfaces/1.0.0": {
       "type": "project",
-      "path": "../Interfaces/DALInterfaces.csproj",
-      "msbuildProject": "../Interfaces/DALInterfaces.csproj"
+      "path": "../DALInterfaces/DALInterfaces.csproj",
+      "msbuildProject": "../DALInterfaces/DALInterfaces.csproj"
     },
     "DomainModels/1.0.0": {
       "type": "project",

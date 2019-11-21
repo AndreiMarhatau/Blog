@@ -7517,8 +7517,8 @@
     },
     "DALInterfaces/1.0.0": {
       "type": "project",
-      "path": "../../Services/Interfaces/DALInterfaces.csproj",
-      "msbuildProject": "../../Services/Interfaces/DALInterfaces.csproj"
+      "path": "../../Services/DALInterfaces/DALInterfaces.csproj",
+      "msbuildProject": "../../Services/DALInterfaces/DALInterfaces.csproj"
     },
     "DomainModels/1.0.0": {
       "type": "project",

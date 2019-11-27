@@ -37,6 +37,8 @@ namespace Blog
             });
 
 
+            services.AddSingleton<Random>();
+
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Blog")),
                 ServiceLifetime.Transient);

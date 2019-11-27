@@ -5,3 +5,4 @@ C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\EntityModels\obj\Debug\n
 C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\EntityModels\obj\Debug\netcoreapp2.1\EntityModels.AssemblyInfo.cs
 C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\EntityModels\obj\Debug\netcoreapp2.1\EntityModels.dll
 C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\EntityModels\obj\Debug\netcoreapp2.1\EntityModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Repositories\EntityModels\obj\Debug\netcoreapp2.1\EntityModels.csprojAssemblyReference.cache

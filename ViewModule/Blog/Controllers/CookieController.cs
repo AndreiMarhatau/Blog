@@ -12,23 +12,9 @@ namespace Blog.Controllers
     {
         private static Random random;
         private static object _lock = new object();
-        private static Random Random
+        public CookieController(Random r)
         {
-            get
-            {
-                if (random == null)
-                {
-                    lock (_lock)
-                    {
-                        if (random == null)
-                        {
-                            var temp = new Random();
-                            Volatile.Write(ref random, temp);
-                        }
-                    }
-                }
-                return random;
-            }
+            random = r;
         }
         public static string GetOrGenerateToken(HttpContext httpContext)
         {
@@ -39,7 +25,7 @@ namespace Blog.Controllers
 
             //Generate new token and add to cookie
             byte[] bytes = new byte[256];
-            Random.NextBytes(bytes);
+            random.NextBytes(bytes);
             var token = Encoding.UTF8.GetString(bytes);
             httpContext.Response.Cookies.Append("Token", token);
 

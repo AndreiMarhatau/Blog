@@ -13,3 +13,4 @@ C:\Users\Andrei_Marhatau\source\repos\Blog\Services\DomainModels\obj\Debug\netco
 C:\Users\Andrei_Marhatau\source\repos\Blog\Services\DomainModels\obj\Debug\netcoreapp2.1\DomainModels.AssemblyInfo.cs
 C:\Users\Andrei_Marhatau\source\repos\Blog\Services\DomainModels\obj\Debug\netcoreapp2.1\DomainModels.dll
 C:\Users\Andrei_Marhatau\source\repos\Blog\Services\DomainModels\obj\Debug\netcoreapp2.1\DomainModels.pdb
+C:\Users\Andrei_Marhatau\source\repos\Blog\Services\DomainModels\obj\Debug\netcoreapp2.1\DomainModels.csprojAssemblyReference.cache

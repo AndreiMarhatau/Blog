@@ -11,7 +11,6 @@ namespace Blog.Controllers
     public class CookieController
     {
         private static Random random;
-        private static object _lock = new object();
         public CookieController(Random r)
         {
             random = r;

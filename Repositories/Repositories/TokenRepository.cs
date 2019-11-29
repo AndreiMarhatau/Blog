@@ -23,7 +23,8 @@ namespace Repositories
 
         public async Task<bool> CheckUserByToken(DomainModels.Token token)
         {
-            return await db.Tokens.ContainsAsync(token.ToEntityModel());
+            var entityToken = token.ToEntityModel();
+            return db.Tokens.Where(t => t.StrToken == entityToken.StrToken && t.UserId == entityToken.UserId).Count() > 0;
         }
 
         public async Task<Guid> GetUserIdByToken(string token)

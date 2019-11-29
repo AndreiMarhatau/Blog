@@ -70,7 +70,11 @@ namespace Blog.Controllers
             try
             {
                 Guid id = await userService.CheckUser(Login, Password);
-                await tokenService.AddToken(CookieController.GetOrGenerateToken(HttpContext), id);
+
+                if (!(await tokenService.GetUserIdByToken(CookieController.GetOrGenerateToken(HttpContext))).Equals(id))
+                {
+                    await tokenService.AddToken(CookieController.GetOrGenerateToken(HttpContext), id);
+                }
                 return RedirectToAction("Index", "Profile");
             }
             catch (Exception e)
